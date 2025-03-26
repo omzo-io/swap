@@ -7,7 +7,7 @@ export const Logo = () => {
       src={LogoSvg}
       width={LogoSvg.width}
       height={LogoSvg.height}
-      alt="MIDL Swap"
+      alt="Omzo"
     />
   );
 };

@@ -1,7 +1,6 @@
 'use client';
 
 import { Button } from '@/shared';
-import { CoinMarketcap, Medium, TelegramPlane, Twitter } from '@/shared/assets';
 import { Logo } from '@/widgets';
 import Link from 'next/link';
 import { css } from '~/styled-system/css';
@@ -55,16 +54,19 @@ export const Footer = () => {
           <span className={css({ textStyle: 'body', fontWeight: 600 })}>
             Menu
           </span>
-          <VStack alignItems="baseline" gap={3}>
+          <VStack alignItems="center" gap={3}>
             <Link href="/swap">
               <Button appearance="ghost">Swap</Button>
             </Link>
             <Link href="/pairs">
               <Button appearance="ghost">Pairs</Button>
             </Link>
-            {/*<Link href="/about">*/}
-            {/*  <Button appearance="tertiary">About</Button>*/}
-            {/*</Link>*/}
+            <Link href="/docs/whitepaper.pdf">
+              <Button appearance="ghost">Whitepaper</Button>
+            </Link>
+            <Link href="/docs/tech-docs.pdf">
+              <Button appearance="ghost">Tech Docks</Button>
+            </Link>
           </VStack>
         </VStack>
       </div>
