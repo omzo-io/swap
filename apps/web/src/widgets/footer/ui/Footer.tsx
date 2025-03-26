@@ -31,7 +31,7 @@ export const Footer = () => {
             color: 'neutral.500',
             fontSize: 12,
             fontWeight: 'bold',
-            paddingTop: '134px',
+            paddingTop: 2,
             display: {
               base: 'none',
               md: 'initial',

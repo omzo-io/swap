@@ -1,9 +1,9 @@
-import { Inter } from 'next/font/google';
+import { Rajdhani } from 'next/font/google';
 import type { ReactNode } from 'react';
 import { css, cx } from '~/styled-system/css';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const rajdhani = Rajdhani({ subsets: ['latin'], weight: ['400', '500', '600', '700'] });
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <body
         className={cx(
-          inter.className,
+          rajdhani.className,
           css({
             display: 'flex',
             flexDirection: 'column',
