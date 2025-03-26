@@ -27,7 +27,7 @@ const appMenuLinks: AppMenuLinkParams[] = [
     href: '/docs/whitepaper.pdf',
   },
   {
-    label: 'Tech Docks',
+    label: 'Tech Docs',
     href: '/docs/tech-docs.pdf',
   },
 ];

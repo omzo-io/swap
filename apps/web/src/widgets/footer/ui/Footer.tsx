@@ -62,7 +62,7 @@ export const Footer = () => {
               <Button appearance="ghost">Whitepaper</Button>
             </Link>
             <Link href="/docs/tech-docs.pdf">
-              <Button appearance="ghost">Tech Docks</Button>
+              <Button appearance="ghost">Tech Docs</Button>
             </Link>
           </VStack>
         </VStack>
