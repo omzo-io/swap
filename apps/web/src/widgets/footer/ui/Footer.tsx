@@ -12,7 +12,7 @@ export const Footer = () => {
     <footer
       className={css({
         display: 'flex',
-        alignItems: 'baseline',
+        alignItems: 'start',
         borderTop: '1px solid',
         borderTopColor: 'neutral.200',
         padding: 6,
@@ -31,7 +31,7 @@ export const Footer = () => {
             color: 'neutral.500',
             fontSize: 12,
             fontWeight: 'bold',
-            marginTop: '134px',
+            paddingTop: '134px',
             display: {
               base: 'none',
               md: 'initial',
@@ -51,10 +51,7 @@ export const Footer = () => {
         })}
       >
         <VStack gap={4}>
-          <span className={css({ textStyle: 'body', fontWeight: 600 })}>
-            Menu
-          </span>
-          <VStack alignItems="center" gap={3}>
+          <VStack flexDirection="row" alignItems="center" gap={3}>
             <Link href="/swap">
               <Button appearance="ghost">Swap</Button>
             </Link>
@@ -70,6 +67,8 @@ export const Footer = () => {
           </VStack>
         </VStack>
       </div>
+      {/* Empty div to center the links */}
+      <div></div>
     </footer>
   );
 };

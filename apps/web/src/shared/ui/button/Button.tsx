@@ -29,23 +29,23 @@ const buttonStyle = cva({
   variants: {
     appearance: {
       primary: {
-        backgroundColor: '#5107FFD6',
+        backgroundColor: 'black',
         color: 'white',
         _hover: {
-          backgroundColor: '#5107FF',
+          backgroundColor: 'gray.700',
         },
         _disabled: {
-          backgroundColor: '#5107FF3D',
+          backgroundColor: 'gray.300',
         },
       },
       tertiary: {
-        backgroundColor: '#FF4C00D6',
+        backgroundColor: 'black',
         color: 'white',
         _hover: {
-          backgroundColor: '#FF4C00',
+          backgroundColor: 'gray.700',
         },
         _disabled: {
-          backgroundColor: '#FF4C003D',
+          backgroundColor: 'gray.300',
         },
       },
       secondary: {
