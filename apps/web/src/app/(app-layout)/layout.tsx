@@ -53,7 +53,6 @@ export default async function AppLayout({
                 className={hstack({
                   display: 'flex',
                   alignItems: 'center',
-                  color: 'gray.400',
                   fontSize: '24px',
                   fontWeight: '700',
                 })}
