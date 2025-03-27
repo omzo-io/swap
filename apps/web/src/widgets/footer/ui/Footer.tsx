@@ -2,10 +2,13 @@
 
 import { Button } from '@/shared';
 import { Logo } from '@/widgets';
+import Image from 'next/image';
 import Link from 'next/link';
 import { css } from '~/styled-system/css';
 import { VStack } from '~/styled-system/jsx';
 import { hstack, vstack } from '~/styled-system/patterns';
+
+import linkedinIcon from '../assets/linkedin.svg';
 
 export const Footer = () => {
   return (
@@ -67,7 +70,17 @@ export const Footer = () => {
         </VStack>
       </div>
       {/* Empty div to center the links */}
-      <div></div>
+      <div
+      className={hstack({
+        flexDirection: 'row',
+        gap: '80px',
+        marginTop: '20px',
+        alignItems: 'baseline',
+      })}>
+        <a href="https://www.linkedin.com/company/omzo-io/" target="_blank" rel="noopener noreferrer">
+          <Image src={linkedinIcon} alt="LinkedIn" width={24} height={24} />
+        </a>
+      </div>
     </footer>
   );
 };
