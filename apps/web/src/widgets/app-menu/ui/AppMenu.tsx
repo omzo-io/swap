@@ -15,11 +15,11 @@ const appMenuLinks: AppMenuLinkParams[] = [
     isExact: true,
   },
   {
-    label: 'My Liquidity',
+    label: 'Pool',
     href: '/liquidity',
   },
   {
-    label: 'All Pairs',
+    label: 'Pairs',
     href: '/pairs',
   },
 ];
