@@ -32,6 +32,9 @@ export const TokenButton = forwardRef<HTMLInputElement, TokenButtonProps>(
         <>
           <Button
             appearance="secondary"
+            className={css({
+              borderRadius: '2xl',
+            })}
             onClick={() =>
               setDialogState({
                 ...dialogState,
@@ -54,6 +57,7 @@ export const TokenButton = forwardRef<HTMLInputElement, TokenButtonProps>(
           appearance="secondary"
           className={css({
             minWidth: 100,
+            borderRadius: '2xl',
           })}
           onClick={() =>
             setDialogState({

@@ -1,11 +1,12 @@
 'use client';
 
 import { Button, shortenAddress } from '@/shared';
-import { ConnectWalletDialog, AccountDialog } from '@/widgets/account';
+import { AccountDialog, ConnectWalletDialog } from '@/widgets/account';
 import { AddressPurpose } from '@midl-xyz/midl-js-core';
 import { useAccounts } from '@midl-xyz/midl-js-react';
 import { ComponentProps, ReactNode, useState } from 'react';
 import { zeroAddress } from 'viem';
+import { css } from '~/styled-system/css';
 
 type AccountButtonProps = {
   children?: ReactNode;
@@ -24,6 +25,9 @@ export const AccountButton = ({ children, ...rest }: AccountButtonProps) => {
             setDialogOpen(true);
           }}
           appearance="tertiary"
+          className={css({
+            borderRadius: '2xl',
+          })}
           {...rest}
         >
           Connect wallet

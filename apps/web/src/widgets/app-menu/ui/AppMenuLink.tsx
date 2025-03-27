@@ -28,8 +28,8 @@ export const AppMenuLink = ({
         alignItems: 'center',
         px: 1,
         h: 'full',
-        color: isPathMatch ? '#5107FF' : 'neutral.800',
-        fontWeight: 'medium',
+        color: isPathMatch ? 'neutral.800' : 'neutral.800',
+        fontWeight: isPathMatch ? 'bold': 'medium',
         position: 'relative',
       })}
     >
@@ -40,7 +40,7 @@ export const AppMenuLink = ({
             w: 1,
             h: 1,
             borderRadius: 'full',
-            bg: '#5107FF',
+            bg: 'neutral.800',
             position: 'absolute',
             top: '50%',
             left: '50%',

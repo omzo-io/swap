@@ -60,7 +60,7 @@ export default async function AppLayout({
                 <Logo />
                 <span>OMZO.IO</span>
               </Link>
-              <HStack display={{ base: 'none', md: 'flex' }} gap={8} h="full">
+              <HStack display={{ base: 'none', md: 'flex' }} gap={6} h="full">
                 <AppMenuList />
               </HStack>
               <Stack display={{ base: 'flex', md: 'none' }}>

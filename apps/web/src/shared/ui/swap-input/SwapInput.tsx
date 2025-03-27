@@ -133,7 +133,7 @@ export const SwapInput = ({
                   px: 1,
                   py: 1,
                   height: 'auto',
-                  borderRadius: 'sm',
+                  borderRadius: '2xl',
                 })}
                 onClick={applyMax}
                 appearance="ghost"

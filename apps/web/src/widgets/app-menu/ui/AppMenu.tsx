@@ -22,14 +22,6 @@ const appMenuLinks: AppMenuLinkParams[] = [
     label: 'All Pairs',
     href: '/pairs',
   },
-  {
-    label: 'Whitepaper',
-    href: '/docs/whitepaper.pdf',
-  },
-  {
-    label: 'Tech Docs',
-    href: '/docs/tech-docs.pdf',
-  },
 ];
 
 interface Props {

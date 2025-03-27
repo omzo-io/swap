@@ -5,3 +5,8 @@ body > [data-rk] {
     flex-direction: column;
     height: 100%;
 }
+
+body {
+    background: url('/bg-mask.png') no-repeat center center fixed, url('/bg-gray.png') no-repeat center center fixed;
+    background-size: cover;
+}

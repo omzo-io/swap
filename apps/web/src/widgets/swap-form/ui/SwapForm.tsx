@@ -2,22 +2,18 @@
 
 import { useToken } from '@/entities';
 import {
-  useERC20Allowance,
-  useERC20ApproveAllowance,
   useLastUsedTokens,
   useSlippage,
-  useSwap,
-  useTokenBalance,
+  useTokenBalance
 } from '@/features';
 import { useSwapMidl } from '@/features/swap/api/useSwapMidl';
 import { useSwapRates } from '@/features/swap/api/useSwapRates';
 import { SwapDialog } from '@/features/swap/ui/swap-dialog/SwapDialog';
-import { deployments, tokenList } from '@/global';
+import { tokenList } from '@/global';
 import {
   Button,
   SwapInput,
-  parseNumberInput,
-  scopeKeyPredicate,
+  parseNumberInput
 } from '@/shared';
 import { AiOutlineSwapVertical } from '@/shared/assets';
 import { removePercentage } from '@/shared/lib/removePercentage';
@@ -25,13 +21,12 @@ import { AccountButton, SlippageControl } from '@/widgets';
 import { SwapDetails } from '@/widgets/swap-form/ui/SwapDetails';
 import { getCorrectToken } from '@/widgets/swap-form/ui/utils';
 import { useQueryClient } from '@tanstack/react-query';
-import { Loader2Icon } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useDebouncedCallback } from 'use-debounce';
-import { Address, formatUnits, parseUnits, zeroAddress } from 'viem';
+import { Address, formatUnits, parseUnits } from 'viem';
 import { useAccount, useChainId } from 'wagmi';
 import { css } from '~/styled-system/css';
 import { vstack } from '~/styled-system/patterns';
@@ -302,7 +297,7 @@ export const SwapForm = () => {
         >
           <SwapInput
             placeholder="0"
-            label="You pay"
+            label="From"
             tokenName="inputToken"
             amountName="inputTokenAmount"
             onChange={onInputTokenAmountChange}
@@ -319,6 +314,7 @@ export const SwapForm = () => {
               left: '50%',
               zIndex: 2,
               transform: 'translate(-50%, -50%)',
+              borderRadius: '2xl',
             })}
           >
             <AiOutlineSwapVertical width={24} height={24} />
@@ -326,7 +322,7 @@ export const SwapForm = () => {
 
           <SwapInput
             placeholder="0"
-            label="You receive"
+            label="To"
             tokenName="outputToken"
             amountName="outputTokenAmount"
             onChange={onOutputTokenAmountChange}

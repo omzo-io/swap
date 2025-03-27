@@ -1,4 +1,3 @@
-import { BugReportBar } from '@/widgets/header/ui/BugReportBar';
 import { Container, Stack } from '~/styled-system/jsx';
 import { hstack } from '~/styled-system/patterns';
 
@@ -10,7 +9,7 @@ type HeaderProps = {
 export const Header = ({ leftSlot, rightSlot }: HeaderProps) => {
   return (
     <header>
-      <Container maxWidth="1920px" width="100%">
+      <Container px={0} maxWidth="100%" width="100%">
         <Stack
           className={hstack({
             justifyContent: 'space-between',
@@ -18,7 +17,6 @@ export const Header = ({ leftSlot, rightSlot }: HeaderProps) => {
             gap: 4,
             px: 4,
             minH: 20,
-            bg: 'white',
             width: '100%',
           })}
         >
