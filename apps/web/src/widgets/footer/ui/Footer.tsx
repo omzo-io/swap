@@ -13,7 +13,6 @@ export const Footer = () => {
       className={css({
         display: 'flex',
         alignItems: 'start',
-        borderTop: '1px solid',
         borderTopColor: 'neutral.200',
         padding: 6,
         justifyContent: 'space-between',
