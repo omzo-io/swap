@@ -1,35 +1,28 @@
-'use client';
+"use client";
 
-import { useToken } from '@/entities';
-import {
-  useLastUsedTokens,
-  useSlippage,
-  useTokenBalance
-} from '@/features';
-import { useSwapMidl } from '@/features/swap/api/useSwapMidl';
-import { useSwapRates } from '@/features/swap/api/useSwapRates';
-import { SwapDialog } from '@/features/swap/ui/swap-dialog/SwapDialog';
-import { tokenList } from '@/global';
-import {
-  Button,
-  SwapInput,
-  parseNumberInput
-} from '@/shared';
-import { AiOutlineSwapVertical } from '@/shared/assets';
-import { removePercentage } from '@/shared/lib/removePercentage';
-import { AccountButton, SlippageControl } from '@/widgets';
-import { SwapDetails } from '@/widgets/swap-form/ui/SwapDetails';
-import { getCorrectToken } from '@/widgets/swap-form/ui/utils';
-import { useQueryClient } from '@tanstack/react-query';
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useRef, useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { useDebouncedCallback } from 'use-debounce';
-import { Address, formatUnits, parseUnits } from 'viem';
-import { useAccount, useChainId } from 'wagmi';
-import { css } from '~/styled-system/css';
-import { vstack } from '~/styled-system/patterns';
+import { useToken } from "@/entities";
+import { useLastUsedTokens, useSlippage, useTokenBalance } from "@/features";
+import { useSwapMidl } from "@/features/swap/api/useSwapMidl";
+import { useSwapRates } from "@/features/swap/api/useSwapRates";
+import { SwapDialog } from "@/features/swap/ui/swap-dialog/SwapDialog";
+import { tokenList } from "@/global";
+import { Button, SwapInput, parseNumberInput } from "@/shared";
+import { AiOutlineSwapVertical } from "@/shared/assets";
+import { removePercentage } from "@/shared/lib/removePercentage";
+import { AccountButton, SlippageControl } from "@/widgets";
+import { SwapDetails } from "@/widgets/swap-form/ui/SwapDetails";
+import { getCorrectToken } from "@/widgets/swap-form/ui/utils";
+import { midlRegtest } from "@midl-xyz/midl-js-executor";
+import { useQueryClient } from "@tanstack/react-query";
+import { useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useDebouncedCallback } from "use-debounce";
+import { Address, formatUnits, parseUnits } from "viem";
+import { useAccount, useChainId } from "wagmi";
+import { css } from "~/styled-system/css";
+import { vstack } from "~/styled-system/patterns";
 
 type FormData = {
   inputToken: Address;
@@ -43,10 +36,10 @@ export const SwapForm = () => {
   const searchParams = useSearchParams();
   const form = useForm<FormData>({
     defaultValues: {
-      inputToken: '' as Address,
-      outputToken: '' as Address,
-      inputTokenAmount: '',
-      outputTokenAmount: '',
+      inputToken: "" as Address,
+      outputToken: "" as Address,
+      inputTokenAmount: "",
+      outputTokenAmount: "",
     },
   });
 
@@ -90,7 +83,7 @@ export const SwapForm = () => {
     const [, outputAmount] = swapRates;
 
     setValue(
-      'outputTokenAmount',
+      "outputTokenAmount",
       formatUnits(outputAmount, outputTokenInfo.decimals),
     );
   }, 0);
@@ -119,7 +112,7 @@ export const SwapForm = () => {
     const [inputAmount] = swapRates;
 
     setValue(
-      'inputTokenAmount',
+      "inputTokenAmount",
       formatUnits(inputAmount, inputTokenInfo.decimals),
     );
   }, 0);
@@ -131,7 +124,7 @@ export const SwapForm = () => {
       target: { value: inputTokenAmount },
     } as any);
     form.reset();
-    toast.success('Swap successful');
+    toast.success("Swap successful");
   };
 
   const parsedInputTokenAmount = parseUnits(
@@ -169,20 +162,20 @@ export const SwapForm = () => {
       getValues();
 
     if (lastChangedInput.current) {
-      setValue('outputTokenAmount', inputTokenAmount);
+      setValue("outputTokenAmount", inputTokenAmount);
 
-      setValue('inputTokenAmount', '');
-      setValue('inputToken', outputToken);
-      setValue('outputToken', inputToken);
+      setValue("inputTokenAmount", "");
+      setValue("inputToken", outputToken);
+      setValue("outputToken", inputToken);
 
       onOutputTokenAmountChange({
         target: { value: inputTokenAmount },
       } as any);
     } else {
-      setValue('inputTokenAmount', outputTokenAmount);
-      setValue('outputTokenAmount', '');
-      setValue('inputToken', outputToken);
-      setValue('outputToken', inputToken);
+      setValue("inputTokenAmount", outputTokenAmount);
+      setValue("outputTokenAmount", "");
+      setValue("inputToken", outputToken);
+      setValue("outputToken", inputToken);
 
       onInputTokenAmountChange({
         target: { value: outputTokenAmount },
@@ -204,16 +197,17 @@ export const SwapForm = () => {
     }
 
     selectTokens([
-      { chain: chainId, inputName: 'inputToken', token: inputToken },
-      { chain: chainId, inputName: 'outputToken', token: outputToken },
+      { chain: chainId, inputName: "inputToken", token: inputToken },
+      { chain: chainId, inputName: "outputToken", token: outputToken },
     ]);
 
     form.trigger();
   }, [inputToken, outputToken]);
 
   useEffect(() => {
-    const inputTokenSymbol = searchParams.get('inputToken');
-    const outputTokenSymbol = searchParams.get('outputToken');
+    console.log("RPC URL: ", midlRegtest.rpcUrls.default.http[0]);
+    const inputTokenSymbol = searchParams.get("inputToken");
+    const outputTokenSymbol = searchParams.get("outputToken");
     if (inputTokenSymbol && outputTokenSymbol) {
       const inputTokenFound = tokenList.find(
         ({ symbol }) => symbol === inputTokenSymbol,
@@ -252,13 +246,13 @@ export const SwapForm = () => {
       return <>Insufficient Balance</>;
     }
     if (!isSwapRatesFetching && !swapRatesError && isBalanceBigEnough) {
-      return 'Swap';
+      return "Swap";
     }
     if (!isSwapRatesFetching && Boolean(swapRatesError) && isFormFilled) {
-      return 'Insufficient liquidity';
+      return "Insufficient liquidity";
     }
 
-    return 'Swap';
+    return "Swap";
   };
 
   return (
@@ -267,22 +261,22 @@ export const SwapForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className={vstack({
           gap: 8,
-          alignItems: 'stretch',
-          bg: 'neutral.100',
-          borderRadius: '2xl',
+          alignItems: "stretch",
+          bg: "neutral.100",
+          borderRadius: "2xl",
           px: {
             base: 2,
             md: 16,
           },
           py: 8,
-          width: 'full',
+          width: "full",
           maxWidth: 640,
         })}
       >
         <h2
           className={css({
-            textStyle: 'h2',
-            textAlign: 'center',
+            textStyle: "h2",
+            textAlign: "center",
           })}
         >
           Swap
@@ -290,9 +284,9 @@ export const SwapForm = () => {
 
         <div
           className={vstack({
-            alignItems: 'stretch',
+            alignItems: "stretch",
             gap: 4,
-            position: 'relative',
+            position: "relative",
           })}
         >
           <SwapInput
@@ -309,12 +303,12 @@ export const SwapForm = () => {
             aria-label="Swap input and output tokens"
             appearance="secondary"
             className={css({
-              position: 'absolute',
-              top: '50%',
-              left: '50%',
+              position: "absolute",
+              top: "50%",
+              left: "50%",
               zIndex: 2,
-              transform: 'translate(-50%, -50%)',
-              borderRadius: '2xl',
+              transform: "translate(-50%, -50%)",
+              borderRadius: "2xl",
             })}
           >
             <AiOutlineSwapVertical width={24} height={24} />
