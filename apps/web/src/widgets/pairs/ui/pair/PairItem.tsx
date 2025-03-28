@@ -78,7 +78,7 @@ export const PairItem = ({
             </div>
 
             <div>
-              {tokenAInfo.symbol} — {tokenBInfo.symbol}
+              {tokenAInfo.name} — {tokenBInfo.name}
             </div>
           </div>
         </div>
@@ -87,20 +87,20 @@ export const PairItem = ({
           {/* biome-ignore lint/complexity/noExtraBooleanCast: <explanation> */}
           {Boolean(Number.parseFloat(pair.tradeVolumeUSD24h))
             ? `${beautifyNumber(pair.tradeVolumeUSD24h, 2)}$`
-            : '☕'}
+            : '0'}
         </div>
         <div className={css({ display: 'table-cell' })}>
           {/* biome-ignore lint/complexity/noExtraBooleanCast: <explanation> */}
           {Boolean(Number.parseFloat(pair.liquidityUSD))
             ? `${beautifyNumber(pair.liquidityUSD, 2)}$`
-            : '☕'}
+            : '0'}
         </div>
         <div className={css({ display: 'table-cell' })}>
           {' '}
           {/* biome-ignore lint/complexity/noExtraBooleanCast: <explanation> */}
           {Boolean(Number.parseFloat(pair.feesUSD24h))
             ? `${beautifyNumber(pair.feesUSD24h, 2)}$`
-            : '☕'}
+            : '0'}
         </div>
       </a>
     </Link>

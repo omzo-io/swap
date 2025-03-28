@@ -2,7 +2,7 @@
 import { useToken } from '@/entities';
 import { useERC20Rune } from '@midl-xyz/midl-js-executor-react';
 import { HTMLAttributes } from 'react';
-import { Address, zeroAddress } from 'viem';
+import { Address } from 'viem';
 import { useChainId } from 'wagmi';
 import { css, cx } from '~/styled-system/css';
 

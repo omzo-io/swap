@@ -1,10 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
 import { useToken } from '@/entities';
 import { TokenLogo } from '@/features';
+import { useToken as useMidlToken } from '@midl-xyz/midl-js-executor-react';
 import { Address } from 'viem';
 import { css } from '~/styled-system/css';
 import { hstack, vstack } from '~/styled-system/patterns';
-import { useToken as useMidlToken } from '@midl-xyz/midl-js-executor-react';
 
 type TokenNameProps = {
   address: Address;
@@ -13,7 +13,7 @@ type TokenNameProps = {
 };
 
 export const TokenName = ({ address, chainId, showName }: TokenNameProps) => {
-  const { symbol, name } = useToken(address, chainId);
+  const { name } = useToken(address, chainId);
   const { rune } = useMidlToken(address);
 
   return (
@@ -33,7 +33,7 @@ export const TokenName = ({ address, chainId, showName }: TokenNameProps) => {
           alignItems: 'flex-start',
         })}
       >
-        {rune?.symbol ?? symbol}
+        {rune?.name ?? name}
         {showName && (
           <span
             className={css({

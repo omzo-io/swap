@@ -33,7 +33,9 @@ export const LiquidityItem = ({
   const tokenBInfo = useToken(tokenB, chainId);
   const [, setDialogState] = useAtom(removeLiquidityDialogAtom);
 
+  const tokenAName = tokenAInfo.name;
   const tokenASymbol = tokenAInfo.symbol;
+  const tokenBName = tokenBInfo.name;
   const tokenBSymbol = tokenBInfo.symbol;
 
   const poolSharePercentage =
@@ -71,16 +73,14 @@ export const LiquidityItem = ({
               })}
             />
           </div>
-          {tokenASymbol} —{' '}
-          {tokenBSymbol}
+          {tokenAName} —{' '}
+          {tokenBName}
         </div>
       </Collapsible.Trigger>
       <Collapsible.Content>
         <div className={vstack({ gap: 2, alignItems: 'stretch', pt: 4 })}>
           <div className={hstack({ gap: 2, justifyContent: 'space-between' })}>
-            <span>
-              Pooled {tokenASymbol}
-            </span>
+            <span>Pooled {tokenAName}</span>
             <span>
               {beautifyNumber(reserveA)}{' '}
               {tokenASymbol}
@@ -88,7 +88,7 @@ export const LiquidityItem = ({
           </div>
           <div className={hstack({ gap: 2, justifyContent: 'space-between' })}>
             <span>
-              Pooled {tokenBSymbol}
+              Pooled {tokenBName}
             </span>
             <span>
               {beautifyNumber(reserveB)}{' '}
