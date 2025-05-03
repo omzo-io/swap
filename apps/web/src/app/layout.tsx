@@ -1,27 +1,30 @@
-import { Rajdhani } from 'next/font/google';
-import type { ReactNode } from 'react';
-import { css, cx } from '~/styled-system/css';
-import './globals.css';
+import { Poppins } from "next/font/google";
+import type { ReactNode } from "react";
+import { css, cx } from "~/styled-system/css";
+import "./globals.css";
 
-const rajdhani = Rajdhani({ subsets: ['latin'], weight: ['400', '500', '600', '700'] });
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "500", "600", "700"],
+});
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
       className={css({
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column',
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
       })}
     >
       <body
         className={cx(
-          rajdhani.className,
+          poppins.className,
           css({
-            display: 'flex',
-            flexDirection: 'column',
-            bg: '#FEFEFE',
+            display: "flex",
+            flexDirection: "column",
+            bg: "#FEFEFE",
           }),
         )}
       >
