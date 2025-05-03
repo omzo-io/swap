@@ -27,7 +27,7 @@ export const AppMenuLink = ({
         display: "flex",
         alignItems: "center",
         px: "30px",
-        py: 3.5,
+        py: 2.5,
         rounded: "xl",
         h: "full",
         color: isPathMatch ? "white" : "rgba(255, 255, 255, 0.3)",

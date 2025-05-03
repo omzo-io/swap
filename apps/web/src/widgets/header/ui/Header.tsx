@@ -17,7 +17,7 @@ export const Header = ({ leftSlot, navigation, rightSlot }: HeaderProps) => {
             alignItems: "center",
             gap: 4,
             px: 4,
-            minH: 20,
+            minH: 28,
             width: "100%",
           })}
         >

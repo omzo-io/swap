@@ -7,6 +7,6 @@ body > [data-rk] {
 }
 
 body {
-    background: url('/images/bg-mask.png') no-repeat center center fixed, url('/images/bg-gray.png') no-repeat center center fixed;
+    background: url('/images/bg.webp') no-repeat top center fixed #141417;
     background-size: cover;
 }
