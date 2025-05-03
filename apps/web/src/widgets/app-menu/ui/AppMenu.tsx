@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { AppMenuLink } from '@/widgets/app-menu/ui/AppMenuLink';
+import { AppMenuLink } from "@/widgets/app-menu/ui/AppMenuLink";
 
 type AppMenuLinkParams = {
   label: string;
@@ -10,17 +10,17 @@ type AppMenuLinkParams = {
 
 const appMenuLinks: AppMenuLinkParams[] = [
   {
-    label: 'Swap',
-    href: '/swap',
+    label: "Swap",
+    href: "/swap",
     isExact: true,
   },
   {
-    label: 'Pool',
-    href: '/liquidity',
+    label: "Pool",
+    href: "/liquidity",
   },
   {
-    label: 'Pairs',
-    href: '/pairs',
+    label: "Pairs",
+    href: "/pairs",
   },
 ];
 

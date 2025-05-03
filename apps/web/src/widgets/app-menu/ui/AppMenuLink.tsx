@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { css } from '~/styled-system/css';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { css } from "~/styled-system/css";
 
 export type AppMenuLink = {
   label: string;
@@ -24,31 +24,19 @@ export const AppMenuLink = ({
       href={href}
       key={label}
       className={css({
-        display: 'flex',
-        alignItems: 'center',
-        px: 1,
-        h: 'full',
-        color: isPathMatch ? 'neutral.800' : 'neutral.800',
-        fontWeight: isPathMatch ? 'bold': 'medium',
-        position: 'relative',
+        display: "flex",
+        alignItems: "center",
+        px: "30px",
+        py: 3.5,
+        rounded: "xl",
+        h: "full",
+        color: isPathMatch ? "white" : "rgba(255, 255, 255, 0.3)",
+        fontWeight: "medium",
+        background: isPathMatch ? "rgba(0, 0, 0, 0.3)" : "transparent",
+        position: "relative",
       })}
     >
       {label}
-      {isPathMatch && (
-        <span
-          className={css({
-            w: 1,
-            h: 1,
-            borderRadius: 'full',
-            bg: 'neutral.800',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            marginTop: '1em',
-          })}
-        />
-      )}
     </Link>
   );
 };
