@@ -52,7 +52,7 @@ class CreateParticles {
       amount: 1500,
       particleSize: 1,
       particleColor: 0xffffff,
-      textSize: 20,
+      textSize: 40,
       area: 250,
       ease: 0.05,
     };
@@ -264,7 +264,7 @@ class CreateParticles {
 
     const xMid =
       -0.5 * (geometry.boundingBox.max.x - geometry.boundingBox.min.x);
-    const yMid = (geometry.boundingBox.max.y - geometry.boundingBox.min.y) / 4;
+    const yMid = (geometry.boundingBox.max.y - geometry.boundingBox.min.y) / 8;
 
     geometry.center();
 
@@ -307,7 +307,7 @@ class CreateParticles {
     for (let i = 0; i < positions.length; i += 3) {
       if (positions[i + 1] < 0) {
         // If y-coordinate is negative (second line)
-        positions[i + 1] += 30; // Move up by 30 units
+        positions[i + 1] += 54; // Move up by 54 units
       }
     }
     geoParticles.attributes.position.needsUpdate = true;
@@ -492,7 +492,7 @@ export default function InteractiveTextBlock() {
       ref={mountRef}
       style={{
         width: "100%",
-        height: 300,
+        height: 200,
         margin: "0 auto",
         display: "block",
       }}
