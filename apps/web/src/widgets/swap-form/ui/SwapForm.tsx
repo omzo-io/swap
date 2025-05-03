@@ -262,26 +262,20 @@ export const SwapForm = () => {
         className={vstack({
           gap: 8,
           alignItems: "stretch",
-          bg: "neutral.100",
-          borderRadius: "2xl",
+          borderRadius: "28px",
           px: {
             base: 2,
             md: 16,
           },
-          py: 8,
+          p: "15px",
           width: "full",
-          maxWidth: 640,
+          maxWidth: 548,
+          background:
+            "linear-gradient(180deg, rgba(233, 236, 249, 0.05) 0%, rgba(233, 236, 249, 0.02) 100%)",
+          backdropFilter: "blur(70px)",
+          border: "1px solid rgba(255, 255, 255, 0.14)",
         })}
       >
-        <h2
-          className={css({
-            textStyle: "h2",
-            textAlign: "center",
-          })}
-        >
-          Swap
-        </h2>
-
         <div
           className={vstack({
             alignItems: "stretch",

@@ -25,7 +25,7 @@ export const AccountButton = ({ children, ...rest }: AccountButtonProps) => {
             setDialogOpen(true);
           }}
           className={css({
-            borderRadius: "15px",
+            rounded: "15px!",
             backgroundColor: "#9289FD26",
             color: "#9289FD",
             fontWeight: "medium",
@@ -61,7 +61,7 @@ export const AccountButton = ({ children, ...rest }: AccountButtonProps) => {
             setAccountDialogOpen(true);
           }}
           className={css({
-            borderRadius: "15px",
+            rounded: "15px!",
             backgroundColor: "#25C66526",
             color: "#25C665",
             fontWeight: "medium",

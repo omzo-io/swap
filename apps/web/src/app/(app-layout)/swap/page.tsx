@@ -13,7 +13,7 @@ export default function SwapPage() {
         css({
           flexGrow: 1,
           flexDirection: "column",
-          gap: 14,
+          gap: 3,
         }),
       )}
     >
