@@ -7,7 +7,14 @@ import {
 import { ErrorBoundary } from "@/global/providers/ErrorBoundary";
 import { RemoveLiquidityProvider } from "@/global/providers/RemoveLiquidityProvider";
 import { RuneDialogProvider } from "@/global/providers/RuneDialogProvider";
-import { AccountButton, AppMenuList, Header, Logo, RPCStatus } from "@/widgets";
+import {
+  AccountButton,
+  AppMenuList,
+  Header,
+  Logo,
+  Brand,
+  RPCStatus,
+} from "@/widgets";
 import { MobileAppMenu } from "@/widgets/app-menu/ui/MobileAppMenu";
 import { renderErrorMessage } from "@/widgets/error-message";
 import { Footer } from "@/widgets/footer/ui";
@@ -58,7 +65,7 @@ export default async function AppLayout({
                 })}
               >
                 <Logo />
-                <span>OMZO.IO</span>
+                <Brand />
               </Link>
               <Stack display={{ base: "flex", md: "none" }}>
                 <MobileAppMenu />
