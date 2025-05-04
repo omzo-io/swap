@@ -5,10 +5,10 @@ import { vstack } from "~/styled-system/patterns";
 import aboutIcon from "../assets/about.svg";
 
 const WHY_LIST = [
-  "The best choice on market",
-  "We the best music",
-  "3 years of creating the best product in the world",
-  "We the best music",
+  "Native BTC AMM, decentralized swaps",
+  "Pure Bitcoin security",
+  "Build natively using MIDL abstraction layer",
+  "Zero reliance on Ethereum, Tron, or external bridges",
 ];
 
 const About = () => {

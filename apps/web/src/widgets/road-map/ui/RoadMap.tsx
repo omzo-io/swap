@@ -5,17 +5,23 @@ import { hstack, vstack } from "~/styled-system/patterns";
 
 import roadmapIcon from "../assets/roadmap.svg";
 
-const years = [2023, 2024, 2025, 2026, 2027];
+const years = [
+  "March 2025",
+  "June 2025",
+  "September 2025",
+  "December 2025",
+  "March 2026",
+];
 const milestones = [
   {
-    text: "3 years of creating the best product in the world",
+    text: "Development & Launch Preparation",
     left: 0,
     top: 0,
   },
-  { text: "Backlog reinvestement", left: "300px", top: "52px" },
-  { text: "Backlog reinvestement", left: "450px", top: "104px" },
-  { text: "Backlog reinvestement", left: "630px", top: "156px" },
-  { text: "Other...", left: "800px", top: "208px" },
+  { text: "Liquidity Sourcing & Test Launches", left: "240px", top: "52px" },
+  { text: "Mainnet Launch & Scaling", left: "480px", top: "104px" },
+  { text: "Ecosystem Growth & Partnerships", left: "680px", top: "156px" },
+  { text: "Expansion", left: "920px", top: "208px" },
 ];
 
 const RoadMap = () => {

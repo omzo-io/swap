@@ -72,6 +72,11 @@ export default async function AppLayout({
                 href="https://www.linkedin.com/company/omzo-io/"
                 target="_blank"
                 rel="noopener noreferrer"
+                className={css({
+                  lg: {
+                    ml: 4,
+                  },
+                })}
               >
                 <Image
                   src={linkedinIcon}

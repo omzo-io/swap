@@ -23,7 +23,7 @@ const BestExperience = () => {
           maxW: "409px",
         })}
       >
-        Create the best experience
+        Runes moment
       </p>
       <p
         className={css({
@@ -34,8 +34,9 @@ const BestExperience = () => {
           mt: 6,
         })}
       >
-        Celebes rainbowfish luminous hake, boga pike characid. Buffalofish
-        turbot razorfish, "mudskipper, elephant fish gulper
+        Runes are booming, but trading is chaotic and fragmented. Omzo is the
+        Uniswap moment for Bitcoin — unlocking deep, instant, native liquidity
+        and real yield
       </p>
     </section>
   );
