@@ -142,7 +142,7 @@ class CreateParticles {
         let py = pos.getY(i);
         let pz = pos.getZ(i);
 
-        this.colorChange.setHSL(0.5, 1, 1);
+        this.colorChange.setHSL(0.68, 0.97, 0.76);
         coulors.setXYZ(
           i,
           this.colorChange.r,
@@ -198,7 +198,7 @@ class CreateParticles {
               px -= 0.03 * Math.cos(t);
               py -= 0.03 * Math.sin(t);
 
-              this.colorChange.setHSL(0.15, 1.0, 0.5);
+              this.colorChange.setHSL(0.68, 0.97, 0.76);
               coulors.setXYZ(
                 i,
                 this.colorChange.r,

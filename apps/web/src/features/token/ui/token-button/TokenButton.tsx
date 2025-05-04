@@ -1,10 +1,10 @@
-import { TokenName, tokenDialogAtom } from '@/features';
-import { Button, mergeRefs } from '@/shared';
-import { useAtom } from 'jotai';
-import { ChevronDownIcon } from 'lucide-react';
-import { InputHTMLAttributes, forwardRef, useRef } from 'react';
-import { Address } from 'viem';
-import { css } from '~/styled-system/css';
+import { TokenName, tokenDialogAtom } from "@/features";
+import { Button, mergeRefs } from "@/shared";
+import { useAtom } from "jotai";
+import { ChevronDownIcon } from "lucide-react";
+import { InputHTMLAttributes, forwardRef, useRef } from "react";
+import { Address } from "viem";
+import { css } from "~/styled-system/css";
 
 type TokenButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   value?: Address;
@@ -32,9 +32,6 @@ export const TokenButton = forwardRef<HTMLInputElement, TokenButtonProps>(
         <>
           <Button
             appearance="secondary"
-            className={css({
-              borderRadius: '2xl',
-            })}
             onClick={() =>
               setDialogState({
                 ...dialogState,
@@ -54,10 +51,9 @@ export const TokenButton = forwardRef<HTMLInputElement, TokenButtonProps>(
     return (
       <>
         <Button
-          appearance="secondary"
           className={css({
             minWidth: 100,
-            borderRadius: '2xl',
+            borderRadius: "2xl",
           })}
           onClick={() =>
             setDialogState({
@@ -76,4 +72,4 @@ export const TokenButton = forwardRef<HTMLInputElement, TokenButtonProps>(
   },
 );
 
-TokenButton.displayName = 'TokenButton';
+TokenButton.displayName = "TokenButton";

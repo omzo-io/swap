@@ -260,13 +260,9 @@ export const SwapForm = () => {
       <form
         onSubmit={handleSubmit(onSubmit)}
         className={vstack({
-          gap: 8,
+          gap: 2.5,
           alignItems: "stretch",
           borderRadius: "28px",
-          px: {
-            base: 2,
-            md: 16,
-          },
           p: "15px",
           width: "full",
           maxWidth: 548,
@@ -279,7 +275,7 @@ export const SwapForm = () => {
         <div
           className={vstack({
             alignItems: "stretch",
-            gap: 4,
+            gap: 1.5,
             position: "relative",
           })}
         >
@@ -295,14 +291,15 @@ export const SwapForm = () => {
           <Button
             onClick={onSwapInput}
             aria-label="Swap input and output tokens"
-            appearance="secondary"
             className={css({
+              h: 14,
+              w: 14,
+              borderRadius: "full!",
               position: "absolute",
               top: "50%",
               left: "50%",
               zIndex: 2,
               transform: "translate(-50%, -50%)",
-              borderRadius: "2xl",
             })}
           >
             <AiOutlineSwapVertical width={24} height={24} />
@@ -317,9 +314,26 @@ export const SwapForm = () => {
             onMax={onOutputTokenAmountChange}
           />
         </div>
-        <SlippageControl />
+        {/* <SlippageControl /> */}
         {!address ? (
-          <AccountButton />
+          <AccountButton
+            className={css({
+              rounded: "15px!",
+              backgroundColor: "#9289FD26",
+              color: "#9289FD",
+              fontWeight: "medium",
+              fontSize: "15px",
+              lineHeight: "18px",
+              padding: "26px 40px 27px",
+              _hover: {
+                backgroundColor: "#9289FD",
+                color: "white",
+              },
+              transitionDuration: "0.15s",
+              transitionProperty: "background-color, color",
+              transitionTimingFunction: "ease-in-out",
+            })}
+          />
         ) : (
           <Button
             type="submit"
@@ -335,7 +349,7 @@ export const SwapForm = () => {
           </Button>
         )}
 
-        {inputToken && outputToken && inputTokenAmount && outputTokenAmount ? (
+        {/* {inputToken && outputToken && inputTokenAmount && outputTokenAmount ? (
           <SwapDetails
             amountOutMin={Number.parseFloat(
               formatUnits(amountOutMin, outputTokenInfo.decimals),
@@ -345,7 +359,7 @@ export const SwapForm = () => {
             inputTokenAmount={inputTokenAmount}
             outputTokenAmount={outputTokenAmount}
           />
-        ) : null}
+        ) : null} */}
 
         <SwapDialog
           onSuccessfulSwap={onSwapSuccess}

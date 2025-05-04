@@ -1,14 +1,13 @@
-import { useToken } from '@/entities';
-import { TokenButton, useTokenBalance } from '@/features';
-import { Button, InputGroup, NumberInput } from '@/shared/ui';
-import millify from 'millify';
-import { ChangeEventHandler, InputHTMLAttributes } from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import { useDebouncedCallback } from 'use-debounce';
-import { formatUnits } from 'viem';
-import { useChainId } from 'wagmi';
-import { css, cx } from '~/styled-system/css';
-import { hstack, vstack } from '~/styled-system/patterns';
+import { useToken } from "@/entities";
+import { TokenButton, useTokenBalance } from "@/features";
+import { Button, InputGroup, NumberInput } from "@/shared/ui";
+import { ChangeEventHandler, InputHTMLAttributes, useState } from "react";
+import { Controller, useFormContext } from "react-hook-form";
+import { useDebouncedCallback } from "use-debounce";
+import { formatUnits } from "viem";
+import { useChainId } from "wagmi";
+import { css, cx } from "~/styled-system/css";
+import { hstack, vstack } from "~/styled-system/patterns";
 
 type SwapInputProps = {
   amountName: string;
@@ -33,6 +32,7 @@ export const SwapInput = ({
   const token = watch(tokenName);
   const tokenInfo = useToken(token, chainId);
   const balance = useTokenBalance(token);
+  const [isInFocus, setIsInFocus] = useState(false);
 
   const triggerValidation = useDebouncedCallback(trigger, 0);
 
@@ -66,19 +66,35 @@ export const SwapInput = ({
   return (
     <InputGroup
       className={hstack({
-        borderColor: hasError ? 'red.500' : 'transparent',
+        borderColor: isInFocus
+          ? "#E9ECF9"
+          : hasError
+            ? "red.500"
+            : "rgba(233, 236, 249, 0.1)",
         borderWidth: 1,
-        borderStyle: 'solid',
+        borderStyle: "solid",
+        bg:
+          tokenInfo.address || isInFocus
+            ? "black"
+            : "linear-gradient(180deg, rgba(233, 236, 249, 0.05) 0%, rgba(233, 236, 249, 0.02) 100%)",
       })}
     >
       <label
         className={vstack({
-          alignItems: 'stretch',
-          width: '100%',
-          gap: 2,
+          alignItems: "stretch",
+          gap: 0,
+          width: "100%",
         })}
       >
-        {label && <span>{label}</span>}
+        {label && (
+          <span
+            className={css({
+              color: "#646471",
+            })}
+          >
+            {label}
+          </span>
+        )}
         <div className={hstack()}>
           <Controller
             control={control}
@@ -94,20 +110,26 @@ export const SwapInput = ({
                   className={cx(
                     rest.className,
                     css({
-                      textStyle: 'h4',
                       flexGrow: 1,
                       pl: 1,
-                      caretColor: 'orange.500',
+                      fontSize: 32,
+                      caretColor: "white",
+                      color: "white",
+                      _placeholder: {
+                        color: "#646471",
+                      },
                       _focus: {
-                        boxShadow: 'none',
+                        boxShadow: "none",
                       },
                     }),
                   )}
-                  value={field.value ?? ''}
+                  value={field.value ?? ""}
                   onChange={(e) => {
                     field.onChange(e);
                     rest.onChange?.(e);
                   }}
+                  onFocus={() => setIsInFocus(true)}
+                  onBlur={() => setIsInFocus(false)}
                 />
               </>
             )}
@@ -124,47 +146,33 @@ export const SwapInput = ({
             <>
               <Button
                 className={css({
-                  position: 'absolute',
-                  right: 4,
-                  top: 1,
-                  textStyle: 'caption',
-                  color: 'neutral.700',
+                  position: "absolute",
+                  left: 2,
+                  bottom: 2,
+                  color: "#646471",
                   fontSize: 12,
-                  px: 1,
+                  px: 2,
                   py: 1,
-                  height: 'auto',
-                  borderRadius: '2xl',
+                  height: "auto!",
+                  border: "none",
+                  borderRadius: "2xl",
+                  backgroundColor: "rgba(255, 255, 255, 0.1)",
+                  bg: "rgba(255, 255, 255, 0.1)!",
                 })}
                 onClick={applyMax}
-                appearance="ghost"
               >
                 Use max
               </Button>
-              <div
-                className={css({
-                  textStyle: 'caption',
-                  position: 'absolute',
-                  right: 4,
-                  bottom: 1,
-                  color: 'neutral.500',
-                })}
-              >
-                {balance.data?.balance
-                  ? millify(parseFloat(balance.data.formattedBalance!), {
-                      precision: 4,
-                    })
-                  : '0'}
-              </div>
             </>
           ) : null}
         </div>
         {hasError && (
           <div
             className={css({
-              position: 'absolute',
+              position: "absolute",
               bottom: -5,
               left: 4,
-              color: 'red.500',
+              color: "red.500",
               fontSize: 12,
             })}
           >
