@@ -7,6 +7,11 @@ body > [data-rk] {
 }
 
 body {
-    background: url('/images/bg.webp') no-repeat top center fixed #141417;
+    background: url('/images/bg.webp') no-repeat top center #141417;
     background-size: cover;
+}
+
+#about {
+    width: 100%;
+    background: url('/images/about-bg-left.webp') no-repeat bottom left, url('/images/about-bg-right.webp') no-repeat bottom right;
 }

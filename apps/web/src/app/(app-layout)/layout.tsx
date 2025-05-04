@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { FiatQuotesProvider } from "@/features/fiat-quote";
 import {
   SettingsDialogProvider,
@@ -26,6 +27,7 @@ import { css } from "~/styled-system/css";
 import { HStack, Stack } from "~/styled-system/jsx";
 import { hstack } from "~/styled-system/patterns";
 import "../globals.css";
+import linkedinIcon from "@/widgets/footer/assets/linkedin.svg";
 
 export default async function AppLayout({
   children,
@@ -46,7 +48,6 @@ export default async function AppLayout({
           leftSlot={
             <div
               className={hstack({
-                gap: 24,
                 flexShrink: 0,
                 width: {
                   base: "100%",
@@ -67,6 +68,18 @@ export default async function AppLayout({
                 <Logo />
                 <Brand />
               </Link>
+              <a
+                href="https://www.linkedin.com/company/omzo-io/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Image
+                  src={linkedinIcon}
+                  alt="LinkedIn"
+                  width={24}
+                  height={24}
+                />
+              </a>
               <Stack display={{ base: "flex", md: "none" }}>
                 <MobileAppMenu />
               </Stack>
