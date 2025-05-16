@@ -300,6 +300,7 @@ export const SwapForm = () => {
               left: "50%",
               zIndex: 2,
               transform: "translate(-50%, -50%)",
+              backgroundColor: "#1B1B1F!",
             })}
           >
             <AiOutlineSwapVertical width={24} height={24} />

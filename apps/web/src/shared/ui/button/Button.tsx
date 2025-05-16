@@ -30,10 +30,10 @@ const buttonStyle = cva({
     appearance: {
       primary: {
         border: "1px solid #FFFFFF14",
-        backgroundColor: "black",
+        backgroundColor: "#5346EB",
         color: "white",
         _hover: {
-          backgroundColor: "gray.700",
+          backgroundColor: "#6459EA",
         },
         _disabled: {
           backgroundColor: "gray.300",
