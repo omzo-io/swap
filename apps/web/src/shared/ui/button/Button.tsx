@@ -62,9 +62,10 @@ const buttonStyle = cva({
       },
       ghost: {
         backgroundColor: "transparent",
-        color: "neutral.800",
+        color: "gray.400",
         _hover: {
-          backgroundColor: "neutral.100",
+          backgroundColor: "#9289FD26",
+          color: "#9289FD",
         },
       },
       outline: {
