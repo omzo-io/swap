@@ -32,6 +32,7 @@ const buttonStyle = cva({
         border: "1px solid #FFFFFF14",
         backgroundColor: "#5346EB",
         color: "white",
+        rounded: "14px",
         _hover: {
           backgroundColor: "#6459EA",
         },
@@ -50,12 +51,13 @@ const buttonStyle = cva({
         },
       },
       secondary: {
-        backgroundColor: "#5346EB",
-        color: "white",
+        backgroundColor: "#9289FD26",
+        color: "#9289FD",
         borderRadius: "14px",
         rounded: "14px",
         _hover: {
-          backgroundColor: "#6459EA",
+          backgroundColor: "#9289FD",
+          color: "white",
         },
       },
       ghost: {
