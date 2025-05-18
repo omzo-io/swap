@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
-import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
+import { css } from "~/styled-system/css";
 
 class CreateParticles {
   scene: THREE.Scene;
@@ -488,14 +488,37 @@ export default function InteractiveTextBlock() {
   }, []);
 
   return (
-    <div
-      ref={mountRef}
-      style={{
-        width: "100%",
-        height: 200,
-        margin: "0 auto",
-        display: "block",
-      }}
-    />
+    <>
+      <div
+        ref={mountRef}
+        className={css({
+          display: "none",
+          lg: {
+            display: "block",
+          },
+        })}
+        style={{
+          width: "100%",
+          height: 200,
+          margin: "0 auto",
+        }}
+      />
+      <h1
+        className={css({
+          display: "block",
+          color: "white",
+          fontSize: "30px",
+          fontWeight: "bold",
+          textAlign: "center",
+          lg: {
+            display: "none",
+          },
+        })}
+      >
+        Runes create the market
+        <br />
+        Omzo captures the upside
+      </h1>
+    </>
   );
 }
