@@ -1,13 +1,13 @@
-import { useToken } from '@/entities';
-import { TokenLogo } from '@/features';
-import { removeLiquidityDialogAtom } from '@/features/liquidity/model';
-import { beautifyNumber, Button } from '@/shared';
-import * as Collapsible from '@radix-ui/react-collapsible';
-import { useAtom } from 'jotai';
-import { Address } from 'viem';
-import { useChainId } from 'wagmi';
-import { css } from '~/styled-system/css';
-import { hstack, vstack } from '~/styled-system/patterns';
+import { useToken } from "@/entities";
+import { TokenLogo } from "@/features";
+import { removeLiquidityDialogAtom } from "@/features/liquidity/model";
+import { beautifyNumber, Button } from "@/shared";
+import * as Collapsible from "@radix-ui/react-collapsible";
+import { useAtom } from "jotai";
+import { Address } from "viem";
+import { useChainId } from "wagmi";
+import { css } from "~/styled-system/css";
+import { hstack, vstack } from "~/styled-system/patterns";
 
 type LiquidityItemProps = {
   tokenA: Address;
@@ -47,20 +47,24 @@ export const LiquidityItem = ({
       defaultOpen={true}
       className={css({
         padding: 4,
-        borderRadius: 'xl',
-        backgroundColor: 'neutral.100',
+        border: "1px solid rgba(255, 255, 255, 0.14)",
+        backgroundColor:
+          "linear-gradient(180deg, rgba(233, 236, 249, 0.05) 0%, rgba(233, 236, 249, 0.02) 100%)",
+        backdropFilter: "blur(70px)",
+        borderRadius: "3xl",
+        color: "white",
       })}
     >
       <Collapsible.Trigger
         className={css({
-          cursor: 'pointer',
+          cursor: "pointer",
         })}
       >
         <div className={hstack({ gap: 2 })}>
           <div
             className={css({
-              position: 'relative',
-              display: 'flex',
+              position: "relative",
+              display: "flex",
             })}
           >
             <TokenLogo address={tokenA} chainId={chainId} size={8} />
@@ -73,34 +77,29 @@ export const LiquidityItem = ({
               })}
             />
           </div>
-          {tokenAName} —{' '}
-          {tokenBName}
+          {tokenAName} — {tokenBName}
         </div>
       </Collapsible.Trigger>
       <Collapsible.Content>
-        <div className={vstack({ gap: 2, alignItems: 'stretch', pt: 4 })}>
-          <div className={hstack({ gap: 2, justifyContent: 'space-between' })}>
+        <div className={vstack({ gap: 2, alignItems: "stretch", pt: 4 })}>
+          <div className={hstack({ gap: 2, justifyContent: "space-between" })}>
             <span>Pooled {tokenAName}</span>
             <span>
-              {beautifyNumber(reserveA)}{' '}
-              {tokenASymbol}
+              {beautifyNumber(reserveA)} {tokenASymbol}
             </span>
           </div>
-          <div className={hstack({ gap: 2, justifyContent: 'space-between' })}>
+          <div className={hstack({ gap: 2, justifyContent: "space-between" })}>
+            <span>Pooled {tokenBName}</span>
             <span>
-              Pooled {tokenBName}
-            </span>
-            <span>
-              {beautifyNumber(reserveB)}{' '}
-              {tokenBSymbol}
+              {beautifyNumber(reserveB)} {tokenBSymbol}
             </span>
           </div>
-          <div className={hstack({ gap: 2, justifyContent: 'space-between' })}>
+          <div className={hstack({ gap: 2, justifyContent: "space-between" })}>
             <span>Your total pool tokens</span>
             <span>{beautifyNumber(liquidityTokenBalance)}</span>
           </div>
 
-          <div className={hstack({ gap: 2, justifyContent: 'space-between' })}>
+          <div className={hstack({ gap: 2, justifyContent: "space-between" })}>
             <span>Pool share percentage:</span>
             <span>
               {poolSharePercentage >= 99.9

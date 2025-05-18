@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { useSlippage } from '@/features';
-import { isSlippageDialogOpen } from '@/features/slippage/model';
-import { Button } from '@/shared';
-import { SlippageControlForm } from '@/widgets/slippage-control/ui/SlippageControlForm';
-import { useAtom } from 'jotai';
-import { PencilIcon } from 'lucide-react';
-import { useState } from 'react';
-import { css } from '~/styled-system/css';
-import { hstack, vstack } from '~/styled-system/patterns';
+import { useSlippage } from "@/features";
+import { isSlippageDialogOpen } from "@/features/slippage/model";
+import { Button } from "@/shared";
+import { SlippageControlForm } from "@/widgets/slippage-control/ui/SlippageControlForm";
+import { useAtom } from "jotai";
+import { PencilIcon } from "lucide-react";
+import { useState } from "react";
+import { css } from "~/styled-system/css";
+import { hstack, vstack } from "~/styled-system/patterns";
 
 type SlippageControlProps = {
   inline?: boolean;
@@ -21,10 +21,10 @@ export const SlippageControl = ({ inline }: SlippageControlProps) => {
 
   if (isInlineOpen) {
     return (
-      <div className={vstack({ gap: 4, alignItems: 'stretch' })}>
+      <div className={vstack({ gap: 4, alignItems: "stretch" })}>
         <span
           className={css({
-            textStyle: 'body',
+            textStyle: "body",
           })}
         >
           Max. Slippage
@@ -37,7 +37,7 @@ export const SlippageControl = ({ inline }: SlippageControlProps) => {
   return (
     <div
       className={hstack({
-        justifyContent: 'space-between',
+        justifyContent: "space-between",
       })}
     >
       <div>

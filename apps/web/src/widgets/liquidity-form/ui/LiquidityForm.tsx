@@ -1,34 +1,34 @@
-'use client';
+"use client";
 
-import { useToken } from '@/entities';
-import { LastUsedToken, useLastUsedTokens, useTokenBalance } from '@/features';
+import { useToken } from "@/entities";
+import { LastUsedToken, useLastUsedTokens, useTokenBalance } from "@/features";
 import {
   SupplyLiquidityDialog,
   useGetLPTokenAddress,
   usePoolShare,
-} from '@/features/liquidity';
-import { useMinAmount } from '@/features/liquidity/api/useMinAmount';
-import { tokenList } from '@/global';
+} from "@/features/liquidity";
+import { useMinAmount } from "@/features/liquidity/api/useMinAmount";
+import { tokenList } from "@/global";
 import {
   Button,
   SwapInput,
   parseNumberInput,
   scopeKeyPredicate,
-} from '@/shared';
-import { SlippageControl } from '@/widgets';
-import { schema } from '@/widgets/liquidity-form/ui/schema';
-import { correctNumber } from '@/widgets/swap-form/ui/utils';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useQueryClient } from '@tanstack/react-query';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
-import { useDebouncedCallback } from 'use-debounce';
-import { Address, formatUnits, parseUnits, zeroAddress } from 'viem';
-import { useChainId } from 'wagmi';
+} from "@/shared";
+import { SlippageControl } from "@/widgets";
+import { schema } from "@/widgets/liquidity-form/ui/schema";
+import { correctNumber } from "@/widgets/swap-form/ui/utils";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useQueryClient } from "@tanstack/react-query";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useDebouncedCallback } from "use-debounce";
+import { Address, formatUnits, parseUnits, zeroAddress } from "viem";
+import { useChainId } from "wagmi";
 
-import { css } from '~/styled-system/css';
-import { hstack, vstack } from '~/styled-system/patterns';
+import { css } from "~/styled-system/css";
+import { hstack, vstack } from "~/styled-system/patterns";
 
 type FormData = {
   tokenAAmount: string;
@@ -54,8 +54,8 @@ export const LiquidityForm = () => {
   const form = useForm<FormData>({
     resolver: yupResolver(schema as any),
     context: minValues,
-    reValidateMode: 'onChange',
-    mode: 'all',
+    reValidateMode: "onChange",
+    mode: "all",
   });
 
   const { watch, handleSubmit, formState } = form;
@@ -68,12 +68,12 @@ export const LiquidityForm = () => {
   useEffect(() => {
     const popularTokenA = tokens.get(chainId)?.[0];
     if (!tokenA && !tokenB && popularTokenA) {
-      form.setValue('tokenA', popularTokenA);
+      form.setValue("tokenA", popularTokenA);
       selectTokens([
         ...selectedTokens.filter(
-          (it: LastUsedToken) => it.inputName !== 'tokenA',
+          (it: LastUsedToken) => it.inputName !== "tokenA",
         ),
-        { chain: chainId, token: popularTokenA, inputName: 'tokenA' },
+        { chain: chainId, token: popularTokenA, inputName: "tokenA" },
       ]);
     }
   }, [tokens, tokenA, chainId, form, tokenB]);
@@ -86,8 +86,8 @@ export const LiquidityForm = () => {
   const { minAmountA, minAmountB } = useMinAmount({
     tokenA,
     tokenB,
-    tokenAAmount: tokenAAmount ?? '0',
-    tokenBAmount: tokenBAmount ?? '0',
+    tokenAAmount: tokenAAmount ?? "0",
+    tokenBAmount: tokenBAmount ?? "0",
   });
 
   const update = useDebouncedCallback(
@@ -95,8 +95,8 @@ export const LiquidityForm = () => {
       setValues({
         minAmountA,
         minAmountB,
-        balanceA: parseFloat(balanceA?.formattedBalance ?? '0'),
-        balanceB: parseFloat(balanceB?.formattedBalance ?? '0'),
+        balanceA: parseFloat(balanceA?.formattedBalance ?? "0"),
+        balanceB: parseFloat(balanceB?.formattedBalance ?? "0"),
       });
 
       setTimeout(() => {
@@ -132,20 +132,20 @@ export const LiquidityForm = () => {
       {
         chain: chainId,
         token: tokenA,
-        inputName: 'tokenA',
+        inputName: "tokenA",
       },
       {
         chain: chainId,
         token: tokenB,
-        inputName: 'tokenB',
+        inputName: "tokenB",
       },
     ]);
   }, [tokenA, tokenB, form]);
 
   useEffect(() => {
     if (
-      minValues.balanceA === parseFloat(balanceA?.formattedBalance ?? '0') &&
-      minValues.balanceB === parseFloat(balanceB?.formattedBalance ?? '0') &&
+      minValues.balanceA === parseFloat(balanceA?.formattedBalance ?? "0") &&
+      minValues.balanceB === parseFloat(balanceB?.formattedBalance ?? "0") &&
       minValues.minAmountA === minAmountA &&
       minValues.minAmountB === minAmountB
     ) {
@@ -170,15 +170,15 @@ export const LiquidityForm = () => {
   const onSuccess = useCallback(async () => {
     await queryClient.invalidateQueries({
       predicate: scopeKeyPredicate([
-        'balance',
-        'allowance',
-        'pairStats',
-        'GetLiquidityPositions',
+        "balance",
+        "allowance",
+        "pairStats",
+        "GetLiquidityPositions",
       ]),
     });
-    form.resetField('tokenBAmount');
+    form.resetField("tokenBAmount");
     setTimeout(() => {
-      router?.push('/liquidity');
+      router?.push("/liquidity");
       setIsDialogOpen(false);
     }, 1000);
   }, [form, queryClient]);
@@ -203,8 +203,8 @@ export const LiquidityForm = () => {
   } catch {}
 
   useEffect(() => {
-    const inputTokenSymbol = searchParams.get('inputToken');
-    const outputTokenSymbol = searchParams.get('outputToken');
+    const inputTokenSymbol = searchParams.get("inputToken");
+    const outputTokenSymbol = searchParams.get("outputToken");
     if (inputTokenSymbol && outputTokenSymbol) {
       const inputTokenFound = tokenList.find(
         ({ symbol }) => symbol === inputTokenSymbol,
@@ -238,7 +238,7 @@ export const LiquidityForm = () => {
         onSubmit={handleSubmit(onSubmit)}
         className={vstack({
           gap: 8,
-          alignItems: 'stretch',
+          alignItems: "stretch",
         })}
       >
         <SwapInput
@@ -257,51 +257,51 @@ export const LiquidityForm = () => {
         {tokenA && tokenB && tokenAAmount && tokenBAmount && (
           <div
             className={css({
-              display: 'flex',
-              flexDirection: 'column',
+              display: "flex",
+              flexDirection: "column",
               gap: 3,
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-              width: 'full',
+              alignItems: "center",
+              justifyContent: "flex-start",
+              width: "full",
               borderWidth: 1,
-              borderColor: 'neutral.200',
-              borderStyle: 'solid',
-              borderRadius: '2xl',
+              borderColor: "neutral.200",
+              borderStyle: "solid",
+              borderRadius: "2xl",
               p: 4,
             })}
           >
             <div
               className={css({
-                textStyle: 'caption',
+                textStyle: "caption",
               })}
             >
               Prices and pool share
             </div>
 
             <hr
-              className={css({ width: 'full', borderColor: 'neutral.200' })}
+              className={css({ width: "full", borderColor: "neutral.200" })}
             />
 
             <div
               className={hstack({
                 gap: 1,
-                justifyContent: 'space-between',
-                width: 'full',
-                textAlign: 'center',
+                justifyContent: "space-between",
+                width: "full",
+                textAlign: "center",
               })}
             >
               <div>
                 <span
                   className={css({
-                    fontWeight: 'bold',
+                    fontWeight: "bold",
                   })}
                 >
                   {parseFloat(priceAtoB.toFixed(4))}
                 </span>
                 <div
                   className={css({
-                    textStyle: 'caption',
-                    color: 'neutral.600',
+                    textStyle: "caption",
+                    color: "neutral.600",
                   })}
                 >
                   {tokenAInfo.symbol} per {tokenBInfo.symbol}
@@ -311,15 +311,15 @@ export const LiquidityForm = () => {
               <div>
                 <span
                   className={css({
-                    fontWeight: 'bold',
+                    fontWeight: "bold",
                   })}
                 >
                   {parseFloat(priceBtoA.toFixed(4))}
                 </span>
                 <div
                   className={css({
-                    textStyle: 'caption',
-                    color: 'neutral.600',
+                    textStyle: "caption",
+                    color: "neutral.600",
                   })}
                 >
                   {tokenBInfo.symbol} per {tokenAInfo.symbol}
@@ -329,15 +329,15 @@ export const LiquidityForm = () => {
               <div>
                 <span
                   className={css({
-                    fontWeight: 'bold',
+                    fontWeight: "bold",
                   })}
                 >
                   {parseFloat((poolShare * 100).toFixed(2))}%
                 </span>
                 <div
                   className={css({
-                    textStyle: 'caption',
-                    color: 'neutral.600',
+                    textStyle: "caption",
+                    color: "neutral.600",
                   })}
                 >
                   Pool share
@@ -357,10 +357,10 @@ export const LiquidityForm = () => {
           }
         >
           {tokenAAmount && tokenBAmount && !isBalanceBigEnough
-            ? 'Insufficient Balance'
+            ? "Insufficient Balance"
             : !tokenA || !tokenB
-              ? 'Select token'
-              : 'Supply'}
+              ? "Select token"
+              : "Supply"}
         </Button>
 
         <SupplyLiquidityDialog

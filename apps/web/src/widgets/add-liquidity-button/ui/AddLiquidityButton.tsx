@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { Button } from '@/shared';
-import Link from 'next/link';
+import { Button } from "@/shared";
+import Link from "next/link";
 
 export const AddLiquidityButton = () => {
   return (
     <Link href="/liquidity/new">
-      <Button appearance="tertiary">Add Liquidity</Button>
+      <Button appearance="primary">Add Liquidity</Button>
     </Link>
   );
 };

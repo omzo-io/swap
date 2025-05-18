@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useSlippage } from '@/features';
-import { Button, NumberInput } from '@/shared';
-import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { css } from '~/styled-system/css';
-import { hstack, vstack } from '~/styled-system/patterns';
+import { useSlippage } from "@/features";
+import { Button, NumberInput } from "@/shared";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { css } from "~/styled-system/css";
+import { hstack, vstack } from "~/styled-system/patterns";
 
 type FormData = {
   slippage: string;
@@ -29,7 +29,7 @@ export const SlippageControlForm = ({
   });
 
   const updateSlippage = (slippage: number) => {
-    setValue('slippage', parseFloat((slippage * 100).toFixed(2)).toString());
+    setValue("slippage", parseFloat((slippage * 100).toFixed(2)).toString());
   };
 
   const onSubmit = (value: FormData) => {
@@ -37,7 +37,7 @@ export const SlippageControlForm = ({
     onClose();
   };
 
-  const slippageValue = watch('slippage');
+  const slippageValue = watch("slippage");
 
   useEffect(() => {
     if (autoCommit) {
@@ -50,7 +50,7 @@ export const SlippageControlForm = ({
       onSubmit={handleSubmit(onSubmit)}
       className={vstack({
         gap: 8,
-        justifyContent: 'stretch',
+        justifyContent: "stretch",
       })}
     >
       <div className={hstack({ gap: 4 })}>
@@ -65,25 +65,25 @@ export const SlippageControlForm = ({
         </Button>
         <div
           className={css({
-            position: 'relative',
+            position: "relative",
           })}
         >
           <NumberInput
             max={100}
             precision={2}
-            appearance="tertiary"
-            {...register('slippage')}
+            appearance="primary"
+            {...register("slippage")}
             className={css({
               paddingEnd: 2,
             })}
           />
           <span
             className={css({
-              position: 'absolute',
+              position: "absolute",
               right: 2,
-              top: '50%',
-              transform: 'translateY(-50%)',
-              color: 'neutral.400',
+              top: "50%",
+              transform: "translateY(-50%)",
+              color: "neutral.400",
             })}
           >
             %
@@ -93,9 +93,9 @@ export const SlippageControlForm = ({
       {!autoCommit && (
         <Button
           type="submit"
-          appearance="tertiary"
+          appearance="primary"
           className={css({
-            alignSelf: 'flex-end',
+            alignSelf: "flex-end",
           })}
         >
           Save
