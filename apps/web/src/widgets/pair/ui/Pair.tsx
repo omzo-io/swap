@@ -1,18 +1,18 @@
-import { TokenLogo } from '@/features';
-import { useGetPair } from '@/features/liquidity';
+import { TokenLogo } from "@/features";
+import { useGetPair } from "@/features/liquidity";
 import {
   Button,
   beautifyNumber,
   shortenAddress,
   useCopyToClipboard,
-} from '@/shared';
-import { PairField } from '@/widgets/pair/ui/PairField';
-import { CopyIcon } from 'lucide-react';
-import Link from 'next/link';
-import type { Address } from 'viem';
-import { useChainId } from 'wagmi';
-import { css } from '~/styled-system/css';
-import { HStack, Stack, VStack } from '~/styled-system/jsx';
+} from "@/shared";
+import { PairField } from "@/widgets/pair/ui/PairField";
+import { CopyIcon } from "lucide-react";
+import Link from "next/link";
+import type { Address } from "viem";
+import { useChainId } from "wagmi";
+import { css } from "~/styled-system/css";
+import { HStack, Stack, VStack } from "~/styled-system/jsx";
 
 interface Props {
   id: string;
@@ -25,7 +25,7 @@ export const Pair = ({ id }: Props) => {
   const { copyToClipboard } = useCopyToClipboard();
 
   if (isLoading) {
-    return '...getting token';
+    return "...getting token";
   }
   const pairData = data?.pairById;
 
@@ -36,12 +36,12 @@ export const Pair = ({ id }: Props) => {
 
   const pairInformation = [
     {
-      name: 'Pair Name',
+      name: "Pair Name",
       value: `${token0Symbol} - ${token1Symbol}`,
       copy: false,
     },
     {
-      name: 'Pair Address',
+      name: "Pair Address",
       value: pairData?.id,
       copy: true,
     },
@@ -67,7 +67,7 @@ export const Pair = ({ id }: Props) => {
     },
     {
       address: token1Address,
-      tokenImg: '',
+      tokenImg: "",
       tokenSymbol: token1Symbol,
       priceInToken: pairData?.token1Price || 0,
       secondTokenSymbol: token0Symbol,
@@ -76,7 +76,13 @@ export const Pair = ({ id }: Props) => {
   ];
 
   return (
-    <Stack background="white" padding={{ base: 2, md: 7 }}>
+    <Stack
+      padding={{ base: 2, md: 7 }}
+      border="1px solid rgba(255, 255, 255, 0.14)"
+      backgroundColor="linear-gradient(180deg, rgba(233, 236, 249, 0.05) 0%, rgba(233, 236, 249, 0.02) 100%)"
+      backdropFilter="blur(70px)"
+      color="white"
+    >
       <VStack
         gap={8}
         margin="auto"
@@ -92,18 +98,16 @@ export const Pair = ({ id }: Props) => {
           <HStack>
             <span
               className={css({
-                textStyle: 'h2',
+                textStyle: "h2",
                 fontWeight: 600,
-                textTransform: 'uppercase',
+                textTransform: "uppercase",
               })}
             >
-              {pairData?.token0.symbol}
-              -
-              {pairData?.token1.symbol}
+              {pairData?.token0.symbol}-{pairData?.token1.symbol}
             </span>
             <span
               className={css({
-                textStyle: 'h2',
+                textStyle: "h2",
                 fontWeight: 600,
               })}
             >
@@ -111,7 +115,7 @@ export const Pair = ({ id }: Props) => {
             </span>
           </HStack>
         </HStack>
-        <Stack gap={6} flexDirection={{ base: 'column', md: 'row' }}>
+        <Stack gap={6} flexDirection={{ base: "column", md: "row" }}>
           {tokenPrices.map(
             (
               {
@@ -135,10 +139,8 @@ export const Pair = ({ id }: Props) => {
                   <TokenLogo address={address} chainId={chainId} />
 
                   <span>
-                    1 {tokenSymbol} ={' '}
-                    {beautifyNumber(priceInToken)}{' '}
-                    {secondTokenSymbol}{' '}
-                    ${beautifyNumber(priceUsd)}
+                    1 {tokenSymbol} = {beautifyNumber(priceInToken)}{" "}
+                    {secondTokenSymbol} ${beautifyNumber(priceUsd)}
                   </span>
                 </HStack>
               );
@@ -147,20 +149,20 @@ export const Pair = ({ id }: Props) => {
         </Stack>
         <Stack
           gap={8}
-          flexDirection={{ base: 'column', md: 'row' }}
+          flexDirection={{ base: "column", md: "row" }}
           width="100%"
         >
           <PairField name="Total Liquidity">
             <HStack
               className={css({
-                width: '100%',
+                width: "100%",
                 fontWeight: 600,
-                textStyle: 'h4',
-                justifyContent: 'space-between',
+                textStyle: "h4",
+                justifyContent: "space-between",
               })}
             >
               <span>${beautifyNumber(pairData?.liquidityUSD, 2)}</span>
-              <span className={css({ fontWeight: 500, color: '#51935C' })}>
+              <span className={css({ fontWeight: 500, color: "#51935C" })}>
                 {beautifyNumber(pairData?.liquidity24hDelta, 2)}%
               </span>
             </HStack>
@@ -168,14 +170,14 @@ export const Pair = ({ id }: Props) => {
           <PairField name="Volume (24hrs)">
             <HStack
               className={css({
-                width: '100%',
+                width: "100%",
                 fontWeight: 600,
-                textStyle: 'h4',
-                justifyContent: 'space-between',
+                textStyle: "h4",
+                justifyContent: "space-between",
               })}
             >
               <span>${beautifyNumber(pairData?.tradeVolumeUSD24h, 2)}</span>
-              <span className={css({ fontWeight: 500, color: '#51935C' })}>
+              <span className={css({ fontWeight: 500, color: "#51935C" })}>
                 {beautifyNumber(pairData?.tradeVolume24hDelta, 2)}%
               </span>
             </HStack>
@@ -183,20 +185,20 @@ export const Pair = ({ id }: Props) => {
         </Stack>
         <Stack
           gap={8}
-          flexDirection={{ base: 'column', md: 'row' }}
+          flexDirection={{ base: "column", md: "row" }}
           width="100%"
         >
           <PairField name="Fees (24hrs)">
             <HStack
               className={css({
-                width: '100%',
+                width: "100%",
                 fontWeight: 600,
-                textStyle: 'h4',
-                justifyContent: 'space-between',
+                textStyle: "h4",
+                justifyContent: "space-between",
               })}
             >
               <span>{beautifyNumber(pairData?.feesUSD24h, 2)}</span>
-              <span className={css({ fontWeight: 500, color: '#51935C' })}>
+              <span className={css({ fontWeight: 500, color: "#51935C" })}>
                 {beautifyNumber(pairData?.fees24hDelta, 2)}%
               </span>
             </HStack>
@@ -206,26 +208,25 @@ export const Pair = ({ id }: Props) => {
               <HStack>
                 <TokenLogo address={token0Address} chainId={chainId} />
                 <span>
-                  {beautifyNumber(pairData?.reserve0, 4)}{' '}
-                  {token0Symbol}
+                  {beautifyNumber(pairData?.reserve0, 4)} {token0Symbol}
                 </span>
               </HStack>
               <HStack>
                 <TokenLogo address={token1Address} chainId={chainId} />
                 <span>
-                  {beautifyNumber(pairData?.reserve1, 4)}{' '}
-                  {token1Symbol}
+                  {beautifyNumber(pairData?.reserve1, 4)} {token1Symbol}
                 </span>
               </HStack>
             </HStack>
           </PairField>
         </Stack>
         <VStack gap={4} alignItems="baseline" width="100%" marginTop={9}>
-          <span className={css({ fontWeight: 600, textStyle: 'h4' })}>
+          <span className={css({ fontWeight: 600, textStyle: "h4" })}>
             Pair information
           </span>
           <HStack
-            background="#F8F8F8"
+            background="linear-gradient(180deg, rgba(233, 236, 249, 0.05) 0%, rgba(233, 236, 249, 0.02) 100%)"
+            backdropFilter="blur(70px)"
             width="100%"
             padding={5}
             justifyContent="space-between"
@@ -237,8 +238,8 @@ export const Pair = ({ id }: Props) => {
                   <VStack key={name} alignItems="baseline">
                     <span
                       className={css({
-                        fontSize: '14px',
-                        color: '#8A8A8A',
+                        fontSize: "14px",
+                        color: "#8A8A8A",
                       })}
                     >
                       {name}
@@ -254,7 +255,7 @@ export const Pair = ({ id }: Props) => {
                         width={16}
                         height={16}
                         onClick={() =>
-                          copyToClipboard({ copyValue: value || '' })
+                          copyToClipboard({ copyValue: value || "" })
                         }
                       />
                     </HStack>
@@ -264,7 +265,7 @@ export const Pair = ({ id }: Props) => {
             </HStack>
             <Link
               className={css({
-                width: 'max-content',
+                width: "max-content",
               })}
               target="_blank"
               href={`https://blockscout.regtest.midl.xyz/address/${id}`}

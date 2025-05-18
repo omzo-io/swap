@@ -1,18 +1,18 @@
-import { useToken } from '@/entities';
-import { TokenLogo } from '@/features';
-import type { PairsQuery } from '@/features/liquidity/api/gql/graphql';
-import { beautifyNumber } from '@/shared';
-import Link from 'next/link';
-import type { Address } from 'viem';
-import { useChainId } from 'wagmi';
-import { css } from '~/styled-system/css';
-import { hstack } from '~/styled-system/patterns';
+import { useToken } from "@/entities";
+import { TokenLogo } from "@/features";
+import type { PairsQuery } from "@/features/liquidity/api/gql/graphql";
+import { beautifyNumber } from "@/shared";
+import Link from "next/link";
+import type { Address } from "viem";
+import { useChainId } from "wagmi";
+import { css } from "~/styled-system/css";
+import { hstack } from "~/styled-system/patterns";
 
 type PairItemProps = {
   tokenA: Address;
   tokenB: Address;
   id: Address;
-  pair: PairsQuery['pairs'][number];
+  pair: PairsQuery["pairs"][number];
   index: number;
   overrideAPic?: string | null | undefined;
   overrideBPic?: string | null | undefined;
@@ -37,26 +37,27 @@ export const PairItem = ({
       {/* biome-ignore lint/a11y/useValidAnchor: <explanation> */}
       <a
         className={css({
-          display: 'table-row',
+          display: "table-row",
+          color: "white",
           padding: 2,
         })}
       >
         <div
           className={css({
-            width: '5%',
-            display: 'table-cell',
-            verticalAlign: 'middle',
+            width: "5%",
+            display: "table-cell",
+            verticalAlign: "middle",
           })}
         >
           {index + 1}
         </div>
-        <div className={css({ display: 'table-cell' })}>
-          <div className={hstack({ gap: 2, alignItems: 'center' })}>
+        <div className={css({ display: "table-cell" })}>
+          <div className={hstack({ gap: 2, alignItems: "center" })}>
             <div
               className={css({
-                position: 'relative',
-                display: 'flex',
-                width: '1/12',
+                position: "relative",
+                display: "flex",
+                width: "1/12",
                 marginRight: 6,
               })}
             >
@@ -83,24 +84,24 @@ export const PairItem = ({
           </div>
         </div>
 
-        <div className={css({ display: 'table-cell' })}>
+        <div className={css({ display: "table-cell" })}>
           {/* biome-ignore lint/complexity/noExtraBooleanCast: <explanation> */}
           {Boolean(Number.parseFloat(pair.tradeVolumeUSD24h))
             ? `${beautifyNumber(pair.tradeVolumeUSD24h, 2)}$`
-            : '0'}
+            : "0"}
         </div>
-        <div className={css({ display: 'table-cell' })}>
+        <div className={css({ display: "table-cell" })}>
           {/* biome-ignore lint/complexity/noExtraBooleanCast: <explanation> */}
           {Boolean(Number.parseFloat(pair.liquidityUSD))
             ? `${beautifyNumber(pair.liquidityUSD, 2)}$`
-            : '0'}
+            : "0"}
         </div>
-        <div className={css({ display: 'table-cell' })}>
-          {' '}
+        <div className={css({ display: "table-cell" })}>
+          {" "}
           {/* biome-ignore lint/complexity/noExtraBooleanCast: <explanation> */}
           {Boolean(Number.parseFloat(pair.feesUSD24h))
             ? `${beautifyNumber(pair.feesUSD24h, 2)}$`
-            : '0'}
+            : "0"}
         </div>
       </a>
     </Link>

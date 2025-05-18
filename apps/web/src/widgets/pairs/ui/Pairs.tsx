@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
-import { useGetPools } from '@/features/liquidity';
-import { PairItem } from '@/widgets/pairs/ui/pair/PairItem';
-import { Loader2Icon } from 'lucide-react';
-import { getAddress } from 'viem';
-import { css } from '~/styled-system/css';
+import { useGetPools } from "@/features/liquidity";
+import { PairItem } from "@/widgets/pairs/ui/pair/PairItem";
+import { Loader2Icon } from "lucide-react";
+import { getAddress } from "viem";
+import { css } from "~/styled-system/css";
 
 export const Pairs = () => {
   const { data: pools, isFetching } = useGetPools();
@@ -12,22 +12,25 @@ export const Pairs = () => {
     return (
       <div
         className={css({
-          color: 'neutral.500',
+          color: "white",
+          border: "1px solid rgba(255, 255, 255, 0.14)",
+          backgroundColor:
+            "linear-gradient(180deg, rgba(233, 236, 249, 0.05) 0%, rgba(233, 236, 249, 0.02) 100%)",
+          backdropFilter: "blur(70px)",
           padding: 4,
-          borderRadius: 'xl',
-          backgroundColor: 'neutral.100',
-          display: 'flex',
-          verticalAlign: 'middle',
-          alignItems: 'center',
-          justifyContent: 'center',
+          borderRadius: "3xl",
+          display: "flex",
+          verticalAlign: "middle",
+          alignItems: "center",
+          justifyContent: "center",
           gap: 2,
         })}
       >
         <Loader2Icon
           className={css({
-            animation: 'spin 1s linear infinite',
-            display: 'inline-block',
-            verticalAlign: 'middle',
+            animation: "spin 1s linear infinite",
+            display: "inline-block",
+            verticalAlign: "middle",
           })}
         />
         <span>Loading...</span>
@@ -39,25 +42,28 @@ export const Pairs = () => {
     <div
       className={css({
         padding: 4,
-        borderRadius: 'xl',
-        backgroundColor: 'neutral.100',
-        display: 'table',
+        borderRadius: "3xl",
+        border: "1px solid rgba(255, 255, 255, 0.14)",
+        backgroundColor:
+          "linear-gradient(180deg, rgba(233, 236, 249, 0.05) 0%, rgba(233, 236, 249, 0.02) 100%)",
+        backdropFilter: "blur(70px)",
+        display: "table",
         borderSpacing: 4,
       })}
     >
       <div
         className={css({
-          display: 'table-row',
-          color: 'neutral.500',
+          display: "table-row",
+          color: "neutral.500",
           padding: 2,
-          verticalAlign: 'middle',
+          verticalAlign: "middle",
         })}
       >
-        <div className={css({ width: '5%', display: 'table-cell' })}>#</div>
-        <div className={css({ display: 'table-cell' })}>Pair</div>
-        <div className={css({ display: 'table-cell' })}>Volume (24h)</div>
-        <div className={css({ display: 'table-cell' })}>Liquidity</div>
-        <div className={css({ display: 'table-cell' })}>Fees(24h)</div>
+        <div className={css({ width: "5%", display: "table-cell" })}>#</div>
+        <div className={css({ display: "table-cell" })}>Pair</div>
+        <div className={css({ display: "table-cell" })}>Volume (24h)</div>
+        <div className={css({ display: "table-cell" })}>Liquidity</div>
+        <div className={css({ display: "table-cell" })}>Fees(24h)</div>
       </div>
 
       {pools?.pairs.map((pair, index) => (

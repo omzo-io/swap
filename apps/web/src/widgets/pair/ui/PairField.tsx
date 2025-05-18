@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import { css } from '~/styled-system/css';
-import { Stack, VStack } from '~/styled-system/jsx';
+import { ReactNode } from "react";
+import { css } from "~/styled-system/css";
+import { Stack, VStack } from "~/styled-system/jsx";
 
 interface Props {
   children: ReactNode;
@@ -12,14 +12,15 @@ export const PairField = ({ children, name }: Props) => {
     <VStack
       alignItems="baseline"
       gap={5}
-      background="#F8F8F8"
+      background="linear-gradient(180deg, rgba(233, 236, 249, 0.05) 0%, rgba(233, 236, 249, 0.02) 100%)"
+      backdropFilter="blur(70px)"
       padding={5}
       borderRadius="xl"
       width="100%"
     >
       <span
         className={css({
-          textStyle: 'body',
+          textStyle: "body",
         })}
       >
         {name}
