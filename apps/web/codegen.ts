@@ -2,7 +2,7 @@ import type { CodegenConfig } from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
   schema: [
-    "https://disciplined-perception-production-da90.up.railway.app/graphql",
+    "https://steadfast-healing-production.up.railway.app/graphql",
   ],
   documents: "src/features/liquidity/api/**/*.ts",
   ignoreNoDocuments: true,
