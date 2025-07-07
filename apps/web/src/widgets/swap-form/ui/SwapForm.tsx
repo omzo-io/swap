@@ -1,7 +1,7 @@
 "use client";
 
 import { useToken } from "@/entities";
-import { useLastUsedTokens, useSlippage, useTokenBalance } from "@/features";
+import { useLastUsedTokens, useSlippage, useTokenBalance } from '@/features';
 import { useSwapMidl } from "@/features/swap/api/useSwapMidl";
 import { useSwapRates } from "@/features/swap/api/useSwapRates";
 import { SwapDialog } from "@/features/swap/ui/swap-dialog/SwapDialog";
@@ -9,18 +9,17 @@ import { tokenList } from "@/global";
 import { Button, SwapInput, parseNumberInput } from "@/shared";
 import { AiOutlineSwapVertical } from "@/shared/assets";
 import { removePercentage } from "@/shared/lib/removePercentage";
-import { AccountButton, SlippageControl } from "@/widgets";
-import { SwapDetails } from "@/widgets/swap-form/ui/SwapDetails";
 import { getCorrectToken } from "@/widgets/swap-form/ui/utils";
+import { useEVMAddress } from '@midl-xyz/midl-js-executor-react';
+import { ConnectButton } from '@midl-xyz/satoshi-kit';
 import { midlRegtest } from "@midl-xyz/midl-js-executor";
-import { useQueryClient } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useDebouncedCallback } from "use-debounce";
 import { Address, formatUnits, parseUnits } from "viem";
-import { useAccount, useChainId } from "wagmi";
+import { useChainId } from "wagmi";
 import { css } from "~/styled-system/css";
 import { vstack } from "~/styled-system/patterns";
 
@@ -50,7 +49,6 @@ export const SwapForm = () => {
     watch();
   const inputTokenInfo = useToken(inputToken, chainId);
   const outputTokenInfo = useToken(outputToken, chainId);
-  const queryClient = useQueryClient();
 
   const {
     read: readSwapRates,
@@ -117,7 +115,7 @@ export const SwapForm = () => {
     );
   }, 0);
 
-  const { address } = useAccount();
+  const address = useEVMAddress();
 
   const onSwapSuccess = () => {
     onInputTokenAmountChange({
@@ -252,6 +250,11 @@ export const SwapForm = () => {
       return "Insufficient liquidity";
     }
 
+    console.log('isSwapRatesFetching: ', isSwapRatesFetching);
+    console.log('swapRatesError: ', swapRatesError);
+    console.log('isBalanceBigEnough: ', isBalanceBigEnough);
+    console.log('isFormFilled: ', isFormFilled);
+
     return "Swap";
   };
 
@@ -317,24 +320,7 @@ export const SwapForm = () => {
         </div>
         {/* <SlippageControl /> */}
         {!address ? (
-          <AccountButton
-            className={css({
-              rounded: "15px!",
-              backgroundColor: "#9289FD26",
-              color: "#9289FD",
-              fontWeight: "medium",
-              fontSize: "15px",
-              lineHeight: "18px",
-              padding: "26px 40px 27px",
-              _hover: {
-                backgroundColor: "#9289FD",
-                color: "white",
-              },
-              transitionDuration: "0.15s",
-              transitionProperty: "background-color, color",
-              transitionTimingFunction: "ease-in-out",
-            })}
-          />
+          <ConnectButton />
         ) : (
           <Button
             type="submit"

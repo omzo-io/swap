@@ -1,4 +1,5 @@
 import { TokenLogo, TokenName } from "@/features";
+import { config } from '@/global';
 import { useRuneDialog } from "@/features/runes/api";
 import {
   Button,
@@ -66,8 +67,7 @@ export const AddRuneDialog = ({ onClose, ...rest }: AddRuneDialogProps) => {
     isPending,
     reset: resetWait,
   } = useWaitForTransaction();
-  const config = useConfig();
-  const { network } = config;
+  const { network } = useConfig();
   const { copyToClipboard } = useCopyToClipboard();
 
   const { data: edictFee } = useQuery({

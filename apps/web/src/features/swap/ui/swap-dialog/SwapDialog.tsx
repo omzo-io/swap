@@ -1,6 +1,6 @@
 import { IntentionSigner } from '@/features/btc/ui/IntentionSigner';
 import { Dialog, DialogContent, DialogOverlay } from '@/shared';
-import { useToken } from '@midl-xyz/midl-js-executor-react';
+import { useToken, useEVMAddress } from '@midl-xyz/midl-js-executor-react';
 import { DialogProps } from '@radix-ui/react-dialog';
 import {
   Address,
@@ -30,7 +30,7 @@ export const SwapDialog = ({
   amountIn,
   ...rest
 }: SwapDialogProps) => {
-  const { address } = useAccount();
+  const address = useEVMAddress();
 
   const { rune } = useToken(tokenOut);
   const slot = keccak256(

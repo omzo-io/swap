@@ -1,4 +1,5 @@
 @layer reset, base, tokens, recipes, utilities;
+@import url("~/styled-system/styles.css");
 
 body > [data-rk] {
     display: flex;
@@ -7,11 +8,31 @@ body > [data-rk] {
 }
 
 body {
-    background: url('/images/bg.webp') no-repeat top center #141417;
+    background: url('/images/bg.webp') no-repeat top center #141417 !important;
     background-size: cover;
 }
 
 #about {
     width: 100%;
     background: url('/images/about-bg-left.webp') no-repeat bottom left, url('/images/about-bg-right.webp') no-repeat bottom right;
+}
+
+/* satoshi kit styles overwrite */
+
+.satoshi-kit--button--variant_solid {
+    background-color: #25C66526 !important;
+    border-radius: 15px;
+    padding: 18px 40px 20px !important;
+    color: white !important;
+    transition-duration: 0.15s !important;
+    transition-property: background-color, color !important;
+    transition-timing-function: ease-in-out !important;
+    font-size: 15px !important;
+    font-weight: 500 !important;
+    line-height: 18px !important;
+    height: auto !important;
+}
+
+.satoshi-kit--button--variant_solid:hover {
+    background-color: #25C665 !important;
 }

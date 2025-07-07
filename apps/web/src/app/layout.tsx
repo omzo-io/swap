@@ -12,11 +12,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html
       lang="en"
-      className={css({
+      className={`dark ${css({
         height: "100%",
         display: "flex",
         flexDirection: "column",
-      })}
+      })}`}
     >
       <body
         className={cx(
@@ -24,7 +24,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           css({
             display: "flex",
             flexDirection: "column",
-            bg: "#FEFEFE",
           }),
         )}
       >

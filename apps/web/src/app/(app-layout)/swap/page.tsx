@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { BestExperience, RoadMap, SwapForm, About } from "@/widgets";
 import { css, cx } from "~/styled-system/css";
 import { center, vstack, grid } from "~/styled-system/patterns";
@@ -19,7 +20,9 @@ export default function SwapPage() {
       )}
     >
       <InteractiveTextBlock />
-      <SwapForm />
+      <Suspense fallback={<div>Loading...</div>}>
+        <SwapForm />
+      </Suspense>
       <p
         className={css({
           fontSize: "16px",

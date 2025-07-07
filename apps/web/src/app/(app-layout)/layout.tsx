@@ -1,3 +1,5 @@
+'use client';
+
 import Image from "next/image";
 import { FiatQuotesProvider } from "@/features/fiat-quote";
 import {
@@ -6,38 +8,36 @@ import {
   Web3Provider,
 } from "@/global";
 import { ErrorBoundary } from "@/global/providers/ErrorBoundary";
+import { AppMenuList, Header, Logo, RPCStatus } from '@/widgets';
+import { MobileAppMenu } from '@/widgets/app-menu/ui/MobileAppMenu';
 import { RemoveLiquidityProvider } from "@/global/providers/RemoveLiquidityProvider";
 import { RuneDialogProvider } from "@/global/providers/RuneDialogProvider";
+import type { ReactNode } from 'react';
+import { Toaster } from 'react-hot-toast';
 import {
-  AccountButton,
-  AppMenuList,
-  Header,
-  Logo,
   Brand,
-  RPCStatus,
 } from "@/widgets";
-import { MobileAppMenu } from "@/widgets/app-menu/ui/MobileAppMenu";
 import { renderErrorMessage } from "@/widgets/error-message";
 import { Footer } from "@/widgets/footer/ui";
-import { headers } from "next/headers";
 import Link from "next/link";
-import type { ReactNode } from "react";
-import { Toaster } from "react-hot-toast";
 import { css } from "~/styled-system/css";
 import { HStack, Stack } from "~/styled-system/jsx";
 import { hstack } from "~/styled-system/patterns";
-import "../globals.css";
+// import { ConnectButton } from '@midl-xyz/satoshi-kit';
+import { AccountButton } from "@/widgets/account-button";
+
 import linkedinIcon from "@/widgets/footer/assets/linkedin.svg";
+
+import '@midl-xyz/satoshi-kit/styles.css';
+import "../globals.css";
 
 export default async function AppLayout({
   children,
 }: Readonly<{
   children: ReactNode;
 }>) {
-  const cookie = (await headers()).get("cookie") || "";
-
   return (
-    <Web3Provider cookie={cookie}>
+    <Web3Provider>
       <FiatQuotesProvider>
         <TokenDialogProvider />
         <RuneDialogProvider />
