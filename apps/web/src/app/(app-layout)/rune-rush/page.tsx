@@ -12,6 +12,7 @@ import { UserStatsCard } from '@/features/rune-rush/ui/UserStatsCard';
 import { AchievementCard } from '@/features/rune-rush/ui/AchievementCard';
 import { GlobalStatsCard } from '@/features/rune-rush/ui/GlobalStatsCard';
 import { TasksList } from '@/features/rune-rush/ui/TasksList';
+import { RewardsCard } from '@/features/rune-rush/ui/RewardsCard';
 import { Trophy, Star, TrendingUp } from 'lucide-react';
 
 export default function RunRushPage() {
@@ -88,10 +89,13 @@ export default function RunRushPage() {
         />
       )}
 
-            {/* Tasks List */}
+                  {/* Tasks List */}
       <TasksList
         userAchievements={achievements.map(a => a.achievement_type)}
       />
+
+      {/* Rewards Information */}
+      <RewardsCard />
 
       {/* Tournament Table */}
       <TournamentTable

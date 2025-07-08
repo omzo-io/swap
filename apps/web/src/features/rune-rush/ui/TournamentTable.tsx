@@ -85,7 +85,7 @@ export const TournamentTable = ({ leaderboard, loading, error, currentUserAddres
         backgroundClip: 'text',
         color: 'transparent',
       })}>
-        🏆 Run Rush Tournament
+        🏆 Rune Rush Tournament
       </h2>
 
       <div className={css({
