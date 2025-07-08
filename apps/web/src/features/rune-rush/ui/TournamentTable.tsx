@@ -143,7 +143,7 @@ export const TournamentTable = ({ leaderboard, loading, error, currentUserAddres
                 textTransform: 'uppercase',
                 letterSpacing: '0.5px',
               })}>
-                Swaps
+                Achievements
               </th>
               <th className={css({
                 padding: '20px 16px',
@@ -154,7 +154,7 @@ export const TournamentTable = ({ leaderboard, loading, error, currentUserAddres
                 textTransform: 'uppercase',
                 letterSpacing: '0.5px',
               })}>
-                Volume
+                Tasks Completed
               </th>
             </tr>
           </thead>
@@ -222,14 +222,14 @@ export const TournamentTable = ({ leaderboard, loading, error, currentUserAddres
                     textAlign: 'right',
                     color: 'gray.300',
                   })}>
-                    {entry.total_swaps.toLocaleString()}
+                    {entry.achievements_count || 0}
                   </td>
                   <td className={css({
                     padding: '20px 16px',
                     textAlign: 'right',
                     color: 'gray.300',
                   })}>
-                    {formatUSD(entry.total_usd_swapped)}
+                    {entry.tasks_completed || 0}
                   </td>
                 </tr>
               );

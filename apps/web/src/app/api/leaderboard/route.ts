@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-console.log('pizda: ', process.env.USER_STATS_SERVICE_URL);
-const USER_STATS_SERVICE_URL = process.env.USER_STATS_SERVICE_URL || 'https://your-domain.com/api';
+const USER_STATS_SERVICE_URL = process.env.USER_STATS_SERVICE_URL;
 
 export async function GET(request: NextRequest) {
   try {

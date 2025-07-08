@@ -18,7 +18,7 @@ export const useLeaderboard = (limit: number = 100): UseLeaderboardReturn => {
     setError(null);
 
     try {
-      const response = await fetch(`/api/leaderboard?limit=${limit}`);
+      const response = await fetch(`/api/leaderboard-with-achievements?limit=${limit}`);
       const data = await response.json();
 
       if (data.success) {

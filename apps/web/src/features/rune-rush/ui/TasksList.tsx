@@ -199,7 +199,7 @@ export const TasksList = ({ userAchievements = [] }: TasksListProps) => {
               fontSize: '14px',
               color: 'gray.300',
             })}>
-              Complete tasks to earn Omzo Points and climb the leaderboard! Some tasks can be completed multiple times for additional rewards.
+              Complete tasks to earn achievements and Omzo Points! Your points are calculated from achievements only - complete more tasks to climb the leaderboard.
             </span>
           </HStack>
         </div>

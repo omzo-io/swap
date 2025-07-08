@@ -18,7 +18,7 @@ export const useGlobalStats = (): UseGlobalStatsReturn => {
     setError(null);
 
     try {
-      const response = await fetch('/api/global-stats');
+      const response = await fetch('/api/global-stats-with-achievements');
       const data = await response.json();
 
       if (data.success) {

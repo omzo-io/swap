@@ -1,15 +1,12 @@
 export interface UserStats {
   wallet_address: string;
-  total_swaps: number;
-  total_liquidity_additions: number;
-  total_pairs_created: number;
-  total_usd_swapped: string;
-  total_liquidity_provided_usd: string;
-  first_swap_completed: boolean;
-  first_swap_date: string;
+  omzo_points: number;
+  achievements_count: number;
+  tasks_completed: number;
   current_streak: number;
   longest_streak: number;
-  omzo_points: number;
+  first_swap_completed: boolean;
+  first_swap_date: string;
   created_at: string;
   updated_at: string;
 }
@@ -26,9 +23,9 @@ export interface UserAchievement {
 
 export interface LeaderboardEntry {
   wallet_address: string;
-  total_swaps: number;
   omzo_points: number;
-  total_usd_swapped: string;
+  achievements_count: number;
+  tasks_completed: number;
 }
 
 export interface GlobalStats {

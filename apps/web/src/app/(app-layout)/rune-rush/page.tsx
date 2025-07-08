@@ -3,8 +3,7 @@
 import { useAccount } from 'wagmi';
 import { css } from '~/styled-system/css';
 import { VStack, HStack } from '~/styled-system/jsx';
-import { useUserStats } from '@/features/rune-rush/api/useUserStats';
-import { useUserAchievements } from '@/features/rune-rush/api/useUserAchievements';
+import { useUserStatsWithAchievements } from '@/features/rune-rush/api/useUserStatsWithAchievements';
 import { useLeaderboard } from '@/features/rune-rush/api/useLeaderboard';
 import { useGlobalStats } from '@/features/rune-rush/api/useGlobalStats';
 import { TournamentTable } from '@/features/rune-rush/ui/TournamentTable';
@@ -18,8 +17,14 @@ import { Trophy, Star, TrendingUp } from 'lucide-react';
 export default function RunRushPage() {
   const { address } = useAccount();
 
-  const { stats: userStats, loading: userStatsLoading, error: userStatsError } = useUserStats(address || null);
-  const { achievements, loading: achievementsLoading, error: achievementsError } = useUserAchievements(address || null);
+  const {
+    stats: userStats,
+    achievements,
+    totalPoints,
+    achievementsCount,
+    loading: userStatsLoading,
+    error: userStatsError
+  } = useUserStatsWithAchievements(address || null);
   const { leaderboard, loading: leaderboardLoading, error: leaderboardError } = useLeaderboard(100);
   const { stats: globalStats, loading: globalStatsLoading, error: globalStatsError } = useGlobalStats();
 
@@ -61,15 +66,15 @@ export default function RunRushPage() {
             Rune Rush Tournament
           </h1>
         </HStack>
-        <p className={css({
+                <p className={css({
           fontSize: '18px',
           color: 'gray.400',
           maxWidth: '600px',
           margin: '0 auto',
           lineHeight: '1.6',
         })}>
-          Compete with other traders, earn achievements, and climb the leaderboard.
-          Track your progress and unlock rewards as you swap and provide liquidity.
+          Complete tasks and earn achievements to climb the leaderboard.
+          Your Omzo Points are calculated from achievements only - complete more tasks to earn more points!
         </p>
       </div>
 
@@ -80,10 +85,12 @@ export default function RunRushPage() {
         error={globalStatsError}
       />
 
-      {/* User Stats (if connected) */}
+            {/* User Stats (if connected) */}
       {address && userStats && (
         <UserStatsCard
           stats={userStats}
+          totalPoints={totalPoints}
+          achievementsCount={achievementsCount}
           loading={userStatsLoading}
           error={userStatsError}
         />
@@ -91,7 +98,7 @@ export default function RunRushPage() {
 
                   {/* Tasks List */}
       <TasksList
-        userAchievements={achievements.map(a => a.achievement_type)}
+        userAchievements={achievements.map(a => a.id)}
       />
 
       {/* Rewards Information */}

@@ -3,10 +3,12 @@
 import { UserStats } from '../types/types';
 import { css } from '~/styled-system/css';
 import { VStack, HStack } from '~/styled-system/jsx';
-import { TrendingUp, Users, DollarSign, Target, Flame, Trophy } from 'lucide-react';
+import { Trophy, Target, CheckCircle, Flame, Star } from 'lucide-react';
 
 interface UserStatsCardProps {
   stats: UserStats;
+  totalPoints: number;
+  achievementsCount: number;
   loading: boolean;
   error: string | null;
 }
@@ -29,7 +31,7 @@ const formatDate = (dateString: string) => {
   });
 };
 
-export const UserStatsCard = ({ stats, loading, error }: UserStatsCardProps) => {
+export const UserStatsCard = ({ stats, totalPoints, achievementsCount, loading, error }: UserStatsCardProps) => {
   if (loading) {
     return (
       <div className={css({
@@ -116,22 +118,22 @@ export const UserStatsCard = ({ stats, loading, error }: UserStatsCardProps) => 
             border: '1px solid rgba(255, 255, 255, 0.05)',
           })}>
             <HStack gap="8px" alignItems="center" marginBottom="8px">
-              <TrendingUp className={css({ color: 'green.400', width: '16px', height: '16px' })} />
+              <Trophy className={css({ color: 'yellow.400', width: '16px', height: '16px' })} />
               <span className={css({
                 fontSize: '12px',
                 color: 'gray.400',
                 textTransform: 'uppercase',
                 letterSpacing: '0.5px',
               })}>
-                Total Swaps
+                Omzo Points
               </span>
             </HStack>
             <div className={css({
               fontSize: '24px',
               fontWeight: 'bold',
-              color: 'white',
+              color: 'green.400',
             })}>
-              {stats.total_swaps.toLocaleString()}
+              {totalPoints.toLocaleString()}
             </div>
           </div>
 
@@ -142,14 +144,14 @@ export const UserStatsCard = ({ stats, loading, error }: UserStatsCardProps) => 
             border: '1px solid rgba(255, 255, 255, 0.05)',
           })}>
             <HStack gap="8px" alignItems="center" marginBottom="8px">
-              <DollarSign className={css({ color: 'green.400', width: '16px', height: '16px' })} />
+              <Target className={css({ color: 'blue.400', width: '16px', height: '16px' })} />
               <span className={css({
                 fontSize: '12px',
                 color: 'gray.400',
                 textTransform: 'uppercase',
                 letterSpacing: '0.5px',
               })}>
-                Volume Swapped
+                Achievements Earned
               </span>
             </HStack>
             <div className={css({
@@ -157,7 +159,7 @@ export const UserStatsCard = ({ stats, loading, error }: UserStatsCardProps) => 
               fontWeight: 'bold',
               color: 'white',
             })}>
-              {formatUSD(stats.total_usd_swapped)}
+              {achievementsCount}
             </div>
           </div>
 
@@ -168,14 +170,14 @@ export const UserStatsCard = ({ stats, loading, error }: UserStatsCardProps) => 
             border: '1px solid rgba(255, 255, 255, 0.05)',
           })}>
             <HStack gap="8px" alignItems="center" marginBottom="8px">
-              <Users className={css({ color: 'blue.400', width: '16px', height: '16px' })} />
+              <CheckCircle className={css({ color: 'green.400', width: '16px', height: '16px' })} />
               <span className={css({
                 fontSize: '12px',
                 color: 'gray.400',
                 textTransform: 'uppercase',
                 letterSpacing: '0.5px',
               })}>
-                Liquidity Added
+                Tasks Completed
               </span>
             </HStack>
             <div className={css({
@@ -183,33 +185,7 @@ export const UserStatsCard = ({ stats, loading, error }: UserStatsCardProps) => 
               fontWeight: 'bold',
               color: 'white',
             })}>
-              {stats.total_liquidity_additions}
-            </div>
-          </div>
-
-          <div className={css({
-            backgroundColor: 'rgba(255, 255, 255, 0.03)',
-            borderRadius: '12px',
-            p: 2,
-            border: '1px solid rgba(255, 255, 255, 0.05)',
-          })}>
-            <HStack gap="8px" alignItems="center" marginBottom="8px">
-              <Target className={css({ color: 'purple.400', width: '16px', height: '16px' })} />
-              <span className={css({
-                fontSize: '12px',
-                color: 'gray.400',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-              })}>
-                Pairs Created
-              </span>
-            </HStack>
-            <div className={css({
-              fontSize: '24px',
-              fontWeight: 'bold',
-              color: 'white',
-            })}>
-              {stats.total_pairs_created}
+              {stats.tasks_completed || 0}
             </div>
           </div>
 
@@ -246,22 +222,22 @@ export const UserStatsCard = ({ stats, loading, error }: UserStatsCardProps) => 
             border: '1px solid rgba(255, 255, 255, 0.05)',
           })}>
             <HStack gap="8px" alignItems="center" marginBottom="8px">
-              <Trophy className={css({ color: 'yellow.400', width: '16px', height: '16px' })} />
+              <Star className={css({ color: 'purple.400', width: '16px', height: '16px' })} />
               <span className={css({
                 fontSize: '12px',
                 color: 'gray.400',
                 textTransform: 'uppercase',
                 letterSpacing: '0.5px',
               })}>
-                Omzo Points
+                Longest Streak
               </span>
             </HStack>
             <div className={css({
               fontSize: '24px',
               fontWeight: 'bold',
-              color: 'green.400',
+              color: 'white',
             })}>
-              {stats.omzo_points.toLocaleString()}
+              {stats.longest_streak} days
             </div>
           </div>
         </div>
