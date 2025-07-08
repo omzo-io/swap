@@ -12,6 +12,7 @@ import { AchievementCard } from '@/features/rune-rush/ui/AchievementCard';
 import { GlobalStatsCard } from '@/features/rune-rush/ui/GlobalStatsCard';
 import { TasksList } from '@/features/rune-rush/ui/TasksList';
 import { RewardsCard } from '@/features/rune-rush/ui/RewardsCard';
+import { TwitterFollowCard } from '@/features/rune-rush/ui/TwitterFollowCard';
 import { Trophy, Star, TrendingUp } from 'lucide-react';
 
 export default function RunRushPage() {
@@ -85,7 +86,7 @@ export default function RunRushPage() {
         error={globalStatsError}
       />
 
-            {/* User Stats (if connected) */}
+                  {/* User Stats (if connected) */}
       {address && userStats && (
         <UserStatsCard
           stats={userStats}
@@ -96,7 +97,19 @@ export default function RunRushPage() {
         />
       )}
 
-                  {/* Tasks List */}
+      {/* Twitter Follow Card (if connected) */}
+      {address && (
+        <TwitterFollowCard
+          walletAddress={address}
+          onFollowVerified={() => {
+            // Refresh user stats after Twitter follow verification
+            // This will trigger a refetch of achievements and stats
+            window.location.reload();
+          }}
+        />
+      )}
+
+      {/* Tasks List */}
       <TasksList
         userAchievements={achievements.map(a => a.id)}
       />
