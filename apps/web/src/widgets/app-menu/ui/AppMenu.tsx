@@ -22,6 +22,10 @@ const appMenuLinks: AppMenuLinkParams[] = [
     label: "Pairs",
     href: "/pairs",
   },
+  {
+    label: "Rune Rush",
+    href: "/rune-rush",
+  },
 ];
 
 interface Props {
