@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
 
     if (!response.ok) {
       return NextResponse.json(
-        { error: data.error || 'Failed to verify Twitter follow' },
+        { ...data, error: data.message || data.error || 'Failed to verify Twitter follow' },
         { status: response.status }
       );
     }
