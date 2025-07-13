@@ -145,17 +145,6 @@ export const TournamentTable = ({ leaderboard, loading, error, currentUserAddres
               })}>
                 Achievements
               </th>
-              <th className={css({
-                padding: '20px 16px',
-                textAlign: 'right',
-                fontWeight: 'bold',
-                color: 'gray.300',
-                fontSize: '12px',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-              })}>
-                Tasks Completed
-              </th>
             </tr>
           </thead>
           <tbody>
@@ -223,13 +212,6 @@ export const TournamentTable = ({ leaderboard, loading, error, currentUserAddres
                     color: 'gray.300',
                   })}>
                     {entry.achievements_count || 0}
-                  </td>
-                  <td className={css({
-                    padding: '20px 16px',
-                    textAlign: 'right',
-                    color: 'gray.300',
-                  })}>
-                    {entry.tasks_completed || 0}
                   </td>
                 </tr>
               );

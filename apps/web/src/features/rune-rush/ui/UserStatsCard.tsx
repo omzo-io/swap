@@ -170,32 +170,6 @@ export const UserStatsCard = ({ stats, totalPoints, achievementsCount, loading, 
             border: '1px solid rgba(255, 255, 255, 0.05)',
           })}>
             <HStack gap="8px" alignItems="center" marginBottom="8px">
-              <CheckCircle className={css({ color: 'green.400', width: '16px', height: '16px' })} />
-              <span className={css({
-                fontSize: '12px',
-                color: 'gray.400',
-                textTransform: 'uppercase',
-                letterSpacing: '0.5px',
-              })}>
-                Tasks Completed
-              </span>
-            </HStack>
-            <div className={css({
-              fontSize: '24px',
-              fontWeight: 'bold',
-              color: 'white',
-            })}>
-              {stats.tasks_completed || 0}
-            </div>
-          </div>
-
-          <div className={css({
-            backgroundColor: 'rgba(255, 255, 255, 0.03)',
-            borderRadius: '12px',
-            p: 2,
-            border: '1px solid rgba(255, 255, 255, 0.05)',
-          })}>
-            <HStack gap="8px" alignItems="center" marginBottom="8px">
               <Flame className={css({ color: 'orange.400', width: '16px', height: '16px' })} />
               <span className={css({
                 fontSize: '12px',

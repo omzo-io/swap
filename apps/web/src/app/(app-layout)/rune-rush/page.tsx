@@ -97,7 +97,7 @@ export default function RunRushPage() {
         />
       )}
 
-      {/* Twitter Follow Card (if connected) */}
+      {/* Twitter Follow Card (if connected)
       {address && (
         <TwitterFollowCard
           walletAddress={address}
@@ -107,7 +107,7 @@ export default function RunRushPage() {
             window.location.reload();
           }}
         />
-      )}
+      )} */}
 
       {/* Tasks List */}
       <TasksList
