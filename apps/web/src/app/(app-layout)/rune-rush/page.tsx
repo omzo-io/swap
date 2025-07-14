@@ -111,7 +111,8 @@ export default function RunRushPage() {
 
       {/* Tasks List */}
       <TasksList
-        userAchievements={achievements.map(a => a.id)}
+        userAchievements={achievements}
+        walletAddress={address}
       />
 
       {/* Rewards Information */}
