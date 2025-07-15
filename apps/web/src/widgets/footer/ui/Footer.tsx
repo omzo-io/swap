@@ -5,7 +5,7 @@ import { Logo } from '@/widgets';
 import Image from 'next/image';
 import Link from 'next/link';
 import { css } from '~/styled-system/css';
-import { VStack } from '~/styled-system/jsx';
+import { VStack, HStack } from '~/styled-system/jsx';
 import { hstack, vstack } from '~/styled-system/patterns';
 
 import linkedinIcon from '../assets/linkedin.svg';
@@ -15,15 +15,27 @@ export const Footer = () => {
     <footer
       className={css({
         display: 'flex',
-        alignItems: 'start',
+        flexDirection: 'column',
+        alignItems: 'center',
         borderTopColor: 'neutral.200',
-        padding: 6,
-        justifyContent: 'space-between',
+        padding: '16px',
+        gap: '16px',
+        '@media (min-width: 768px)': {
+          flexDirection: 'row',
+          alignItems: 'start',
+          padding: '24px',
+          justifyContent: 'space-between',
+          gap: '0',
+        },
       })}
     >
       <div
         className={vstack({
           gap: 1,
+          alignItems: 'center',
+          '@media (min-width: 768px)': {
+            alignItems: 'flex-start',
+          },
         })}
       >
         <Logo />
@@ -31,12 +43,14 @@ export const Footer = () => {
         <span
           className={css({
             color: 'neutral.500',
-            fontSize: 12,
+            fontSize: '10px',
             fontWeight: 'bold',
-            paddingTop: 2,
-            display: {
-              base: 'none',
-              md: 'initial',
+            paddingTop: '8px',
+            display: 'block',
+            '@media (min-width: 768px)': {
+              fontSize: '12px',
+              paddingTop: '8px',
+              display: 'initial',
             },
           })}
         >
@@ -45,40 +59,135 @@ export const Footer = () => {
       </div>
 
       <div
-        className={hstack({
-          flexDirection: 'row',
-          gap: '80px',
-          marginRight: '80px',
-          alignItems: 'baseline',
+        className={css({
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: '12px',
+          '@media (min-width: 768px)': {
+            flexDirection: 'row',
+            gap: '80px',
+            marginRight: '80px',
+            alignItems: 'baseline',
+          },
         })}
       >
-        <VStack gap={4}>
-          <VStack flexDirection="row" alignItems="center" gap={3}>
+        <VStack gap={2}>
+          <HStack
+            flexDirection="row"
+            alignItems="center"
+            gap={2}
+            flexWrap="wrap"
+            justifyContent="center"
+            className={css({
+              '@media (min-width: 768px)': {
+                gap: 3,
+                flexWrap: 'nowrap',
+              },
+            })}
+          >
             <Link href="/swap">
-              <Button appearance="ghost">Swap</Button>
+              <Button
+                appearance="ghost"
+                className={css({
+                  fontSize: '12px',
+                  padding: '6px 12px',
+                  '@media (min-width: 768px)': {
+                    fontSize: '14px',
+                    padding: '8px 16px',
+                  },
+                })}
+              >
+                Swap
+              </Button>
             </Link>
             <Link href="/pairs">
-              <Button appearance="ghost">Pairs</Button>
+              <Button
+                appearance="ghost"
+                className={css({
+                  fontSize: '12px',
+                  padding: '6px 12px',
+                  '@media (min-width: 768px)': {
+                    fontSize: '14px',
+                    padding: '8px 16px',
+                  },
+                })}
+              >
+                Pairs
+              </Button>
             </Link>
             <Link href="/docs/whitepaper.pdf">
-              <Button appearance="ghost">Whitepaper</Button>
+              <Button
+                appearance="ghost"
+                className={css({
+                  fontSize: '12px',
+                  padding: '6px 12px',
+                  '@media (min-width: 768px)': {
+                    fontSize: '14px',
+                    padding: '8px 16px',
+                  },
+                })}
+              >
+                Whitepaper
+              </Button>
             </Link>
             <Link href="/docs/tech-docs.pdf">
-              <Button appearance="ghost">Tech Docs</Button>
+              <Button
+                appearance="ghost"
+                className={css({
+                  fontSize: '12px',
+                  padding: '6px 12px',
+                  '@media (min-width: 768px)': {
+                    fontSize: '14px',
+                    padding: '8px 16px',
+                  },
+                })}
+              >
+                Tech Docs
+              </Button>
             </Link>
-          </VStack>
+          </HStack>
         </VStack>
       </div>
-      {/* Empty div to center the links */}
+
       <div
-      className={hstack({
-        flexDirection: 'row',
-        gap: '80px',
-        marginTop: '20px',
-        alignItems: 'baseline',
-      })}>
-        <a href="https://www.linkedin.com/company/omzo-io/" target="_blank" rel="noopener noreferrer">
-          <Image src={linkedinIcon} alt="LinkedIn" width={24} height={24} />
+        className={css({
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: '8px',
+          '@media (min-width: 768px)': {
+            marginTop: '20px',
+          },
+        })}
+      >
+        <a
+          href="https://www.linkedin.com/company/omzo-io/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={css({
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '4px',
+            borderRadius: '4px',
+            transition: 'opacity 0.2s ease',
+            '&:hover': {
+              opacity: 0.8,
+            },
+          })}
+        >
+          <Image
+            src={linkedinIcon}
+            alt="LinkedIn"
+            width={20}
+            height={20}
+            className={css({
+              '@media (min-width: 768px)': {
+                width: 24,
+                height: 24,
+              },
+            })}
+          />
         </a>
       </div>
     </footer>
