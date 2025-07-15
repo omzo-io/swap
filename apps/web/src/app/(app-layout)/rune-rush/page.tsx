@@ -30,49 +30,76 @@ export default function RunRushPage() {
   const { stats: globalStats, loading: globalStatsLoading, error: globalStatsError } = useGlobalStats();
 
   return (
-    <VStack gap="32px" className={css({
+    <VStack gap="24px" className={css({
       width: '100%',
       maxWidth: '1400px',
       margin: '0 auto',
-      padding: '40px 20px',
+      padding: '20px 12px',
       display: 'flex',
       alignItems: 'center',
+      minHeight: '100vh',
+      '@media (min-width: 768px)': {
+        padding: '40px 20px',
+        gap: '32px',
+      },
     })}>
       {/* Header */}
       <div className={css({
         textAlign: 'center',
-        marginBottom: '20px',
+        marginBottom: '16px',
         width: '100%',
+        padding: '0 8px',
       })}>
-        <HStack gap="12px" alignItems="center" justifyContent="center" marginBottom="16px">
+        <HStack gap="8px" alignItems="center" justifyContent="center" marginBottom="12px" flexWrap="wrap">
           <div className={css({
-            width: '48px',
-            height: '48px',
+            width: '40px',
+            height: '40px',
             borderRadius: '50%',
             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            flexShrink: 0,
+            '@media (min-width: 768px)': {
+              width: '48px',
+              height: '48px',
+            },
           })}>
-            <Trophy className={css({ color: 'white', width: '24px', height: '24px' })} />
+            <Trophy className={css({
+              color: 'white',
+              width: '20px',
+              height: '20px',
+              '@media (min-width: 768px)': {
+                width: '24px',
+                height: '24px',
+              },
+            })} />
           </div>
           <h1 className={css({
-            fontSize: '36px',
+            fontSize: '24px',
             fontWeight: 'bold',
             background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
             backgroundClip: 'text',
             color: 'transparent',
             margin: 0,
+            lineHeight: '1.2',
+            '@media (min-width: 768px)': {
+              fontSize: '36px',
+            },
           })}>
             Rune Rush Tournament
           </h1>
         </HStack>
-                <p className={css({
-          fontSize: '18px',
+        <p className={css({
+          fontSize: '14px',
           color: 'gray.400',
           maxWidth: '600px',
           margin: '0 auto',
-          lineHeight: '1.6',
+          lineHeight: '1.5',
+          padding: '0 8px',
+          '@media (min-width: 768px)': {
+            fontSize: '18px',
+          },
         })}>
           Complete tasks and earn achievements to climb the leaderboard.
           Your Omzo Points are calculated from achievements only - complete more tasks to earn more points!
@@ -80,21 +107,31 @@ export default function RunRushPage() {
       </div>
 
       {/* Global Stats */}
-      <GlobalStatsCard
-        stats={globalStats}
-        loading={globalStatsLoading}
-        error={globalStatsError}
-      />
-
-                  {/* User Stats (if connected) */}
-      {address && userStats && (
-        <UserStatsCard
-          stats={userStats}
-          totalPoints={totalPoints}
-          achievementsCount={achievementsCount}
-          loading={userStatsLoading}
-          error={userStatsError}
+      <div className={css({
+        width: '100%',
+        padding: '0 8px',
+      })}>
+        <GlobalStatsCard
+          stats={globalStats}
+          loading={globalStatsLoading}
+          error={globalStatsError}
         />
+      </div>
+
+      {/* User Stats (if connected) */}
+      {address && userStats && (
+        <div className={css({
+          width: '100%',
+          padding: '0 8px',
+        })}>
+          <UserStatsCard
+            stats={userStats}
+            totalPoints={totalPoints}
+            achievementsCount={achievementsCount}
+            loading={userStatsLoading}
+            error={userStatsError}
+          />
+        </div>
       )}
 
       {/* Twitter Follow Card (if connected)
@@ -110,47 +147,78 @@ export default function RunRushPage() {
       )} */}
 
       {/* Tasks List */}
-      <TasksList
-        userAchievements={achievements}
-        walletAddress={address}
-      />
+      <div className={css({
+        width: '100%',
+        padding: '0 8px',
+      })}>
+        <TasksList
+          userAchievements={achievements}
+          walletAddress={address}
+        />
+      </div>
 
       {/* Rewards Information */}
-      <RewardsCard />
+      <div className={css({
+        width: '100%',
+        padding: '0 8px',
+      })}>
+        <RewardsCard />
+      </div>
 
       {/* Tournament Table */}
-      <TournamentTable
-        leaderboard={leaderboard}
-        loading={leaderboardLoading}
-        error={leaderboardError}
-        currentUserAddress={address}
-      />
+      <div className={css({
+        width: '100%',
+        padding: '0 8px',
+      })}>
+        <TournamentTable
+          leaderboard={leaderboard}
+          loading={leaderboardLoading}
+          error={leaderboardError}
+          currentUserAddress={address}
+        />
+      </div>
 
       {/* User Achievements (if connected) */}
       {address && achievements.length > 0 && (
-        <VStack gap="24px" className={css({
+        <VStack gap="20px" className={css({
           width: '100%',
           maxWidth: '1200px',
           margin: '0 auto',
           alignItems: 'center',
+          padding: '0 8px',
         })}>
-          <HStack gap="12px" alignItems="center">
+          <HStack gap="8px" alignItems="center">
             <div className={css({
-              width: '32px',
-              height: '32px',
+              width: '28px',
+              height: '28px',
               borderRadius: '50%',
               backgroundColor: 'rgba(255, 215, 0, 0.2)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
+              '@media (min-width: 768px)': {
+                width: '32px',
+                height: '32px',
+              },
             })}>
-              <Star className={css({ color: 'yellow.400', width: '16px', height: '16px' })} />
+              <Star className={css({
+                color: 'yellow.400',
+                width: '14px',
+                height: '14px',
+                '@media (min-width: 768px)': {
+                  width: '16px',
+                  height: '16px',
+                },
+              })} />
             </div>
             <h2 className={css({
-              fontSize: '24px',
+              fontSize: '20px',
               fontWeight: 'bold',
               color: 'white',
               margin: 0,
+              '@media (min-width: 768px)': {
+                fontSize: '24px',
+              },
             })}>
               Your Achievements
             </h2>
@@ -158,10 +226,17 @@ export default function RunRushPage() {
 
           <div className={css({
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-            gap: '16px',
+            gridTemplateColumns: '1fr',
+            gap: '12px',
             width: '100%',
             justifyContent: 'center',
+            '@media (min-width: 480px)': {
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gap: '16px',
+            },
+            '@media (min-width: 768px)': {
+              gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+            },
           })}>
             {achievements.map((achievement) => (
               <AchievementCard
@@ -177,37 +252,60 @@ export default function RunRushPage() {
       {!address && (
         <div className={css({
           textAlign: 'center',
-          padding: '40px',
+          padding: '24px 16px',
           backgroundColor: 'rgba(255, 255, 255, 0.05)',
           borderRadius: '16px',
           border: '1px solid rgba(255, 255, 255, 0.1)',
+          margin: '0 8px',
+          '@media (min-width: 768px)': {
+            padding: '40px',
+          },
         })}>
           <div className={css({
-            width: '64px',
-            height: '64px',
+            width: '48px',
+            height: '48px',
             borderRadius: '50%',
             backgroundColor: 'rgba(102, 126, 234, 0.2)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            margin: '0 auto 16px',
+            margin: '0 auto 12px',
+            '@media (min-width: 768px)': {
+              width: '64px',
+              height: '64px',
+              marginBottom: '16px',
+            },
           })}>
-            <TrendingUp className={css({ color: 'blue.300', width: '32px', height: '32px' })} />
+            <TrendingUp className={css({
+              color: 'blue.300',
+              width: '24px',
+              height: '24px',
+              '@media (min-width: 768px)': {
+                width: '32px',
+                height: '32px',
+              },
+            })} />
           </div>
           <h3 className={css({
-            fontSize: '20px',
+            fontSize: '18px',
             fontWeight: 'bold',
             color: 'white',
             marginBottom: '8px',
+            '@media (min-width: 768px)': {
+              fontSize: '20px',
+            },
           })}>
             Connect Your Wallet
           </h3>
           <p className={css({
-            fontSize: '16px',
+            fontSize: '14px',
             color: 'gray.400',
             maxWidth: '400px',
             margin: '0 auto',
             lineHeight: '1.5',
+            '@media (min-width: 768px)': {
+              fontSize: '16px',
+            },
           })}>
             Connect your wallet to view your personal statistics, achievements, and track your progress in the tournament.
           </p>
