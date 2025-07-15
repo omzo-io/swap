@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { LiquidityForm } from "@/widgets/liquidity-form";
+// import { LiquidityForm } from "@/widgets/liquidity-form";
 import { css } from "~/styled-system/css";
 import { vstack } from "~/styled-system/patterns";
 
@@ -28,7 +28,7 @@ export default function NewLiquidity() {
         Add Liquidity
       </h1>
       <Suspense fallback={<div>Loading...</div>}>
-        <LiquidityForm />
+        {/* <LiquidityForm /> */}
       </Suspense>
     </div>
   );
