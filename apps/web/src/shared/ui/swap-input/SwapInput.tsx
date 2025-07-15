@@ -1,3 +1,5 @@
+'use client';
+
 import { useToken } from "@/entities";
 import { TokenButton, useTokenBalance } from "@/features";
 import { Button, InputGroup, NumberInput } from "@/shared/ui";

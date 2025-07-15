@@ -1,3 +1,5 @@
+'use client';
+
 import { AddLiquidityButton } from "@/widgets/add-liquidity-button";
 import { Liquidity } from "@/widgets/liquidity";
 import { css } from "~/styled-system/css";

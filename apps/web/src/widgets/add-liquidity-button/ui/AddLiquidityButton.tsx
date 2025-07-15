@@ -1,3 +1,5 @@
+'use client';
+
 import { Button } from "@/shared";
 import Link from "next/link";
 

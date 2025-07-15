@@ -1,3 +1,5 @@
+'use client';
+
 import { cx } from '~/styled-system/css';
 import { vstack } from '~/styled-system/patterns';
 
