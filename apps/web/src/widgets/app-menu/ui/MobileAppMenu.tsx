@@ -7,7 +7,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { Stack, VStack } from '~/styled-system/jsx';
 import MenuIcon from '../assets/menu.svg';
-import { ConnectButton } from '@midl-xyz/satoshi-kit';
+import { AccountButton } from '@/widgets/account-button';
 
 export const MobileAppMenu = () => {
   const [open, setOpen] = useState(false);
@@ -34,9 +34,7 @@ export const MobileAppMenu = () => {
             <VStack width="100%" gap={5}>
               <AppMenuList onToggleModal={handleToggle} />
             </VStack>
-            <div onClick={() => setOpen(false)}>
-              <ConnectButton />
-            </div>
+            <AccountButton />
           </VStack>
         </DialogContent>
       </Dialog>

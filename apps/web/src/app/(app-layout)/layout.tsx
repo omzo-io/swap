@@ -23,15 +23,13 @@ import Link from "next/link";
 import { css } from "~/styled-system/css";
 import { HStack, Stack } from "~/styled-system/jsx";
 import { hstack } from "~/styled-system/patterns";
-// import { ConnectButton } from '@midl-xyz/satoshi-kit';
 import { AccountButton } from "@/widgets/account-button";
-
 import linkedinIcon from "@/widgets/footer/assets/linkedin.svg";
 
 import '@midl-xyz/satoshi-kit/styles.css';
 import "../globals.css";
 
-export default async function AppLayout({
+export default function AppLayout({
   children,
 }: Readonly<{
   children: ReactNode;
