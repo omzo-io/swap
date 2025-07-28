@@ -183,8 +183,8 @@ export const Footer = () => {
             height={20}
             className={css({
               '@media (min-width: 768px)': {
-                width: 24,
-                height: 24,
+                width: 6,
+                height: 6,
               },
             })}
           />
