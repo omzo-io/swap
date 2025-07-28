@@ -1,14 +1,14 @@
-import { Suspense } from "react";
-import { LiquidityForm } from "@/widgets/liquidity-form";
-import { css } from "~/styled-system/css";
-import { vstack } from "~/styled-system/patterns";
+import { LiquidityForm } from '@/widgets';
+import { Suspense } from 'react';
+import { css } from '~/styled-system/css';
+import { vstack } from '~/styled-system/patterns';
 
 export default function NewLiquidity() {
   return (
     <div
       className={vstack({
         maxW: 480,
-        margin: "0 auto",
+        margin: '0 auto',
         px: 8,
         py: 8,
         border: "1px solid rgba(255, 255, 255, 0.14)",
@@ -22,7 +22,7 @@ export default function NewLiquidity() {
     >
       <h1
         className={css({
-          textStyle: "h2",
+          textStyle: 'h2',
         })}
       >
         Add Liquidity

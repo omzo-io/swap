@@ -1,5 +1,5 @@
-import { deployments, uniswapV2Router02Abi, wagmiConfig } from '@/global';
-import { useChainId } from 'wagmi';
+import { deployments, uniswapV2Router02Abi } from '@/global';
+import { useChainId, useConfig } from 'wagmi';
 import { readContract } from '@wagmi/core';
 import { useState } from 'react';
 
@@ -12,6 +12,7 @@ export const useSwapRates = () => {
   const chainId = useChainId();
   const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  const config = useConfig();
 
   const read = async ({
     value,
@@ -32,7 +33,7 @@ export const useSwapRates = () => {
     }
 
     try {
-      const result = await readContract(wagmiConfig as any, {
+      const result = await readContract(config as any, {
         abi: uniswapV2Router02Abi,
         address: deployments[chainId].UniswapV2Router02.address,
         functionName: method,

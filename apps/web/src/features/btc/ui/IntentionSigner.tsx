@@ -1,44 +1,38 @@
-import { WETHByChain } from '@/global';
 import { Button } from '@/shared';
 import {
   useAddTxIntention,
-  useFinalizeTxIntentions,
+  useFinalizeBTCTransaction,
+  useSendBTCTransactions,
+  useSignIntention,
 } from '@midl-xyz/midl-js-executor-react';
-import {
-  useBroadcastTransaction,
-  useConfig,
-  useWaitForTransaction,
-} from '@midl-xyz/midl-js-react';
+import { useConfig, useWaitForTransaction } from '@midl-xyz/midl-js-react';
 import toast from 'react-hot-toast';
-import { Address, StateOverride, zeroAddress } from 'viem';
-import { useChainId, useWalletClient } from 'wagmi';
+import { Address } from 'viem';
 import { css } from '~/styled-system/css';
 import { hstack, vstack } from '~/styled-system/patterns';
 
 type IntentionSignerProps = {
-  stateOverride?: StateOverride;
   onClose: () => void;
   shouldComplete?: boolean;
   assetsToWithdraw?: [Address] | [Address, Address];
 };
 
 export const IntentionSigner = ({
-  stateOverride,
   shouldComplete,
   assetsToWithdraw,
   onClose,
 }: IntentionSignerProps) => {
   const { txIntentions } = useAddTxIntention();
+
   const {
-    btcTransaction,
+    data: btcTransaction,
     finalizeBTCTransaction,
-    signIntention,
     isSuccess: isFinalizedBTC,
     isPending: isFinalizingBTC,
-    signIntentionState,
+    // signIntentionState, Notice: Now retrieved from useIntentionSigner
     isError,
     error,
-  } = useFinalizeTxIntentions({
+  } = useFinalizeBTCTransaction({
     mutation: {
       onError: (error) => {
         console.error(error);
@@ -47,18 +41,7 @@ export const IntentionSigner = ({
     },
   });
 
-  const { data: walletClient } = useWalletClient();
-  const chainId = useChainId();
-
-  const { broadcastTransaction, isSuccess: isBroadcasted } =
-    useBroadcastTransaction({
-      mutation: {
-        onSuccess: (data) => {
-          waitForTransaction({ txId: data });
-        },
-      },
-    });
-
+  const signIntentionState = useSignIntention({});
   const { network } = useConfig();
 
   const { waitForTransaction, isPending, isSuccess } = useWaitForTransaction();
@@ -66,18 +49,24 @@ export const IntentionSigner = ({
   const toSignIntentions = txIntentions.filter((it) => it.evmTransaction);
   const txToSign = toSignIntentions.find((it) => !it.signedEvmTransaction);
 
+  const { sendBTCTransactions, isSuccess: isBroadcasted } =
+    useSendBTCTransactions({
+      mutation: {
+        onSuccess: () => {
+          waitForTransaction({ txId: btcTransaction?.tx.id! });
+        },
+      },
+    });
   const onPublish = async () => {
-    const txIntentionsToPublish = txIntentions.filter(
-      (it) => it.signedEvmTransaction,
-    );
+    const txIntentionsToPublish = txIntentions
+      .filter((it) => it.signedEvmTransaction)
+      .map((it) => it.signedEvmTransaction);
 
-    for (const intention of txIntentionsToPublish) {
-      await walletClient?.sendRawTransaction({
-        serializedTransaction: intention.signedEvmTransaction!,
-      });
-    }
-
-    broadcastTransaction({ tx: btcTransaction!.tx.hex });
+    // Notice now get intention.signedEvmTransaction! into an array and pass to serializedTransactions & btcTransaction?.tx.hex! to btcTransaction
+    sendBTCTransactions({
+      serializedTransactions: txIntentionsToPublish as [],
+      btcTransaction: btcTransaction?.tx.hex!,
+    });
   };
 
   return (
@@ -85,6 +74,7 @@ export const IntentionSigner = ({
       <div className={hstack({ gap: 4 })}>
         {new Array(toSignIntentions.length + 1).fill(0).map((_, i) => (
           <div
+            key={i}
             className={css({
               borderRadius: 'full',
               border: '1px solid',
@@ -118,12 +108,8 @@ export const IntentionSigner = ({
           <Button
             onClick={() => {
               finalizeBTCTransaction({
-                stateOverride,
-                shouldComplete,
-                feeRateMultiplier: 4,
-                assetsToWithdraw: assetsToWithdraw?.filter(
-                  (it) => it !== zeroAddress && it !== WETHByChain[chainId],
-                ) as any,
+                // shouldComplete, Notice: now is explicitly added as useAddCompleteTxIntention
+                assetsToWithdrawSize: assetsToWithdraw?.length,
               });
             }}
             disabled={isFinalizingBTC}
@@ -140,7 +126,7 @@ export const IntentionSigner = ({
           <Button
             disabled={signIntentionState.isPending}
             onClick={() => {
-              signIntention({
+              signIntentionState.signIntention({
                 intention: txToSign,
                 txId: btcTransaction.tx.id,
               });

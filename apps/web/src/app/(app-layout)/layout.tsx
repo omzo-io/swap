@@ -1,33 +1,60 @@
 'use client';
 
-import Image from "next/image";
-import { FiatQuotesProvider } from "@/features/fiat-quote";
+import Image from 'next/image';
+import { FiatQuotesProvider } from '@/features/fiat-quote';
 import {
+  RemoveLiquidityProvider,
   SettingsDialogProvider,
   TokenDialogProvider,
   Web3Provider,
-} from "@/global";
-import { ErrorBoundary } from "@/global/providers/ErrorBoundary";
+} from '@/global';
+import { ErrorBoundary } from '@/global/providers/ErrorBoundary';
+import { RuneDialogProvider } from '@/global/providers/RuneDialogProvider';
 import { AppMenuList, Header, Logo, RPCStatus } from '@/widgets';
 import { MobileAppMenu } from '@/widgets/app-menu/ui/MobileAppMenu';
-import { RemoveLiquidityProvider } from "@/global/providers/RemoveLiquidityProvider";
-import { RuneDialogProvider } from "@/global/providers/RuneDialogProvider";
+import { renderErrorMessage } from '@/widgets/error-message';
+import { Footer } from '@/widgets/footer/ui';
+import '@midl-xyz/satoshi-kit/styles.css';
+import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { Toaster } from 'react-hot-toast';
-import {
-  Brand,
-} from "@/widgets";
-import { renderErrorMessage } from "@/widgets/error-message";
-import { Footer } from "@/widgets/footer/ui";
-import Link from "next/link";
-import { css } from "~/styled-system/css";
-import { HStack, Stack } from "~/styled-system/jsx";
-import { hstack } from "~/styled-system/patterns";
-import { AccountButton } from "@/widgets/account-button";
-import linkedinIcon from "@/widgets/footer/assets/linkedin.svg";
+import { css } from '~/styled-system/css';
+import { HStack, Stack } from '~/styled-system/jsx';
+import { hstack } from '~/styled-system/patterns';
+import '../globals.css';
+import { ConnectButton } from '@midl-xyz/satoshi-kit';
+import { useAddNetwork, useConfig } from '@midl-xyz/midl-js-react';
+import { xverseConnector } from '@midl-xyz/midl-js-connectors';
+import { Brand } from '@/widgets';
+import linkedinIcon from '@/widgets/footer/assets/linkedin.svg';
 
-import '@midl-xyz/satoshi-kit/styles.css';
-import "../globals.css";
+const Wallet = () => {
+  const { addNetworkAsync } = useAddNetwork();
+  const { network } = useConfig();
+
+  return (
+    <ConnectButton
+      beforeConnect={async (connectorId) => {
+        console.log('connectorId', connectorId);
+        if (connectorId !== xverseConnector().id) {
+          return;
+        }
+        console.log('network', network);
+
+        await addNetworkAsync({
+          connectorId,
+          networkConfig: {
+            name: 'MIDL Regtest',
+            network: network.id,
+            rpcUrl: 'https://mempool.regtest.midl.xyz/api',
+            indexerUrl: 'https://api-regtest-midl.xverse.app',
+          },
+        });
+      }}
+    />
+  );
+};
+
 
 export default function AppLayout({
   children,
@@ -102,7 +129,8 @@ export default function AppLayout({
           }
           rightSlot={
             <HStack gap={4} display={{ base: "none", md: "flex" }}>
-              <AccountButton />
+              {/* <AccountButton /> */}
+              <Wallet />
             </HStack>
           }
         />

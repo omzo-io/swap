@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Button,
@@ -7,15 +7,14 @@ import {
   DialogOverlay,
   shortenAddress,
   useCopyToClipboard,
-} from "@/shared";
-import { useAccounts, useDisconnect } from "@midl-xyz/midl-js-react";
-import { type DialogProps, DialogTitle } from "@radix-ui/react-dialog";
-import { CopyIcon } from "lucide-react";
-import { css } from "~/styled-system/css";
-import { VStack } from "~/styled-system/jsx";
-import { vstack } from "~/styled-system/patterns";
-import { useDisconnect as useWagmiDisconnect } from "wagmi";
-import { Close, Check } from "@/shared/assets";
+} from '@/shared';
+import { useAccounts, useDisconnect } from '@midl-xyz/midl-js-react';
+import { type DialogProps, DialogTitle } from '@radix-ui/react-dialog';
+import { CopyIcon, XIcon } from 'lucide-react';
+import { css } from '~/styled-system/css';
+import { HStack, VStack } from '~/styled-system/jsx';
+import { vstack } from '~/styled-system/patterns';
+import { useDisconnect as useWagmiDisconnect } from 'wagmi';
 
 type AccountDialogProps = DialogProps & {
   onClose: () => void;
@@ -41,118 +40,63 @@ export const AccountDialog = ({ onClose, ...rest }: AccountDialogProps) => {
       <DialogContent
         onEscapeKeyDown={onClose}
         className={css({
-          maxW: 800,
-          width: "100%",
-          color: "white",
-          background:
-            "linear-gradient(180deg, rgba(233, 236, 249, 0.05) 0%, rgba(233, 236, 249, 0.02) 100%)!",
-          backdropFilter: "blur(70px)",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
-          pt: 12,
-          pb: 24,
-          rounded: "3xl",
+          maxW: 450,
+          width: '100%',
+          backgroundColor: 'neutral.100',
         })}
       >
         <div
           className={vstack({
             gap: 2,
-            justifyContent: "stretch",
+            justifyContent: 'stretch',
           })}
         >
-          <DialogTitle asChild>
-            <h1
-              className={css({
-                fontSize: "36px",
-                fontWeight: "700",
-                lineHeight: "40px",
-                textAlign: "center",
-              })}
-            >
-              Connected accounts
-            </h1>
-          </DialogTitle>
-          <Button
-            onClick={onClose}
-            className={css({
-              position: "absolute",
-              top: 5,
-              right: 5,
-              backgroundColor: "transparent",
-              border: "none",
-              padding: 0,
-              _hover: {
-                backgroundColor: "transparent",
-              },
-            })}
+          <HStack
+            justifyContent="space-between"
+            alignItems="center"
+            width="full"
           >
-            <Close />
-          </Button>
-          <VStack
-            position="relative"
-            className={css({
-              gap: 5,
-              mt: 24,
-              background:
-                "linear-gradient(180deg, rgba(233, 236, 249, 0.05) 0%, rgba(233, 236, 249, 0.02) 100%)",
-              width: "100%",
-              maxW: 500,
-              rounded: "2xl",
-              border: "1px solid rgba(233, 236, 249, 0.1)",
-              pt: 11,
-              pb: 7,
-            })}
-          >
-            <div
-              className={`${css({
-                position: "absolute",
-                w: 14,
-                h: 14,
-                top: 0,
-                left: "50%",
-                translate: "-50% -50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              })}`}
-              style={{
-                backgroundImage: "url(/images/account-modal-bg.png)",
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-              }}
-            >
-              <Check height={16} width={16} />
-            </div>
+            <DialogTitle asChild>
+              <h1
+                className={css({
+                  textStyle: 'h3',
+                })}
+              >
+                Connected accounts
+              </h1>
+            </DialogTitle>
+            <Button onClick={onClose} appearance="ghost">
+              <XIcon width={16} height={16} />
+            </Button>
+          </HStack>
+          <VStack gap={8}>
             <VStack gap={2}>
               {accounts?.map((account) => (
                 <div
                   key={account.address}
                   className={css({
-                    textStyle: "caption",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-between",
+                    textStyle: 'caption',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
                     gap: 2,
-                    width: "full",
-                    fontSize: "1rem",
-                    fontWeight: "bold",
+                    px: 2,
+                    py: 1,
+                    borderRadius: 2,
+                    border: '1px solid',
+                    borderColor: 'gray.300',
+                    width: 'full',
                   })}
                 >
                   {shortenAddress(account.address, 16)}
 
                   <Button
-                    className={css({
-                      backgroundColor: "transparent",
-                      border: "none",
-                      padding: 0,
-                      _hover: {
-                        backgroundColor: "transparent",
-                      },
-                    })}
+                    appearance="ghost"
                     onClick={() => {
                       copyToClipboard({ copyValue: account.address });
                     }}
                   >
-                    <CopyIcon width={24} height={24} />
+                    <CopyIcon width={16} height={16} />
                   </Button>
                 </div>
               ))}
@@ -162,11 +106,9 @@ export const AccountDialog = ({ onClose, ...rest }: AccountDialogProps) => {
               onClick={() => {
                 disconnect();
               }}
-              width="full"
               className={css({
-                maxW: 232,
+                alignSelf: 'flex-end',
               })}
-              appearance="secondary"
             >
               Disconnect
             </Button>
