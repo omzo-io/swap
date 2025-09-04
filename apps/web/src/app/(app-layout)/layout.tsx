@@ -24,7 +24,9 @@ import { hstack } from '~/styled-system/patterns';
 import '../globals.css';
 import { ConnectButton } from '@midl-xyz/satoshi-kit';
 import { Brand } from '@/widgets';
+
 import linkedinIcon from '@/widgets/footer/assets/linkedin.svg';
+import Twitter from '@/shared/assets/Twitter';
 
 
 export default function AppLayout({
@@ -80,6 +82,13 @@ export default function AppLayout({
                   width={24}
                   height={24}
                 />
+              </a>
+              <a
+                href="https://x.com/omzoio"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Twitter />
               </a>
               <Stack display={{ base: "flex", md: "none" }}>
                 <MobileAppMenu />

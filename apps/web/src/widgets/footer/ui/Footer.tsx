@@ -191,7 +191,22 @@ export const Footer = () => {
             })}
           />
         </a>
-        <a href="https://x.com/omzoio" target="_blank" rel="noopener noreferrer">
+        <a
+          href="https://x.com/omzoio"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={css({
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '4px',
+            borderRadius: '4px',
+            transition: 'opacity 0.2s ease',
+            '&:hover': {
+              opacity: 0.8,
+            },
+          })}
+        >
           <Twitter />
         </a>
       </div>
