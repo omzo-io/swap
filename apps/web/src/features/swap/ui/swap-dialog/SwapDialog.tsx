@@ -35,26 +35,6 @@ export const SwapDialog = ({
 
   const { rune } = useToken(tokenOut);
 
-  const stateOverride = [
-    {
-      address: address!,
-      balance: parseUnits('100000000000000000000000000', 18), // TODO: very large balance for testing
-    },
-    ...(tokenIn !== zeroAddress
-      ? [
-          {
-            address: tokenIn,
-            stateDiff: [
-              {
-                slot: slot,
-                value: toHex(amountIn, { size: 32 }),
-              },
-            ],
-          },
-        ]
-      : []),
-  ];
-
   return (
     <Dialog {...rest}>
       <DialogOverlay onClick={onClose} />
@@ -70,9 +50,7 @@ export const SwapDialog = ({
           </h3>
 
           <IntentionSigner
-            stateOverride={stateOverride}
             assetsToWithdraw={rune?.id ? [tokenOut] : [zeroAddress]}
-            shouldComplete={!!rune?.id || tokenOut === zeroAddress}
             onClose={() => {
               onClose();
               onSuccessfulSwap?.();

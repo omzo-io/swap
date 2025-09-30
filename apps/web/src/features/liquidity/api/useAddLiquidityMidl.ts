@@ -7,6 +7,7 @@ import { weiToSatoshis } from '@midl-xyz/midl-js-executor';
 import {
   useAddTxIntention,
   useClearTxIntentions,
+  useEVMAddress,
   useToken,
 } from '@midl-xyz/midl-js-executor-react';
 import { useBalance, useDefaultAccount } from '@midl-xyz/midl-js-react';
@@ -152,6 +153,7 @@ export const useAddLiquidityMidl = ({
   } = useMutation<void, Error, AddLiquidityVariables>({
     mutationFn: async ({ to, deadline, amountAMin, amountBMin }) => {
       clearTxIntentions();
+
       handleTokenApprovals(
         tokenA,
         runeA,

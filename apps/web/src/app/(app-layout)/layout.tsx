@@ -36,73 +36,9 @@ export default function AppLayout({
 }>) {
   return (
     <Suspense fallback={<AppPreloader />}>
-      <Web3Provider>
-          <Header
-            leftSlot={
-              <div
-                className={hstack({
-                  flexShrink: 0,
-                  width: {
-                    base: "100%",
-                    md: "fit-content",
-                  },
-                  justifyContent: "space-between",
-                })}
-              >
-                <Link
-                  href="/swap"
-                  className={hstack({
-                    display: "flex",
-                    alignItems: "center",
-                    fontSize: "24px",
-                    fontWeight: "700",
-                  })}
-                >
-                  <Logo />
-                  <Brand />
-                </Link>
-                <a
-                  href="https://www.linkedin.com/company/omzo-io/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={css({
-                    lg: {
-                      ml: 4,
-                    },
-                  })}
-                >
-                  <Image
-                    src={linkedinIcon}
-                    alt="LinkedIn"
-                    width={24}
-                    height={24}
-                  />
-                </a>
-                <Stack display={{ base: "flex", md: "none" }}>
-                  <MobileAppMenu />
-                </Stack>
-              </div>
-            }
-            navigation={
-              <HStack
-                display={{ base: "none", md: "flex" }}
-                backgroundColor="rgba(255, 255, 255, 0.1)"
-                padding="5px"
-                rounded="15px"
-                gap={0}
-                h="full"
-              >
-                <AppMenuList />
-              </HStack>
-            }
-            rightSlot={
-              <HStack gap={4} display={{ base: "none", md: "flex" }}>
-                <AccountButton />
-              </HStack>
-            }
-          />
-          <Toaster position="bottom-right" />
-          <ErrorBoundary fallback={renderErrorMessage}>
+    <Web3Provider>
+        <Header
+          leftSlot={
             <div
               className={css({
                 paddingBlock: 4,
@@ -111,15 +47,84 @@ export default function AppLayout({
                 flexDirection: "column",
               })}
             >
-              <TokenDialogProvider />
-              <RuneDialogProvider />
-              <SettingsDialogProvider />
-              <RemoveLiquidityProvider />
-              <FiatQuotesProvider>{children}</FiatQuotesProvider>
+              <Link
+                href="/swap"
+                className={hstack({
+                  display: "flex",
+                  alignItems: "center",
+                  fontSize: "24px",
+                  fontWeight: "700",
+                })}
+              >
+                <Logo />
+                <Brand />
+              </Link>
+              <a
+                href="https://www.linkedin.com/company/omzo-io/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={css({
+                  lg: {
+                    ml: 4,
+                  },
+                })}
+              >
+                <Image
+                  src={linkedinIcon}
+                  alt="LinkedIn"
+                  width={24}
+                  height={24}
+                />
+              </a>
+              <a
+                href="https://x.com/omzoio"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Twitter />
+              </a>
+              <Stack display={{ base: "flex", md: "none" }}>
+                <MobileAppMenu />
+              </Stack>
             </div>
-            <Footer />
-          </ErrorBoundary>
-      </Web3Provider>
+          }
+          navigation={
+            <HStack
+              display={{ base: "none", md: "flex" }}
+              backgroundColor="rgba(255, 255, 255, 0.1)"
+              padding="5px"
+              rounded="15px"
+              gap={0}
+              h="full"
+            >
+              <AppMenuList />
+            </HStack>
+          }
+          rightSlot={
+            <HStack gap={4} display={{ base: "none", md: "flex" }}>
+              <AccountButton />
+            </HStack>
+          }
+        />
+        <Toaster position="bottom-right" />
+        <ErrorBoundary fallback={renderErrorMessage}>
+          <div
+            className={css({
+              paddingBlock: 4,
+              flexGrow: 1,
+              display: "flex",
+              flexDirection: "column",
+            })}
+          >
+            <TokenDialogProvider />
+            <RuneDialogProvider />
+            <SettingsDialogProvider />
+            <RemoveLiquidityProvider />
+            <FiatQuotesProvider>{children}</FiatQuotesProvider>
+          </div>
+          <Footer />
+        </ErrorBoundary>
+    </Web3Provider>
     </Suspense>
   );
 }
