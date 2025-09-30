@@ -39,7 +39,7 @@
     "@sentry/react": "^7.109.0",
     "@tanstack/react-query": "^5.18.0",
     "@types/three": "^0.176.0",
-    "@wagmi/core": "^2.13.5",
+    "@wagmi/core": "^2.21.2",
     "axios": "^1.7.7",
     "classnames": "^2.5.1",
     "copy-to-clipboard": "^3.3.3",
@@ -66,7 +66,7 @@
     "use-debounce": "^10.0.0",
     "usehooks-ts": "^3.1.0",
     "viem": "npm:@midl-xyz/midl-viem@2.21.37",
-    "wagmi": "^2.13.3",
+    "wagmi": "^2.17.5",
     "yup": "^1.4.0"
   },
   "devDependencies": {
