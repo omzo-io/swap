@@ -130,7 +130,7 @@ export const ConnectWalletDialog = ({
                 appearance="primary"
               >
                 {isPending && "Connecting..." && variables?.id === connector.id}
-                {!isPending && connector.name}
+                {!isPending && connector.metadata.name}
               </Button>
             ))}
           </VStack>

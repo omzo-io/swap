@@ -178,13 +178,6 @@ export const RemoveLiquidityDialog = ({
     priceBtoA = b / a;
   } catch {}
 
-  const stateOverride = [
-    {
-      address: userAddress!,
-      balance: parseUnits('100000000000000000000000000', 18), // TODO: very large balance for testing
-    },
-  ];
-
   return (
     <Dialog {...rest}>
       <DialogOverlay onClick={onClose} />
@@ -211,7 +204,6 @@ export const RemoveLiquidityDialog = ({
 
           <IntentionSigner
             onClose={handleClose}
-            stateOverride={stateOverride}
             assetsToWithdraw={[
               runeA.rune?.id ? tokenA : zeroAddress,
               runeB.rune?.id ? tokenB : zeroAddress,

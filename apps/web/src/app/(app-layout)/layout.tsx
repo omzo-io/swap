@@ -26,8 +26,6 @@ import Image from 'next/image';
 
 import linkedinIcon from '@/widgets/footer/assets/linkedin.svg';
 
-import '@midl-xyz/satoshi-kit/styles.css';
-import "../globals.css";
 
 export default function AppLayout({
   children,
@@ -102,7 +100,8 @@ export default function AppLayout({
           }
           rightSlot={
             <HStack gap={4} display={{ base: "none", md: "flex" }}>
-              <AccountButton />
+              {/* <AccountButton /> */}
+              <ConnectButton hideBalance hideAvatar />
             </HStack>
           }
         />

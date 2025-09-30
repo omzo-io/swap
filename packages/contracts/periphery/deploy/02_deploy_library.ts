@@ -10,16 +10,15 @@ const getUniswapV2FactoryAddress = async (chain: string, version: string) => {
   return deployment.address;
 };
 
-const deploy: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
-  const { deployer } = await hre.getNamedAccounts();
+const deploy: DeployFunction = async function ({ midl }: HardhatRuntimeEnvironment) {
+  await midl.initialize();
 
-  await hre.deployments.deploy("UV2Library", {
-    from: deployer,
-    args: [
-      await getUniswapV2FactoryAddress(hre.network.name, packageJSON.version),
-    ],
-    log: true,
+  const library = await midl.deploy("UV2Library", {
+    args: [await getUniswapV2FactoryAddress("midl", packageJSON.version)],
   });
+  await midl.execute();
+
+  console.log("library", library);
 };
 
 deploy.tags = ["UV2Library"];

@@ -17,7 +17,7 @@ export default function NewLiquidity() {
       <div
       className={vstack({
         maxW: 480,
-        margin: "0 auto",
+        margin: '0 auto',
         px: 8,
         py: 8,
         border: "1px solid rgba(255, 255, 255, 0.14)",

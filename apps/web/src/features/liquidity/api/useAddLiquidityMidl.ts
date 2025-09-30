@@ -145,7 +145,6 @@ export const useAddLiquidityMidl = ({
     allowances.tokenA < tokenA.amount && tokenA.address !== zeroAddress;
   const isTokenBNeedApprove =
     allowances.tokenB < tokenB.amount && tokenB.address !== zeroAddress;
-
   const {
     mutate: addLiquidity,
     mutateAsync: addLiquidityAsync,
@@ -184,7 +183,6 @@ export const useAddLiquidityMidl = ({
           evmTransaction: {
             to: deployments[chainId].UniswapV2Router02.address,
             chainId,
-            type: 'btc',
             data: encodeFunctionData({
               abi: uniswapV2Router02Abi,
               functionName,
@@ -195,6 +193,7 @@ export const useAddLiquidityMidl = ({
           deposit: {
             satoshis: ethValue > 0n ? weiToSatoshis(ethValue) : undefined,
           },
+          satoshis: isETH ? convertETHtoBTC(ethValue) : undefined,
         },
       });
 

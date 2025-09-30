@@ -1,6 +1,6 @@
 {
   "name": "@omzo-swap/periphery",
-  "version": "2.0.0",
+  "version": "1.0.4",
   "scripts": {
     "build": "hardhat compile & hardhat export-abi"
   },
@@ -15,6 +15,8 @@
     "dotenv": "^16.4.1",
     "hardhat": "2.19.5",
     "hardhat-abi-exporter": "2.10.1",
-    "hardhat-deploy": "0.11.45"
+    "hardhat-deploy": "0.11.45",
+    "@midl-xyz/hardhat-deploy": "2.0.0-next.33",
+    "@midl-xyz/midl-js-core": "2.0.0-next.32"
   }
 }

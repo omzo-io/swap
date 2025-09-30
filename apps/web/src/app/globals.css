@@ -8,7 +8,7 @@ body > [data-rk] {
 
 body {
     background: url('/images/bg.webp') no-repeat top center #141417 !important;
-    background-size: cover;
+    background-size: cover !important;
 }
 
 #about {
@@ -30,8 +30,17 @@ body {
     font-weight: 500 !important;
     line-height: 18px !important;
     height: auto !important;
+    font-weight: 700 !important;
 }
 
 .satoshi-kit--button--variant_solid:hover {
     background-color: #25C665 !important;
+}
+
+.satoshi-kit--button {
+    font-weight: 700;
+}
+
+.satoshi-kit--dialog__content {
+    color: white !important;
 }

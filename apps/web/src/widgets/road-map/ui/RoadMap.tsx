@@ -18,10 +18,10 @@ const milestones = [
     left: 0,
     top: 0,
   },
-  { text: "Liquidity Sourcing & Test Launches", left: "240px", top: "52px" },
-  { text: "Mainnet Launch & Scaling", left: "480px", top: "104px" },
-  { text: "Ecosystem Growth & Partnerships", left: "680px", top: "156px" },
-  { text: "Expansion", left: "920px", top: "208px" },
+  { text: "Liquidity Sourcing & Test Launches", left: "240px", top: "52px", width: "400px" },
+  { text: "Mainnet Launch & Scaling", left: "640px", top: "104px" },
+  { text: "Ecosystem Growth & Partnerships", left: "820px", top: "156px" },
+  { text: "Expansion", left: "1080px", top: "208px" },
 ];
 
 const RoadMap = () => {
@@ -172,6 +172,7 @@ const RoadMap = () => {
               style={{
                 left: m.left,
                 top: m.top,
+                width: m.width,
               }}
             >
               {m.text}

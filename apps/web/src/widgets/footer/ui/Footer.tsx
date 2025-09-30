@@ -6,9 +6,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { css } from '~/styled-system/css';
 import { VStack, HStack } from '~/styled-system/jsx';
-import { hstack, vstack } from '~/styled-system/patterns';
+import { vstack } from '~/styled-system/patterns';
 
 import linkedinIcon from '../assets/linkedin.svg';
+import Twitter from '@/shared/assets/Twitter';
 
 export const Footer = () => {
   return (
@@ -155,6 +156,7 @@ export const Footer = () => {
           display: 'flex',
           justifyContent: 'center',
           marginTop: '8px',
+          gap: '12px',
           '@media (min-width: 768px)': {
             marginTop: '20px',
           },
@@ -183,11 +185,29 @@ export const Footer = () => {
             height={20}
             className={css({
               '@media (min-width: 768px)': {
-                width: 24,
-                height: 24,
+                width: 6,
+                height: 6,
               },
             })}
           />
+        </a>
+        <a
+          href="https://x.com/omzoio"
+          target="_blank"
+          rel="noopener noreferrer"
+          className={css({
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '4px',
+            borderRadius: '4px',
+            transition: 'opacity 0.2s ease',
+            '&:hover': {
+              opacity: 0.8,
+            },
+          })}
+        >
+          <Twitter />
         </a>
       </div>
     </footer>

@@ -4,9 +4,9 @@ import { WETHByChain } from '@/global';
 import { deployments, uniswapV2Router02Abi } from '@/global/contracts';
 import { weiToSatoshis } from '@midl-xyz/midl-js-executor';
 import {
+  useAddCompleteTxIntention,
   useAddTxIntention,
   useClearTxIntentions,
-  useAddCompleteTxIntention,
   useEVMAddress,
   useToken,
 } from '@midl-xyz/midl-js-executor-react';
