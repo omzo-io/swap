@@ -193,7 +193,6 @@ export const useAddLiquidityMidl = ({
           deposit: {
             satoshis: ethValue > 0n ? weiToSatoshis(ethValue) : undefined,
           },
-          satoshis: isETH ? convertETHtoBTC(ethValue) : undefined,
         },
       });
 

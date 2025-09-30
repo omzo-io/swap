@@ -23,7 +23,7 @@ import '../globals.css';
 import { AccountButton } from '@/widgets/account-button';
 import { Brand } from '@/widgets';
 import Image from 'next/image';
-
+import Twitter from '@/shared/assets/Twitter';
 import linkedinIcon from '@/widgets/footer/assets/linkedin.svg';
 
 
@@ -34,19 +34,21 @@ export default function AppLayout({
 }>) {
   return (
     <Suspense fallback={<AppPreloader />}>
-    <Web3Provider>
+      <Web3Provider>
         <Header
           leftSlot={
             <div
-              className={css({
-                paddingBlock: 4,
-                flexGrow: 1,
-                display: "flex",
-                flexDirection: "column",
+              className={hstack({
+                flexShrink: 0,
+                width: {
+                  base: "100%",
+                  md: "fit-content",
+                },
+                justifyContent: "space-between",
               })}
             >
               <Link
-                href="/swap"
+                href="/"
                 className={hstack({
                   display: "flex",
                   alignItems: "center",
@@ -100,8 +102,7 @@ export default function AppLayout({
           }
           rightSlot={
             <HStack gap={4} display={{ base: "none", md: "flex" }}>
-              {/* <AccountButton /> */}
-              <ConnectButton hideBalance hideAvatar />
+              <AccountButton />
             </HStack>
           }
         />
@@ -123,7 +124,7 @@ export default function AppLayout({
           </div>
           <Footer />
         </ErrorBoundary>
-    </Web3Provider>
+      </Web3Provider>
     </Suspense>
   );
 }

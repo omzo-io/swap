@@ -5,14 +5,9 @@ import {
   useFinalizeBTCTransaction,
   useSendBTCTransactions,
   useSignIntention,
-  useFinalizeBTCTransaction,
-  useSendBTCTransactions,
-  useSignIntention,
 } from '@midl-xyz/midl-js-executor-react';
 import { useConfig, useWaitForTransaction } from '@midl-xyz/midl-js-react';
-import { useConfig, useWaitForTransaction } from '@midl-xyz/midl-js-react';
 import toast from 'react-hot-toast';
-import { Address } from 'viem';
 import { Address } from 'viem';
 import { css } from '~/styled-system/css';
 import { hstack, vstack } from '~/styled-system/patterns';
@@ -30,7 +25,6 @@ export const IntentionSigner = ({
 
 
   const {
-    data: btcTransaction,
     data: btcTransaction,
     finalizeBTCTransaction,
     isSuccess: isFinalizedBTC,

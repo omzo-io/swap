@@ -125,7 +125,14 @@ export const Pair = ({ id }: Props) => {
   ];
 
   return (
-    <Stack background="white" padding={{ base: 2, md: 7 }}>
+    <Stack
+      padding={{ base: 2, md: 7 }}
+      border="1px solid rgba(255, 255, 255, 0.14)"
+      backgroundColor="linear-gradient(180deg, rgba(233, 236, 249, 0.05) 0%, rgba(233, 236, 249, 0.02) 100%)"
+      backdropFilter="blur(70px)"
+      rounded="3xl"
+      color="white"
+    >
       <VStack
         gap={8}
         margin="auto"
