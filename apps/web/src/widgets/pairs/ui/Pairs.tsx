@@ -1,41 +1,71 @@
-"use client";
+'use client';
 
-import { useGetPools } from "@/features/liquidity";
-import { PairItem } from "@/widgets/pairs/ui/pair/PairItem";
-import { Loader2Icon } from "lucide-react";
-import { getAddress } from "viem";
-import { css } from "~/styled-system/css";
+import { useGetPools } from '@/features/liquidity';
+import { AppPreloader } from '@/widgets';
+import { PairItem } from '@/widgets/pairs/ui/pair/PairItem';
+import { getAddress } from 'viem';
+import { css } from '~/styled-system/css';
 
+const COMMUNITY_PAIRS = [
+  ['BUSD', 'WARTOK'],
+  ['WARTOK', 'BTC'],
+];
 export const Pairs = () => {
-  const { data: pools, isFetching } = useGetPools();
-  if (isFetching) {
-    return (
-      <div
-        className={css({
-          color: "white",
-          border: "1px solid rgba(255, 255, 255, 0.14)",
-          backgroundColor:
-            "linear-gradient(180deg, rgba(233, 236, 249, 0.05) 0%, rgba(233, 236, 249, 0.02) 100%)",
-          backdropFilter: "blur(70px)",
-          padding: 4,
-          borderRadius: "3xl",
-          display: "flex",
-          verticalAlign: "middle",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 2,
-        })}
-      >
-        <Loader2Icon
-          className={css({
-            animation: "spin 1s linear infinite",
-            display: "inline-block",
-            verticalAlign: "middle",
-          })}
-        />
-        <span>Loading...</span>
-      </div>
-    );
+  const tokens = [
+    ['LOBOTHEWOLFPUP', 'BTC'],
+    ['DOGGOTOTHEMOON', 'BTC'],
+    ['DOGECOINDOGEDOSU', 'BTC'],
+    ['LOBOTHEWOLFPUP', 'BUSD'],
+    ['DOGGOTOTHEMOON', 'BUSD'],
+    ['DOGECOINDOGEDOSU', 'BUSD'],
+    ['BUSD', 'BTC'],
+    ['MIDLGROUNDSGEARSTOKEN', 'BTC'],
+    ['BUSD', 'MIDLGROUNDSGEARSTOKEN'],
+    ...COMMUNITY_PAIRS,
+  ].reduce(
+    (acc, symbols) => {
+      acc.push({
+        token0: {
+          name_eq: symbols[0],
+        },
+        token1: {
+          name_eq: symbols[1],
+        },
+      });
+
+      acc.push({
+        token0: {
+          name_eq: symbols[1],
+        },
+        token1: {
+          name_eq: symbols[0],
+        },
+      });
+
+      return acc;
+    },
+    [] as {
+      token0: { name_eq: string };
+      token1: { name_eq: string };
+    }[],
+  );
+
+  const {
+    data: pools,
+    isFetching,
+    isLoading,
+  } = useGetPools({
+    ...(process.env.NEXT_PUBLIC_DISPLAY_ALL_PAIRS
+      ? {}
+      : {
+          where: {
+            OR: tokens,
+          },
+        }),
+  });
+
+  if (isFetching || isLoading) {
+    return <AppPreloader />;
   }
 
   return (
@@ -59,23 +89,43 @@ export const Pairs = () => {
           verticalAlign: "middle",
         })}
       >
-        <div className={css({ width: "5%", display: "table-cell" })}>#</div>
-        <div className={css({ display: "table-cell" })}>Pair</div>
-        <div className={css({ display: "table-cell" })}>Volume (24h)</div>
-        <div className={css({ display: "table-cell" })}>Liquidity</div>
-        <div className={css({ display: "table-cell" })}>Fees(24h)</div>
+        <div className={css({ width: '5%', display: 'table-cell' })}>#</div>
+        <div className={css({ display: 'table-cell' })}>Pair</div>
+        <div className={css({ display: 'table-cell' })}>Volume (24h)</div>
+        <div className={css({ display: 'table-cell' })}>Liquidity</div>
+        <div className={css({ display: 'table-cell' })}>Price</div>
       </div>
 
-      {pools?.pairs.map((pair, index) => (
-        <PairItem
-          index={index}
-          key={pair.id}
-          tokenA={getAddress(pair.token0.id)}
-          tokenB={getAddress(pair.token1.id)}
-          id={getAddress(pair.id)}
-          pair={pair}
-        />
-      ))}
+      {pools?.pairs.map((pair, index) => {
+        let tokenA = pair.token0.id;
+        let tokenB = pair.token1.id;
+
+        if (pair.token0.name === 'BUSD') {
+          tokenA = pair.token1.id;
+          tokenB = pair.token0.id;
+        }
+
+        if (pair.token1.name === 'BTC') {
+          tokenA = pair.token0.id;
+          tokenB = pair.token1.id;
+        }
+
+        if (pair.token0.name === 'BTC') {
+          tokenA = pair.token1.id;
+          tokenB = pair.token0.id;
+        }
+
+        return (
+          <PairItem
+            index={index}
+            key={pair.id}
+            tokenA={getAddress(tokenA)}
+            tokenB={getAddress(tokenB)}
+            id={getAddress(pair.id)}
+            pair={pair}
+          />
+        );
+      })}
     </div>
   );
 };

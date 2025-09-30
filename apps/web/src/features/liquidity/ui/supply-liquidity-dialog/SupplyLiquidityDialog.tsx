@@ -8,15 +8,7 @@ import { useEVMAddress } from '@midl-xyz/midl-js-executor-react';
 import { DialogProps } from '@radix-ui/react-dialog';
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
-import {
-  Address,
-  encodeAbiParameters,
-  formatUnits,
-  keccak256,
-  parseUnits,
-  toHex,
-  zeroAddress,
-} from 'viem';
+import { Address, encodeAbiParameters, formatUnits, keccak256 } from 'viem';
 import { css } from '~/styled-system/css';
 import { hstack, vstack } from '~/styled-system/patterns';
 
@@ -261,9 +253,45 @@ export const SupplyLiquidityDialog = ({
                     })}
                   />
 
-                  <span className={css({ textStyle: 'caption' })}>
-                    {tokenAInfo.symbol}/{tokenBInfo.symbol} Pool Tokens
-                  </span>
+<div>
+                    <span className={css({ textStyle: 'caption' })}>
+                      Pool Tokens
+                    </span>
+                    <div
+                      className={css({
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '2px',
+                      })}
+                    >
+                      <span
+                        title={tokenAInfo.symbol}
+                        className={css({
+                          textOverflow: 'ellipsis',
+                          overflow: 'hidden',
+                          width: '170px',
+                          whiteSpace: 'nowrap',
+                          textStyle: 'caption',
+                        })}
+                      >
+                        {tokenAInfo.symbol}
+                      </span>
+                      <span>/</span>
+                      <span
+                        title={tokenBInfo.symbol}
+                        className={css({
+                          textOverflow: 'ellipsis',
+                          overflow: 'hidden',
+                          width: '170px',
+                          whiteSpace: 'nowrap',
+                          textStyle: 'caption',
+                        })}
+                      >
+                        {tokenBInfo.symbol}
+                      </span>{' '}
+                    </div>
+                  </div>
                 </div>
               )}
             </div>
@@ -282,26 +310,10 @@ export const SupplyLiquidityDialog = ({
                     justifyContent: 'space-between',
                   })}
                 >
-                  <span>{tokenAInfo.symbol} Deposited</span>
+                  <div>Deposited</div>
                   <TokenValue
                     address={tokenA}
                     value={tokenAAmount}
-                    chainId={chainId}
-                    className={css({
-                      textStyle: 'h6',
-                    })}
-                  />
-                </div>
-                <div
-                  className={hstack({
-                    gap: 4,
-                    justifyContent: 'space-between',
-                  })}
-                >
-                  <span>{tokenBInfo.symbol} Deposited</span>
-                  <TokenValue
-                    address={tokenB}
-                    value={tokenBAmount}
                     chainId={chainId}
                     className={css({
                       textStyle: 'h6',

@@ -10,10 +10,12 @@ export type AppMenuLink = {
 
 type AppMenuLinkProps = {
   link: AppMenuLink;
+  onClick?: () => void;
 };
 
 export const AppMenuLink = ({
   link: { label, href, isExact },
+  onClick,
 }: AppMenuLinkProps) => {
   const pathname = usePathname();
 
@@ -35,6 +37,9 @@ export const AppMenuLink = ({
         background: isPathMatch ? "rgba(0, 0, 0, 0.3)" : "transparent",
         position: "relative",
       })}
+      data-active={isPathMatch ? 'true' : 'false'}
+      aria-current={isPathMatch ? 'page' : undefined}
+      onClick={onClick}
     >
       {label}
     </Link>

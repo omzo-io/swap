@@ -1,11 +1,20 @@
-import { Suspense } from "react";
-import { LiquidityForm } from "@/widgets/liquidity-form";
-import { css } from "~/styled-system/css";
-import { vstack } from "~/styled-system/patterns";
+'use client';
+
+import { AppPreloader, LiquidityForm } from '@/widgets';
+import { Suspense } from 'react';
+import { css } from '~/styled-system/css';
+import { vstack } from '~/styled-system/patterns';
 
 export default function NewLiquidity() {
   return (
-    <div
+    <Suspense
+    fallback={
+      <div style={{ width: '100vw', height: '100vh' }}>
+        <AppPreloader />
+      </div>
+    }
+    >
+      <div
       className={vstack({
         maxW: 480,
         margin: "0 auto",
@@ -20,16 +29,15 @@ export default function NewLiquidity() {
         gap: 4,
       })}
     >
-      <h1
-        className={css({
-          textStyle: "h2",
-        })}
-      >
-        Add Liquidity
-      </h1>
-      <Suspense fallback={<div>Loading...</div>}>
+        <h1
+          className={css({
+            textStyle: 'h2',
+          })}
+        >
+          Add Liquidity
+        </h1>
         <LiquidityForm />
-      </Suspense>
-    </div>
+      </div>
+    </Suspense>
   );
 }

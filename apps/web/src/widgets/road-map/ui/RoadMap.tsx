@@ -109,7 +109,7 @@ const RoadMap = () => {
         <div
           className={css({
             position: "absolute",
-            left: `calc(23% + 32px)`,
+            left: `calc(50% + 6px)`,
             top: -10,
             zIndex: 3,
             display: "flex",

@@ -103,6 +103,7 @@ export const SwapDetails = ({
       borderRadius="xl"
       onClick={handleToggle}
       cursor="pointer"
+      color="white"
     >
       {' '}
       <HStack width="100%" justifyContent="space-between">

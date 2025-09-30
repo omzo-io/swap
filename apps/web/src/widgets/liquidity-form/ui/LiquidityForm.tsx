@@ -14,21 +14,24 @@ import {
   SwapInput,
   parseNumberInput,
   scopeKeyPredicate,
-} from "@/shared";
-import { SlippageControl } from "@/widgets";
-import { schema } from "@/widgets/liquidity-form/ui/schema";
-import { correctNumber } from "@/widgets/swap-form/ui/utils";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useQueryClient } from "@tanstack/react-query";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { useDebouncedCallback } from "use-debounce";
-import { Address, formatUnits, parseUnits, zeroAddress } from "viem";
-import { useChainId } from "wagmi";
+} from '@/shared';
+import { SlippageControl } from '@/widgets';
+import { schema } from '@/widgets/liquidity-form/ui/schema';
+import { correctNumber } from '@/widgets/swap-form/ui/utils';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
+import { useDebouncedCallback } from 'use-debounce';
+import { Address, formatUnits, parseUnits, zeroAddress } from 'viem';
+import { useChainId } from 'wagmi';
+import { useBTCFeeRate, useEVMAddress } from '@midl-xyz/midl-js-executor-react';
 
-import { css } from "~/styled-system/css";
-import { hstack, vstack } from "~/styled-system/patterns";
+import { css } from '~/styled-system/css';
+import { hstack, vstack } from '~/styled-system/patterns';
+import { AccountButton } from '@/widgets/account-button';
+import { calculateAdjustedBalance } from '@/shared/lib/fees';
 
 type FormData = {
   tokenAAmount: string;
@@ -38,7 +41,6 @@ type FormData = {
 };
 
 export const LiquidityForm = () => {
-  const searchParams = useSearchParams();
   const [minValues, setValues] = useState({
     minAmountA: 0,
     minAmountB: 0,
@@ -156,6 +158,7 @@ export const LiquidityForm = () => {
   }, [update, balanceA, balanceB, minAmountA, minAmountB, minValues]);
 
   const lpToken = useGetLPTokenAddress({ tokenA, tokenB });
+  const address = useEVMAddress();
 
   const onSubmit = () => {
     setIsDialogOpen(true);
@@ -203,8 +206,8 @@ export const LiquidityForm = () => {
   } catch {}
 
   useEffect(() => {
-    const inputTokenSymbol = searchParams.get("inputToken");
-    const outputTokenSymbol = searchParams.get("outputToken");
+    const inputTokenSymbol = undefined;
+    const outputTokenSymbol = undefined;
     if (inputTokenSymbol && outputTokenSymbol) {
       const inputTokenFound = tokenList.find(
         ({ symbol }) => symbol === inputTokenSymbol,
@@ -222,13 +225,20 @@ export const LiquidityForm = () => {
     }
   }, []);
 
-  const isBalanceABigEnough =
-    parsedTokenAAmount <=
-    parseUnits(balanceA?.formattedBalance!, tokenAInfo.decimals);
+  const { data: feeRate = 2n } = useBTCFeeRate();
+  const rawBalanceA = balanceA?.balance ?? 0n;
+  const rawBalanceB = balanceB?.balance ?? 0n;
+  const isTokenABTC = tokenA === zeroAddress;
+  const isTokenBBTC = tokenB === zeroAddress;
+  const effectiveBalanceA = isTokenABTC
+    ? calculateAdjustedBalance(rawBalanceA, feeRate)
+    : rawBalanceA;
+  const effectiveBalanceB = isTokenBBTC
+    ? calculateAdjustedBalance(rawBalanceB, feeRate)
+    : rawBalanceB;
 
-  const isBalanceBBigEnough =
-    parsedTokenBAmount <=
-    parseUnits(balanceB?.formattedBalance!, tokenBInfo.decimals);
+  const isBalanceABigEnough = parsedTokenAAmount <= effectiveBalanceA;
+  const isBalanceBBigEnough = parsedTokenBAmount <= effectiveBalanceB;
 
   const isBalanceBigEnough = isBalanceABigEnough && isBalanceBBigEnough;
 
@@ -304,7 +314,19 @@ export const LiquidityForm = () => {
                     color: "neutral.600",
                   })}
                 >
-                  {tokenAInfo.symbol} per {tokenBInfo.symbol}
+                  <span
+                    className={css({
+                      display: 'inline-block',
+                      maxWidth: '140px',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      verticalAlign: 'bottom',
+                    })}
+                    title={`${tokenAInfo.name ?? tokenAInfo.symbol} per ${tokenBInfo.name ?? tokenBInfo.symbol}`}
+                  >
+                    {tokenAInfo.symbol} per {tokenBInfo.symbol}
+                  </span>
                 </div>
               </div>
 
@@ -322,7 +344,19 @@ export const LiquidityForm = () => {
                     color: "neutral.600",
                   })}
                 >
-                  {tokenBInfo.symbol} per {tokenAInfo.symbol}
+                  <span
+                    className={css({
+                      display: 'inline-block',
+                      maxWidth: '140px',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      verticalAlign: 'bottom',
+                    })}
+                    title={`${tokenBInfo.name ?? tokenBInfo.symbol} per ${tokenAInfo.name ?? tokenAInfo.symbol}`}
+                  >
+                    {tokenBInfo.symbol} per {tokenAInfo.symbol}
+                  </span>
                 </div>
               </div>
 
@@ -347,7 +381,8 @@ export const LiquidityForm = () => {
           </div>
         )}
 
-        <Button
+        {address === zeroAddress ? <AccountButton /> : (
+          <Button
           type="submit"
           disabled={
             !formState.isValid ||
@@ -362,6 +397,7 @@ export const LiquidityForm = () => {
               ? "Select token"
               : "Supply"}
         </Button>
+        )}
 
         <SupplyLiquidityDialog
           open={isDialogOpen}

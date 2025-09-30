@@ -40,7 +40,7 @@ export const SlippageControl = ({ inline }: SlippageControlProps) => {
         justifyContent: "space-between",
       })}
     >
-      <div>
+      <div className={css({ color: "white" })}>
         Max. slippage
         <Button
           onClick={() => {
@@ -56,7 +56,7 @@ export const SlippageControl = ({ inline }: SlippageControlProps) => {
           <PencilIcon width={12} height={12} />
         </Button>
       </div>
-      <span>{parseFloat((slippage * 100).toFixed(2))}%</span>
+      <span className={css({ color: "white" })}>{parseFloat((slippage * 100).toFixed(2))}%</span>
     </div>
   );
 };

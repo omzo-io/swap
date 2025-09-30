@@ -18,7 +18,7 @@ import {
 import { SlippageControl } from '@/widgets';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useEVMAddress, useToken } from '@midl-xyz/midl-js-executor-react';
-import { DialogProps } from '@radix-ui/react-dialog';
+import { DialogProps, DialogTitle } from '@radix-ui/react-dialog';
 import { useQueryClient } from '@tanstack/react-query';
 import fromExponential from 'from-exponential';
 import { useAtom } from 'jotai';
@@ -28,6 +28,7 @@ import { useChainId } from 'wagmi';
 import * as yup from 'yup';
 import { css } from '~/styled-system/css';
 import { hstack, vstack } from '~/styled-system/patterns';
+import { toPlainString } from '@/widgets/swap-form/ui/utils';
 
 type RemoveLiquidityDialogProps = {
   onClose?: () => void;
@@ -123,7 +124,7 @@ export const RemoveLiquidityDialog = ({
   const tokenAAmountWithSlippage =
     (parseFloat(formatUnits(tokenAAmount ?? BigInt(0), tokenAInfo.decimals)) ??
       0) *
-    (1 - (slippage ?? 0));
+    (1 - (slippage || 0));
 
   const tokenBAmountWithSlippage =
     (parseFloat(formatUnits(tokenBAmount ?? BigInt(0), tokenBInfo.decimals)) ??
@@ -143,11 +144,11 @@ export const RemoveLiquidityDialog = ({
       tokenB,
       liquidity: parsedLPToken,
       amountAMin: parseUnits(
-        tokenAAmountWithSlippage.toString(),
+        toPlainString(tokenAAmountWithSlippage),
         tokenAInfo.decimals,
       ),
       amountBMin: parseUnits(
-        tokenBAmountWithSlippage.toString(),
+        toPlainString(tokenBAmountWithSlippage),
         tokenBInfo.decimals,
       ),
       to: userAddress as Address,
@@ -189,21 +190,26 @@ export const RemoveLiquidityDialog = ({
       <DialogOverlay onClick={onClose} />
       <DialogContent
         onEscapeKeyDown={onClose}
+        aria-describedby={undefined}
         className={css({
           width: 'full',
           maxWidth: 450,
         })}
       >
         {isSuccess && (
+          <div className={vstack({ gap: 4, alignItems: 'center' })}>
+          <DialogTitle asChild>
+            <h3
+              className={css({
+                textStyle: 'h3',
+                textAlign: 'center',
+              })}
+            >
+              Sign intentions to remove liquidity
+            </h3>
+          </DialogTitle>
+
           <IntentionSigner
-            shouldComplete={
-              !!(
-                runeA.rune?.id ||
-                runeB.rune?.id ||
-                tokenA === WETHByChain[chainId] ||
-                tokenB === WETHByChain[chainId]
-              )
-            }
             onClose={handleClose}
             stateOverride={stateOverride}
             assetsToWithdraw={[
@@ -211,6 +217,9 @@ export const RemoveLiquidityDialog = ({
               runeB.rune?.id ? tokenB : zeroAddress,
             ]}
           />
+
+          <Button onClick={handleClose}>Close</Button>
+        </div>
         )}
         {!isSuccess && (
           <form
@@ -220,13 +229,15 @@ export const RemoveLiquidityDialog = ({
               gap: 4,
             })}
           >
-            <h3
-              className={css({
-                textStyle: 'h3',
-              })}
-            >
-              Remove Liquidity
-            </h3>
+            <DialogTitle asChild>
+              <h3
+                className={css({
+                  textStyle: 'h3',
+                })}
+              >
+                Remove Liquidity
+              </h3>
+            </DialogTitle>
             <div
               className={css({
                 borderWidth: 1,
@@ -312,7 +323,7 @@ export const RemoveLiquidityDialog = ({
                   address={tokenA}
                   chainId={chainId}
                   value={parseUnits(
-                    tokenAAmountWithSlippage.toString(),
+                    toPlainString(tokenAAmountWithSlippage),
                     tokenAInfo.decimals,
                   )}
                   hideLogo
@@ -337,19 +348,13 @@ export const RemoveLiquidityDialog = ({
                   address={tokenB}
                   chainId={chainId}
                   value={parseUnits(
-                    tokenBAmountWithSlippage.toString(),
+                    toPlainString(tokenBAmountWithSlippage),
                     tokenBInfo.decimals,
                   )}
-                  hideLogo
-                  hideSymbol
                   className={css({
                     textStyle: 'h6',
                   })}
                 />
-                <div className={css({ display: 'flex', gap: 1 })}>
-                  <TokenLogo address={tokenB} chainId={chainId} />
-                  {tokenBInfo.symbol}
-                </div>
               </div>
             </div>
 

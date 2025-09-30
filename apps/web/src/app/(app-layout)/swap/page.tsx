@@ -1,13 +1,79 @@
 "use client";
 
+import { AppPreloader, SwapForm, RoadMap, About, BestExperience } from '@/widgets';
+import { createConfig, getRune, regtest } from '@midl-xyz/midl-js-core';
+import {
+  executorAbi,
+  executorAddress,
+  midlRegtest,
+  runeIdToBytes32,
+} from '@midl-xyz/midl-js-executor';
 import { Suspense } from "react";
-import { BestExperience, RoadMap, SwapForm, About } from "@/widgets";
+import { Address, Client, createPublicClient, getAddress, http } from 'viem';
+import { readContract } from 'viem/actions';
 import { css, cx } from "~/styled-system/css";
 import { center, vstack, grid } from "~/styled-system/patterns";
 import InteractiveTextBlock from "./InteractiveTextBlock";
 import { ChevronDownIcon } from "lucide-react";
 
-export default function SwapPage() {
+type QueryParams = {
+  inputToken?: string;
+  outputToken?: string;
+  amount?: string;
+  field?: 'input' | 'output';
+};
+
+const getRuneOrAddress = async (
+  inputToken: string,
+  client: Client,
+): Promise<Address | undefined> => {
+  if (!inputToken && inputToken.trim() === '') {
+    return undefined;
+  }
+
+  try {
+    return getAddress(inputToken.toLowerCase());
+  } catch {
+    try {
+      const config = createConfig({
+        networks: [regtest],
+        connectors: [],
+      });
+      const rune = await getRune(config, inputToken);
+
+      if (!rune) {
+        return undefined;
+      }
+
+      const data = await readContract(client, {
+        abi: executorAbi,
+        functionName: 'getAssetAddressByRuneId',
+        args: [runeIdToBytes32(rune.id)],
+        address: executorAddress['regtest'] as Address,
+      });
+
+      return data;
+    } catch (error) {
+      return undefined;
+    }
+  }
+};
+
+export default async function SwapPage({
+  searchParams,
+}: {
+  searchParams: Promise<QueryParams>;
+}) {
+  const {
+    inputToken = '',
+    outputToken = '',
+    amount,
+    field,
+  } = await searchParams;
+  const client = createPublicClient({
+    chain: midlRegtest,
+    transport: http(midlRegtest.rpcUrls.default.http[0]),
+  });
   return (
     <main
       className={cx(
@@ -20,8 +86,13 @@ export default function SwapPage() {
       )}
     >
       <InteractiveTextBlock />
-      <Suspense fallback={<div>Loading...</div>}>
-        <SwapForm />
+      <Suspense fallback={<AppPreloader />}>
+        <SwapForm
+          inputToken={await getRuneOrAddress(inputToken, client)}
+          outputToken={await getRuneOrAddress(outputToken, client)}
+          amount={amount}
+          field={field}
+        />
       </Suspense>
       <p
         className={css({

@@ -19,8 +19,8 @@ export const MobileAppMenu = () => {
         onClick={handleToggle}
         src={MenuIcon}
         alt="menu-button"
-        width={MenuIcon.width}
-        height={MenuIcon.height}
+        width={24}
+        height={24}
       />
       <Dialog open={open}>
         <DialogOverlay onClick={handleToggle} />
@@ -32,9 +32,10 @@ export const MobileAppMenu = () => {
           <X onClick={handleToggle} />
           <VStack width="100%" gap={5}>
             <VStack width="100%" gap={5}>
-              <AppMenuList onToggleModal={handleToggle} />
+              <AppMenuList onClick={handleToggle} />
             </VStack>
-            <AccountButton />
+
+            <AccountButton onClick={handleToggle} />
           </VStack>
         </DialogContent>
       </Dialog>

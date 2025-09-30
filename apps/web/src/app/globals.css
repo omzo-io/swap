@@ -1,5 +1,4 @@
 @layer reset, base, tokens, recipes, utilities;
-@import url("~/styled-system/styles.css");
 
 body > [data-rk] {
     display: flex;

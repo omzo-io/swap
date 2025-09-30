@@ -1,9 +1,5 @@
-import { midlRegtest } from '@midl-xyz/midl-js-executor';
 import { Address } from 'viem';
 import type { Config } from 'wagmi';
-
-type UV2Library =
-  typeof import('@omzo-swap/periphery/deployments/1.0.3/sepolia/UV2Library.json');
 
 type Deployments = Record<
   Config['chains'][number]['id'],
@@ -14,14 +10,16 @@ type Deployments = Record<
     UniswapV2Factory: {
       address: Address;
     };
-    UV2Library: UV2Library;
+    UV2Library: { address: Address };
   }
 >;
 
 export const deployments: Deployments = {
-  [midlRegtest.id]: {
-    UniswapV2Router02: require('@omzo-swap/periphery/deployments/1.0.3/midl/UniswapV2Router02.json'),
-    UniswapV2Factory: require('@omzo-swap/core/deployments/1.0.4/midl/UniswapV2Factory.json'),
-    UV2Library: require('@omzo-swap/periphery/deployments/1.0.3/midl/UV2Library.json'),
+  ['777']: {
+    UniswapV2Router02: {
+      address: '0xB1F1C1A72dFb4F90d3794a3496703D6cBAAC72FA',
+    },
+    UniswapV2Factory: { address: '0x7C94B93aafB0aF2F58703B56c5EF18Fd10A6Ee06' },
+    UV2Library: { address: '0x24e1aC0E5038C51A50AaDf2a4704a8eC87fE6C18' },
   },
 };

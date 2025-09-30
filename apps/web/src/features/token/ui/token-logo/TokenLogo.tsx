@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import { useToken } from '@/entities';
 import { useERC20Rune } from '@midl-xyz/midl-js-executor-react';
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, useEffect, useState } from 'react';
 import { Address } from 'viem';
 import { useChainId } from 'wagmi';
 import { css, cx } from '~/styled-system/css';
@@ -24,15 +24,57 @@ export const TokenLogo = ({
   overridePic,
 }: TokenLogoProps) => {
   const appChainId = useChainId();
+  let {
+    logoURI: tokenLogoURI,
+    symbol,
+    name,
+  } = useToken(address as Address, chainId ?? appChainId);
+  const [imageError, setImageError] = useState(false);
 
-  let { logoURI, symbol } = useToken(address as Address, chainId ?? appChainId);
   const { rune } = useERC20Rune(runeId || '', { query: { enabled: !!runeId } });
 
-  if (overridePic) {
-    logoURI = overridePic;
+  const logoURI = overridePic ?? tokenLogoURI;
+
+  useEffect(() => {
+    setImageError(false);
+  }, [logoURI, tokenLogoURI]);
+
+  const fallback = (
+    <div
+      className={css({
+        backgroundColor: 'neutral.800',
+        borderRadius: 'full',
+        position: 'relative',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        aspectRatio: '1/1',
+        overflow: 'hidden',
+        flexShrink: 0,
+      })}
+      style={{
+        width: `${size * 4}px`,
+        height: `${size * 4}px`,
+        padding: '2px',
+      }}
+    >
+      <span
+        className={css({
+          color: 'white',
+          fontWeight: 'bold',
+          fontSize: '16px',
+        })}
+      >
+        {symbol}
+      </span>
+    </div>
+  );
+
+  if (!logoURI || imageError) {
+    return fallback;
   }
 
-  if (!logoURI || rune?.id) {
+  if (!logoURI && rune?.id) {
     return (
       <div
         className={css({

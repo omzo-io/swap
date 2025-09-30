@@ -1,12 +1,13 @@
 import { tokenList } from '@/global';
-import { useToken, useEVMAddress } from '@midl-xyz/midl-js-executor-react';
+import { satoshisToWei } from '@midl-xyz/midl-js-executor';
+import { useEVMAddress, useToken } from '@midl-xyz/midl-js-executor-react';
 import {
   useAccounts,
   useBalance as useBTCBalance,
   useRuneBalance,
 } from '@midl-xyz/midl-js-react';
 import { useMemo } from 'react';
-import { Address, erc20Abi, formatUnits, parseUnits, zeroAddress } from 'viem';
+import { Address, erc20Abi, formatUnits, zeroAddress } from 'viem';
 import { useBalance, useReadContracts } from 'wagmi';
 
 export const useTokenBalance = (
@@ -19,15 +20,17 @@ export const useTokenBalance = (
   } = {},
 ) => {
   const userAddress = useEVMAddress();
-  const { ordinalsAccount } = useAccounts();
+  const { ordinalsAccount, isConnected } = useAccounts();
+
   const { balance: btcBalance } = useBTCBalance({
-    address: ordinalsAccount?.address || '',
     query: {
-      enabled: Boolean(ordinalsAccount?.address),
+      enabled: isConnected,
     },
   });
 
-  const convertedBTCBalance = btcBalance * 10 ** 10;
+  const evmNativeTokenBalance = useBalance();
+
+  const convertedBTCBalance = satoshisToWei(btcBalance);
   const contracts: any[] = [
     {
       address: contract,
@@ -86,15 +89,12 @@ export const useTokenBalance = (
     },
   });
 
-  const parsedRuneBalance = parseUnits(
-    runeBalance?.balance ?? '0',
-    rune?.divisibility ?? 0,
-  );
+  const parsedRuneBalance = runeBalance?.balance ?? 0n;
 
   const combinedBalance =
     ((data?.[4]?.result as bigint) || 0n) + parsedRuneBalance;
 
-  const decimals = rune?.divisibility ?? (data?.[0]?.result as number) ?? 0;
+  const decimals = rune?.divisibility ?? (data?.[0]?.result as number) ?? 18;
 
   const parsedData: {
     decimals?: number;
@@ -103,6 +103,7 @@ export const useTokenBalance = (
     totalSupply?: bigint;
     balance?: bigint;
     formattedBalance?: string;
+    evmOnlyBalance?: bigint;
   } = useMemo(
     () => ({
       decimals: rune?.divisibility ?? (data?.[0]?.result as number),
@@ -110,6 +111,7 @@ export const useTokenBalance = (
       symbol: rune?.symbol ?? (data?.[2]?.result as string),
       totalSupply: data?.[3]?.result as bigint,
       balance: combinedBalance,
+      evmOnlyBalance: (data?.[4]?.result as bigint) || 0n,
       formattedBalance:
         decimals > 0
           ? formatUnits(combinedBalance, decimals)
@@ -127,6 +129,7 @@ export const useTokenBalance = (
         totalSupply: 0,
         balance: BigInt(convertedBTCBalance ?? 0),
         formattedBalance: formatUnits(BigInt(convertedBTCBalance ?? 0), 18),
+        evmOnlyBalance: evmNativeTokenBalance.data?.value || 0n,
       },
       ...restBalance,
     };
