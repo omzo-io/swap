@@ -1,65 +1,47 @@
-import type { HardhatUserConfig } from "hardhat/config";
+import { HardhatUserConfig } from "hardhat/config";
 import "@nomicfoundation/hardhat-toolbox";
 import "hardhat-deploy";
-import "@midl-xyz/hardhat-deploy";
 import "hardhat-abi-exporter";
 import "dotenv/config";
-import { MempoolSpaceProvider } from "@midl-xyz/midl-js-core";
 
 const packageJson = require("./package.json");
 
-const accounts = [
-  process.env.MNEMONIC as string,
-];
-
-const walletsPaths = {
-  leather: "m/86'/1'/0'/0/0"
-}
+const accounts = process.env.PRIVATE_KEY ? [process.env.PRIVATE_KEY] : [];
 
 const config: HardhatUserConfig = {
   solidity: {
-    compilers: [
-        {
-            version: "0.6.6",
-            settings: {
-                optimizer: {
-                    enabled: true,
-                    runs: 200,
-                },
-            },
-        },
-    ],
-  },
-  networks: {
-    default: {
-      // url: midlRegtest.rpcUrls.default.http[0],
-      // chainId: midlRegtest.id,
-      url: "https://rpc.regtest.midl.xyz",
-            accounts: {
-                mnemonic: accounts[0],
-                path: walletsPaths.leather
-            },
-            chainId: 777
+    version: "0.6.6",
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 999999,
+      },
     },
   },
-  midl: {
-    path: "deployments",
-    networks: {
-        default: {
-            mnemonic: accounts[0],
-            confirmationsRequired: 1,
-            btcConfirmationsRequired: 1,
-            hardhatNetwork: "default",
-            network: {
-                explorerUrl: "https://mempool.regtest.midl.xyz",
-                id: "regtest",
-                network: "regtest"
-            },
-            provider: new MempoolSpaceProvider({
-                "regtest": "https://mempool.regtest.midl.xyz",
-            } as any)
-        },
-    }
+  networks: {
+    sepolia: {
+      url: "https://eth-sepolia.g.alchemy.com/v2/MLItZDJKDvcgpwPFsc2V_FTKGyawnnWq",
+      accounts,
+      tags: ["weth", "core"],
+    },
+    testnetErigon: {
+      url: "https://testnet-rpc.prom.io/?apiKey=Tx0Dk5kq_ZpX2FJH3cim2hDF1CaBAV57.FIC2IrXcjVrNLi7U",
+      accounts,
+      chainId: 584548796,
+      tags: ["weth", "core"],
+    },
+    promMainnet: {
+      url: "https://prom-rpc.eu-north-2.gateway.fm",
+      accounts,
+      chainId: 227,
+    },
+  },
+  etherscan: {
+    enabled: true,
+    apiKey: "TKNKBSY99DGWRUNV6TAZ7CEZ85R2SKAG5X",
+  },
+  namedAccounts: {
+    deployer: 0,
   },
   abiExporter: {
     path: "./dist",

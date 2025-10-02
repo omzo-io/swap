@@ -27,6 +27,8 @@
     "@midl-xyz/midl-js-executor-react": "npm:@midl/executor-react@2.0.8",
     "@midl-xyz/midl-js-react": "npm:@midl/react@2.0.8",
     "@midl-xyz/satoshi-kit": "npm:@midl/satoshi-kit@2.0.8",
+    "@omzo-swap/core": "workspace:^",
+    "@omzo-swap/periphery": "workspace:^",
     "@radix-ui/react-accordion": "^1.2.1",
     "@radix-ui/react-collapsible": "^1.0.3",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -34,10 +36,9 @@
     "@rainbow-me/rainbowkit": "^2.1.6",
     "@react-three/drei": "^10.0.7",
     "@react-three/fiber": "^9.1.2",
-    "three": "^0.176.0",
     "@sentry/react": "^7.109.0",
     "@tanstack/react-query": "^5.18.0",
-    "@wagmi/core": "^2.13.5",
+    "@wagmi/core": "^2.12.0",
     "axios": "^1.7.7",
     "classnames": "^2.5.1",
     "copy-to-clipboard": "^3.3.3",
@@ -58,12 +59,13 @@
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.50.1",
-    "react-hot-toast": "^2.4.1",
+    "react-hot-toast": "^2.6.0",
     "swiper": "^11.1.14",
+    "three": "^0.176.0",
     "use-debounce": "^10.0.0",
     "usehooks-ts": "^3.1.0",
     "viem": "npm:@midl-xyz/midl-viem@2.21.37",
-    "wagmi": "^2.13.3",
+    "wagmi": "^2.12.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {
@@ -78,6 +80,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/three": "^0.176.0",
     "@vitejs/plugin-react": "^4.3.1",
     "@vitest/coverage-v8": "^3.2.4",
     "@wagmi/cli": "2.1.0",
@@ -90,8 +93,7 @@
     "jsdom": "^24.1.1",
     "next-router-mock": "^1.0.2",
     "typescript": "^5",
-    "vite-tsconfig-paths": "^4.3.2",
-    "@types/three": "^0.176.0"
+    "vite-tsconfig-paths": "^4.3.2"
   },
   "lint-staged": {
     "*.{js,ts,tsx}": [
