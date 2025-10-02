@@ -21,7 +21,6 @@ import { getCorrectToken } from '@/widgets/swap-form/ui/utils';
 import { AccountButton } from '@/widgets/account-button';
 import { useBTCFeeRate, useEVMAddress } from '@midl-xyz/midl-js-executor-react';
 import { useQueryClient } from '@tanstack/react-query';
-import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';

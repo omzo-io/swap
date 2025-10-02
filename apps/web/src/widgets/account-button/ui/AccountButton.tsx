@@ -7,6 +7,10 @@ import { ComponentProps, ReactNode } from "react";
 import { zeroAddress } from "viem";
 import { ConnectButton } from "@midl-xyz/satoshi-kit";
 import { css } from "~/styled-system/css";
+import { queryClient } from '@/global';
+import { xverseConnector } from '@midl-xyz/midl-js-connectors';
+import { useAddNetwork, useConfig } from '@midl-xyz/midl-js-react';
+import { useEffect } from 'react';
 
 type AccountButtonProps = {
   children?: ReactNode;
@@ -14,6 +18,41 @@ type AccountButtonProps = {
 
 export const AccountButton = ({ children, ...rest }: AccountButtonProps) => {
   const { accounts } = useAccounts();
+
+  const { addNetworkAsync } = useAddNetwork();
+  const { network } = useConfig();
+  const { isConnected } = useAccounts();
+
+  // useEffect(() => {
+  //   if (!isConnected) {
+  //     queryClient.clear();
+  //   }
+  // }, [isConnected]);
+
+  // return (
+  //   <ConnectButton
+  //     beforeConnect={async (connectorId) => {
+  //       if (connectorId !== xverseConnector().id) {
+  //         return;
+  //       }
+  //       console.log('ENV: ', process.env.NEXT_PUBLIC_MEMPOOL_RPC);
+  //       await addNetworkAsync({
+  //         connectorId,
+  //         networkConfig: {
+  //           name: 'MIDL Regtest',
+  //           network: network.id,
+  //           rpcUrl: `${
+  //             process.env.NEXT_PUBLIC_MEMPOOL_RPC ||
+  //             'https://mempool.regtest.midl.xyz'
+  //           }/api`,
+  //           indexerUrl:
+  //             process.env.NEXT_PUBLIC_INDEXER_URL ||
+  //             'https://api-regtest-midl.xverse.app',
+  //         },
+  //       });
+  //     }}
+  //   />
+  // );
 
     return (
       <ConnectButton>
