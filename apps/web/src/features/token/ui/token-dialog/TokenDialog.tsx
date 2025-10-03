@@ -46,8 +46,8 @@ export const TokenDialog = ({
               position: "absolute",
               top: 5,
               right: 5,
-              backgroundColor: "transparent",
-              border: "none",
+              backgroundColor: "transparent!",
+              border: "none!",
               padding: 0,
               _hover: {
                 backgroundColor: "transparent",

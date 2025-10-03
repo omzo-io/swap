@@ -6,7 +6,6 @@ import { useRemoveLiquidityMidl } from '@/features/liquidity/api/useRemoveLiquid
 import { removeLiquidityDialogAtom } from '@/features/liquidity/model';
 import { useSlippage } from '@/features/slippage';
 import { TokenLogo, TokenValue } from '@/features/token';
-import { WETHByChain } from '@/global';
 import {
   Button,
   Dialog,
@@ -209,8 +208,6 @@ export const RemoveLiquidityDialog = ({
               runeB.rune?.id ? tokenB : zeroAddress,
             ]}
           />
-
-          <Button onClick={handleClose}>Close</Button>
         </div>
         )}
         {!isSuccess && (
