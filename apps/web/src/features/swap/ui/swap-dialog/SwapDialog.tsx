@@ -1,16 +1,11 @@
 import { IntentionSigner } from '@/features/btc/ui/IntentionSigner';
 import { Dialog, DialogContent, DialogOverlay } from '@/shared';
-import { useToken, useEVMAddress } from '@midl-xyz/midl-js-executor-react';
+import { useToken } from '@midl-xyz/midl-js-executor-react';
 import { DialogProps } from '@radix-ui/react-dialog';
 import {
   Address,
-  encodeAbiParameters,
-  keccak256,
-  parseUnits,
-  toHex,
   zeroAddress,
 } from 'viem';
-import { useAccount } from 'wagmi';
 import { css } from '~/styled-system/css';
 import { vstack } from '~/styled-system/patterns';
 
@@ -30,9 +25,6 @@ export const SwapDialog = ({
   amountIn,
   ...rest
 }: SwapDialogProps) => {
-  const address = useEVMAddress();
-  const amountInBigint = BigInt(amountIn);
-
   const { rune } = useToken(tokenOut);
 
   return (

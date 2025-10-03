@@ -367,7 +367,6 @@ export const SwapForm = ({
             maxWidth: 548,
             background:
               "linear-gradient(180deg, rgba(233, 236, 249, 0.05) 0%, rgba(233, 236, 249, 0.02) 100%)",
-            backdropFilter: "blur(70px)",
             border: "1px solid rgba(255, 255, 255, 0.14)",
           })}
         >
